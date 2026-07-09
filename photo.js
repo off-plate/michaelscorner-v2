@@ -1,4 +1,4 @@
-/* Michael's Corner v2 — halftone portrait (signature moment #3).
+/* Michael's Corner v2, halftone portrait (signature moment #3).
    Mounts on <canvas data-photo> layered over a photo inside .photo-frame.
    On hover the photo dissolves into its own dot-matrix halftone (ink dots on cream,
    orange follows the cursor) while the Corner brackets tighten like a lens.
