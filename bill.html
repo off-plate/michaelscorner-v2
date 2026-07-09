@@ -15,7 +15,7 @@
 main{ background:var(--cream-2); }
 .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
 
-.bill-col{ max-width:600px; margin:0 auto; padding:clamp(36px,5vw,60px) 0 clamp(40px,5vw,64px); }
+.bill-col{ max-width:600px; margin:0 auto; padding-block:clamp(36px,5vw,60px) clamp(40px,5vw,64px); }
 .bill-head canvas{ display:block; margin:0 0 18px; }
 .bill-intro{ margin:18px 0 0; font-size:16px; line-height:1.6; color:var(--ink-soft); }
 .count-note{ margin:16px 0 0; font-size:12.5px; line-height:1.6; color:var(--grey); }
@@ -29,11 +29,11 @@ main{ background:var(--cream-2); }
 .ledger th button{
   background:none; border:none; font-family:inherit; font-weight:700; font-size:11px;
   letter-spacing:0.08em; text-transform:uppercase; color:var(--ink); cursor:pointer;
-  padding:8px 12px 8px 0; display:inline-flex; align-items:baseline; gap:6px;
+  padding-block:8px 12px 8px; display:inline-flex; align-items:baseline; gap:6px;
 }
 .ledger th[aria-sort="ascending"] button::after{ content:"\2191"; color:var(--orange); }
 .ledger th[aria-sort="descending"] button::after{ content:"\2193"; color:var(--orange); }
-.ledger td{ border-bottom:1px solid rgba(21,19,15,0.16); padding:9px 12px 9px 0; vertical-align:baseline; }
+.ledger td{ border-bottom:1px solid rgba(21,19,15,0.16); padding-block:9px 12px 9px; vertical-align:baseline; }
 .ledger tbody tr{ transition:background 150ms ease; }
 .ledger tbody tr:hover{ background:var(--cream); }
 .ledger td a{ color:var(--ink); text-decoration:underline; text-underline-offset:3px; transition:color 150ms ease; }
@@ -68,7 +68,7 @@ main{ background:var(--cream-2); }
 }
 .rc-sec p{ margin:0; font-size:13.5px; line-height:1.7; color:var(--ink); }
 .rc-rows{ margin:18px 0 16px; border-top:1px solid var(--line); }
-.rc-row{ display:flex; justify-content:space-between; gap:14px; align-items:baseline; border-bottom:1px solid var(--line); padding:8px 0; }
+.rc-row{ display:flex; justify-content:space-between; gap:14px; align-items:baseline; border-bottom:1px solid var(--line); padding-block:8px; }
 .rc-row .k{ font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--grey); flex:none; }
 .rc-row .v{ text-align:right; font-variant-numeric:tabular-nums; font-size:13px; }
 .rc-row .v.orange{ color:var(--orange); font-weight:700; }

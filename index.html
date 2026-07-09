@@ -12,7 +12,7 @@
 <style>
   /* HOME · broadsheet front page. Every band a different column ratio. */
   .hero{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:clamp(28px,4vw,64px); align-items:center;
-    padding:clamp(36px,4vw,60px) 0 clamp(30px,3vw,48px); }
+    padding-block:clamp(36px,4vw,60px) clamp(30px,3vw,48px); }
   .hero-photo{ aspect-ratio:4/5; }
   .dateline{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin:0 0 18px; }
   .dateline .rule{ flex:1; min-width:24px; border-top:1px solid var(--ink); height:0; }
@@ -31,7 +31,7 @@
   .calc-row .top b{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:20px; }
   .calc-row input[type=range]{ width:100%; }
   .seg{ display:flex; border:1px solid var(--ink); border-radius:2px; overflow:hidden; }
-  .seg button{ flex:1; border:none; padding:12px 0; font-size:14px; font-weight:500; cursor:pointer; background:var(--cream); color:var(--ink); border-right:1px solid var(--ink); }
+  .seg button{ flex:1; border:none; padding-block:12px; font-size:14px; font-weight:500; cursor:pointer; background:var(--cream); color:var(--ink); border-right:1px solid var(--ink); }
   .seg button:last-child{ border-right:none; }
   .seg button.on{ background:var(--orange); color:var(--cream); }
   .calc-out{ padding:clamp(22px,2.6vw,32px); background:var(--ink); color:var(--ink-text); display:flex; flex-direction:column; justify-content:space-between; min-height:260px; }

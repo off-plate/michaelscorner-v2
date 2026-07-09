@@ -12,14 +12,14 @@
 <style>
 .wrap-tool{ max-width:1200px; margin:0 auto; padding-left:var(--pad); padding-right:var(--pad); }
 .t-back{ margin:clamp(18px,3vw,28px) 0 0; }
-.t-hero{ padding:clamp(18px,2.6vw,28px) 0 clamp(22px,3vw,34px); border-bottom:1px solid var(--ink); }
+.t-hero{ padding-block:clamp(18px,2.6vw,28px) clamp(22px,3vw,34px); border-bottom:1px solid var(--ink); }
 .t-desig{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--orange); margin:0 0 14px; }
 .t-hero h1{ margin:0; }
 .t-pitch{ margin:14px 0 0; max-width:58ch; font-size:clamp(16px,1.4vw,19px); line-height:1.55; color:var(--ink-soft); }
 .t-updated{ font-family:'Space Mono',monospace; font-size:12px; color:var(--grey-2); margin:12px 0 0; }
-.face{ display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:clamp(24px,3.5vw,52px); padding:clamp(26px,4vw,44px) 0; align-items:start; }
+.face{ display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:clamp(24px,3.5vw,52px); padding-block:clamp(26px,4vw,44px); align-items:start; }
 @media(max-width:900px){ .face{ grid-template-columns:1fr; } }
-.q{ padding:0 0 clamp(16px,2vw,22px); border-bottom:1px solid var(--line); margin-bottom:clamp(16px,2vw,22px); }
+.q{ padding-block:0 clamp(16px,2vw,22px); border-bottom:1px solid var(--line); margin-bottom:clamp(16px,2vw,22px); }
 .q:last-of-type{ border-bottom:none; }
 .q-lab{ display:flex; align-items:baseline; gap:10px; margin:0 0 12px; }
 .q-num{ font-family:'Space Mono',monospace; font-size:12px; color:var(--orange); }
@@ -44,7 +44,7 @@
 .actions{ display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 0; }
 .actions button{ background:none; border:1px solid #4a453c; color:var(--ink-text); padding:10px 16px; border-radius:2px; font-family:inherit; font-size:14px; cursor:pointer; }
 .actions button:hover{ border-color:var(--orange); }
-.read-band{ border-top:1px solid var(--ink); padding:clamp(24px,3vw,40px) 0; }
+.read-band{ border-top:1px solid var(--ink); padding-block:clamp(24px,3vw,40px); }
 .read-band h2{ margin:0 0 12px; }
 .read-band p{ max-width:64ch; font-size:16px; line-height:1.6; color:var(--ink-soft); margin:0 0 10px; }
 </style>

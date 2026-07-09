@@ -112,14 +112,14 @@ function buildLibrary() {
   const css = `
 <style>
 /* ---- Library: the card-catalog file system. Full-width drawer rows in a cabinet rail. ---- */
-.lib-top{ padding:clamp(28px,4vw,48px) 0 0; }
+.lib-top{ padding-block:clamp(28px,4vw,48px) 0; }
 .lib-mark{ display:block; margin:0 0 18px; }
 .lib-lead{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
 .lib-lead .lede{ margin:14px 0 0; }
 .lib-count{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.08em; color:var(--grey); }
 
 /* toolbar: search + role filters, one hairline strip */
-.lib-bar{ margin-top:clamp(24px,3vw,36px); border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); padding:14px 0; display:flex; align-items:center; justify-content:space-between; gap:16px 24px; flex-wrap:wrap; }
+.lib-bar{ margin-top:clamp(24px,3vw,36px); border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); padding-block:14px; display:flex; align-items:center; justify-content:space-between; gap:16px 24px; flex-wrap:wrap; }
 .lib-search{ display:flex; align-items:center; gap:10px; flex:1; min-width:240px; }
 .lib-search label{ display:inline-flex; align-items:center; }
 .lib-search canvas{ display:block; flex:none; }
@@ -266,7 +266,7 @@ function buildPack(pack, i) {
   const css = `
 <style>
 /* ---- Pack page: the opened dossier. Folder-tab header, then a ruled ledger of prompts. ---- */
-.dossier{ max-width:900px; padding:clamp(28px,4vw,48px) 0 0; }
+.dossier{ max-width:900px; padding-block:clamp(28px,4vw,48px) 0; }
 .d-back{ margin-bottom:clamp(20px,2.4vw,28px); }
 .folder{ border:1px solid var(--ink); border-radius:2px; }
 .folder-tab{
@@ -363,7 +363,7 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
   const css = `
 <style>
 /* ---- Prompt page: the spec sheet. Mono header, ink terminal specimen, one Copy button. ---- */
-.spec{ max-width:820px; padding:clamp(28px,4vw,48px) 0 0; }
+.spec{ max-width:820px; padding-block:clamp(28px,4vw,48px) 0; }
 .spec-back{ margin-bottom:clamp(20px,2.4vw,28px); }
 .spec-meta{ display:flex; gap:8px 20px; flex-wrap:wrap; font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--grey); border-bottom:1px solid var(--ink); padding-bottom:12px; margin-bottom:clamp(18px,2.2vw,26px); }
 .spec-meta .id{ color:var(--ink); font-weight:700; }
@@ -389,7 +389,7 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
 
 /* spec fields */
 .fields{ margin-top:clamp(30px,4vw,44px); border-top:1px solid var(--ink); }
-.field{ border-bottom:1px solid var(--line); padding:clamp(16px,2vw,22px) 0; display:grid; grid-template-columns:180px 1fr; gap:8px 28px; align-items:start; }
+.field{ border-bottom:1px solid var(--line); padding-block:clamp(16px,2vw,22px); display:grid; grid-template-columns:180px 1fr; gap:8px 28px; align-items:start; }
 .field .fl{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--grey); padding-top:3px; }
 .field .fv{ font-size:15.5px; line-height:1.6; color:var(--ink); }
 .tokens{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }

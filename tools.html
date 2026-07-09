@@ -12,7 +12,7 @@
 <style>
 /* ---- tools hub: the instrument panel. A hairline lattice, grouped by function.
        Not a card grid. Each cell is one instrument. ---- */
-.panel-head{ padding:clamp(24px,4vw,44px) 0 clamp(20px,3vw,30px); border-bottom:1px solid var(--ink); }
+.panel-head{ padding-block:clamp(24px,4vw,44px) clamp(20px,3vw,30px); border-bottom:1px solid var(--ink); }
 .panel-head h1{ margin:0; }
 .panel-lede{ margin:14px 0 0; max-width:56ch; font-size:clamp(17px,1.5vw,20px); line-height:1.5; color:var(--ink-soft); }
 .panel-priv{ font-family:'Space Mono',monospace; font-size:12.5px; color:var(--orange); margin:16px 0 0; display:inline-flex; align-items:center; gap:8px; }
@@ -42,11 +42,11 @@
 .preview input[type=range]{ width:100%; }
 .preview .phint{ font-family:'Space Mono',monospace; font-size:11px; color:var(--grey-2); margin:0; }
 
-.bench{ padding:clamp(28px,4vw,48px) 0; }
+.bench{ padding-block:clamp(28px,4vw,48px); }
 .bench h2{ margin:0 0 6px; }
 .bench p.sub{ font-family:'Space Mono',monospace; font-size:12.5px; color:var(--grey); margin:0 0 18px; }
 .bench-list{ list-style:none; margin:0; padding:0; }
-.bench-item{ display:grid; grid-template-columns:auto 1fr; gap:14px; padding:14px 0; border-top:1px solid var(--line); font-size:14.5px; line-height:1.5; }
+.bench-item{ display:grid; grid-template-columns:auto 1fr; gap:14px; padding-block:14px; border-top:1px solid var(--line); font-size:14.5px; line-height:1.5; }
 .bench-item .bn{ font-family:'Space Mono',monospace; font-size:12px; color:var(--grey); white-space:nowrap; }
 .bench-item .bt{ color:var(--ink-soft); }
 .bench-item .bt b{ color:var(--ink); font-weight:600; }
