@@ -88,7 +88,6 @@ input.assumef:focus-visible{ outline:none; border-bottom-color:var(--ink); }
     <p class="t-desig"><canvas data-dot="tools" data-size="16" style="width:16px;height:16px;vertical-align:-3px;"></canvas> TOOL/03</p>
     <h1 class="h-page">Subscription vs API breakeven</h1>
     <p class="t-pitch">Your usage, both prices, one answer: which way is cheaper for you, and where the lines cross. When it is close, the tool says so.</p>
-    <p class="t-updated">Updated 07/2026</p>
   </div>
 
   <div class="face">
@@ -128,7 +127,7 @@ input.assumef:focus-visible{ outline:none; border-bottom-color:var(--ink); }
       <details class="assump" id="rates-box">
         <summary>Rates per 1M tokens <span class="tw">assumptions, edit me</span></summary>
         <div class="abody">
-          <p class="a-head">Last checked 07/2026. Dollars per 1,000,000 tokens. Shared with the cost calculator.</p>
+          <p class="a-head">Dollars per 1,000,000 tokens. Shared with the cost calculator.</p>
           <div class="rate-grid">
             <span class="rh"></span><span class="rh">In $/1M</span><span class="rh">Out $/1M</span>
             <span>Fast</span>
@@ -193,9 +192,6 @@ input.assumef:focus-visible{ outline:none; border-bottom-color:var(--ink); }
       <a href="../kit.html">The Starter Kit</a>
       <a href="../about.html">About</a>
     </div>
-    <div class="foot-meta mono">
-      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Prague</span>
-    </div>
   </div>
 </footer>
 <script src="../icons.js"></script>
@@ -204,7 +200,7 @@ input.assumef:focus-visible{ outline:none; border-bottom-color:var(--ink); }
 <script>
 (function(){
   "use strict";
-  var LAST_CHECKED='07/2026', DEAD=0.2;
+  var LAST_CHECKED='', DEAD=0.2;
   var RATE_DEFAULTS={ fast:[0.80,4.00], balanced:[3.00,15.00], top:[15.00,75.00] };
   var MORE_DEFAULTS={ days:30, tpw:1.3, fx:23 };
   var S={ get:function(k,d){ try{ var v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } },

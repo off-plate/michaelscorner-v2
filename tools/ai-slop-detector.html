@@ -78,7 +78,6 @@ textarea#paste{ width:100%; min-height:300px; resize:vertical; line-height:1.55;
     <p class="t-desig"><canvas data-dot="tools" data-size="16" style="width:16px;height:16px;vertical-align:-3px;"></canvas> TOOL/05</p>
     <h1 class="h-page">AI-slop detector</h1>
     <p class="t-pitch">Paste any text; a public list of pattern rules counts the AI tells and stamps a slop score, with every flagged line shown. It counts the habits AI text leans on. It cannot prove who wrote it.</p>
-    <p class="t-updated">Updated 07/2026</p>
   </div>
 
   <div class="face">
@@ -132,9 +131,6 @@ textarea#paste{ width:100%; min-height:300px; resize:vertical; line-height:1.55;
       <a href="../start.html">Start here</a>
       <a href="../kit.html">The Starter Kit</a>
       <a href="../about.html">About</a>
-    </div>
-    <div class="foot-meta mono">
-      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Prague</span>
     </div>
   </div>
 </footer>
@@ -236,7 +232,7 @@ textarea#paste{ width:100%; min-height:300px; resize:vertical; line-height:1.55;
     var rows=cats.length? cats.map(function(c){ return { k:c+' ×'+res.byCat[c].count, v:res.byCat[c].pts+' pts' }; }) : [{k:'FINDINGS · none', v:''}];
     rows.push({ k:'SLOP SCORE', v:score+'/100', big:true });
 
-    $('rec').innerHTML=MC2.receipt({ title:'ai-slop-detector', date:'Updated 07/2026 · '+clock(),
+    $('rec').innerHTML=MC2.receipt({ title:'ai-slop-detector', date:' · '+clock(),
       rows:rows, verdict:{ stamp:stamp, text:reason, ink:ink } });
 
     // findings list

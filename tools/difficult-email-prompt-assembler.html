@@ -76,7 +76,6 @@
     <h1 class="h-page">Difficult-email prompt builder</h1>
     <p class="t-pitch">Answer six short questions about the email you are dreading; get a precise, copy-ready prompt for your AI, with your facts and your hard lines baked in.</p>
     <p class="t-note">This builds the prompt. Your AI writes the draft. You decide to send.</p>
-    <p class="t-updated">Updated 07/2026</p>
   </div>
 
   <div class="face">
@@ -175,9 +174,6 @@
       <a href="../start.html">Start here</a>
       <a href="../kit.html">The Starter Kit</a>
       <a href="../about.html">About</a>
-    </div>
-    <div class="foot-meta mono">
-      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Prague</span>
     </div>
   </div>
 </footer>
@@ -282,7 +278,7 @@
     ];
     var reason = facts ? '' : 'no facts given; the draft will be generic';
     $('rec').innerHTML=MC2.receipt({
-      title:'difficult-email', date:'Updated 07/2026 · '+clock(),
+      title:'difficult-email', date:' · '+clock(),
       rows:rows, verdict:{ stamp:'PROMPT READY', text:reason, ink:false }
     });
 

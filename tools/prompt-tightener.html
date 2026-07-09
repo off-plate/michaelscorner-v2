@@ -77,7 +77,6 @@ textarea#input{ width:100%; min-height:280px; resize:vertical; line-height:1.55;
     <p class="t-desig"><canvas data-dot="tools" data-size="16" style="width:16px;height:16px;vertical-align:-3px;"></canvas> TOOL/06</p>
     <h1 class="h-page">Prompt tightener</h1>
     <p class="t-pitch">Paste a rambling prompt; it strips the filler it can prove is filler, flags the vague asks it cannot fix for you, and shows the word count drop. Deletion only. It never rewrites or adds a word.</p>
-    <p class="t-updated">Updated 07/2026</p>
   </div>
 
   <div class="face">
@@ -128,9 +127,6 @@ textarea#input{ width:100%; min-height:280px; resize:vertical; line-height:1.55;
       <a href="../start.html">Start here</a>
       <a href="../kit.html">The Starter Kit</a>
       <a href="../about.html">About</a>
-    </div>
-    <div class="foot-meta mono">
-      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Prague</span>
     </div>
   </div>
 </footer>
@@ -266,7 +262,7 @@ textarea#input{ width:100%; min-height:280px; resize:vertical; line-height:1.55;
       {k:'Filler removed', v: removedTotal+(removedTotal===1?' phrase':' phrases')},
       {k:'Flags', v:String(r.flags.length)}
     ];
-    $('rec').innerHTML=MC2.receipt({ title:'prompt-tightener', date:'Updated 07/2026 · '+clock(),
+    $('rec').innerHTML=MC2.receipt({ title:'prompt-tightener', date:' · '+clock(),
       rows:rows, verdict:{ stamp:stamp, text:reason, ink:ink } });
 
     // removed list

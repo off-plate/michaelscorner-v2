@@ -93,9 +93,6 @@ function footer(prefix) {
       <a href="${prefix}kit.html">The Starter Kit</a>
       <a href="${prefix}about.html">About</a>
     </div>
-    <div class="foot-meta mono">
-      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Updated ${UPDATED} &middot; Prague</span>
-    </div>
   </div>
 </footer>
 <script src="${prefix}icons.js"></script>
@@ -111,146 +108,118 @@ function buildLibrary() {
   const prefix = "";
   const css = `
 <style>
-/* ---- Library: the card-catalog file system. Full-width drawer rows in a cabinet rail. ---- */
+/* ---- Library: a prominent prompt search + a clear grid of clickable pack cards. ---- */
 .lib-top{ padding-block:clamp(28px,4vw,48px) 0; }
-.lib-mark{ display:block; margin:0 0 18px; }
-.lib-lead{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
-.lib-lead .lede{ margin:14px 0 0; }
-.lib-count{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.08em; color:var(--grey); }
+.lib-top .lede{ margin:14px 0 0; }
 
-/* toolbar: search + role filters, one hairline strip */
-.lib-bar{ margin-top:clamp(24px,3vw,36px); border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); padding-block:14px; display:flex; align-items:center; justify-content:space-between; gap:16px 24px; flex-wrap:wrap; }
-.lib-search{ display:flex; align-items:center; gap:10px; flex:1; min-width:240px; }
-.lib-search label{ display:inline-flex; align-items:center; }
-.lib-search canvas{ display:block; flex:none; }
-.lib-search input{ flex:1; border:none; background:none; padding:8px 4px; font-size:16px; border-radius:0; }
-.lib-search input:focus{ outline:none; }
-.lib-search input:focus-visible{ outline:none; }
-.lib-filters{ display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
-.lib-filters .rl{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--grey); margin-right:4px; }
-.rolebtn{ background:none; border:none; font-family:'General Sans',sans-serif; font-size:14px; color:var(--grey); cursor:pointer; padding:4px 6px; border-bottom:2px solid transparent; transition:color 150ms ease, border-color 150ms ease; }
-.rolebtn:hover{ color:var(--ink); }
-.rolebtn.active{ color:var(--ink); border-bottom-color:var(--orange); }
+/* the search box: bordered, obvious, searches all prompts */
+.lib-searchbox{ display:flex; align-items:center; gap:12px; border:1px solid var(--ink); border-radius:2px;
+  padding:13px 16px; margin-top:clamp(24px,3vw,34px); max-width:600px; background:var(--cream); transition:border-color 150ms ease; }
+.lib-searchbox:focus-within{ border-color:var(--orange); }
+.lib-searchbox canvas{ display:block; flex:none; }
+.lib-searchbox input{ flex:1; border:none; background:none; font-size:16px; padding:2px 0; color:var(--ink); }
+.lib-searchbox input:focus, .lib-searchbox input:focus-visible{ outline:none; }
 
-/* the cabinet */
-.cabinet{ border-top:1px solid var(--ink); }
-.drawer{
-  display:grid; grid-template-columns:1fr auto; gap:8px 24px; align-items:start;
-  border-bottom:1px solid var(--ink); padding:clamp(22px,2.6vw,30px) clamp(4px,1vw,12px);
-  text-decoration:none; color:var(--ink); position:relative;
-  transition:transform 200ms var(--ease), background 150ms ease;
-}
-.drawer:hover, .drawer:focus-visible{ transform:translateY(-4px); background:var(--cream-2); outline:none; }
-.drawer .tab{
-  grid-column:1 / -1; display:inline-flex; align-items:center; width:max-content; gap:0;
-  font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
-  color:var(--grey); border-bottom:2px solid transparent; padding-bottom:4px; margin-bottom:10px;
-  transition:color 150ms ease, border-color 150ms ease;
-}
-.drawer:hover .tab, .drawer:focus-visible .tab{ color:var(--ink); border-bottom-color:var(--orange); }
-.drawer .d-body{ grid-column:1; grid-row:2; }
-.drawer .d-name{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(22px,2.6vw,30px); line-height:1.02; letter-spacing:-0.02em; margin:0 0 8px; }
-.drawer .d-blurb{ margin:0; font-size:15.5px; line-height:1.55; color:var(--ink-soft); max-width:66ch; }
-.drawer .d-blurb span{ display:block; }
-.drawer .stamp{ grid-column:2; grid-row:2; font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--grey-2); text-align:right; padding-top:4px; transition:color 150ms ease; }
-.drawer:hover .stamp, .drawer:focus-visible .stamp{ color:var(--ink); }
-.drawer .arrow{ color:var(--orange); font-family:'Space Mono',monospace; }
-.lib-empty{ padding:40px 8px; color:var(--grey); font-size:16px; display:none; }
-@media (max-width:640px){
-  .drawer{ grid-template-columns:1fr; }
-  .drawer .d-body{ grid-column:1; grid-row:auto; }
-  .drawer .stamp{ grid-column:1; grid-row:auto; text-align:left; }
-}
-@media (prefers-reduced-motion: reduce){ .drawer:hover, .drawer:focus-visible{ transform:none; } }
+/* search results: a flat list of matching prompts */
+.lib-results{ margin-top:clamp(26px,3vw,36px); }
+.lib-results[hidden]{ display:none; }
+.results-count{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.06em; color:var(--grey); margin:0 0 14px; }
+.result-list{ list-style:none; margin:0; padding:0; border-top:1px solid var(--ink); }
+.rlink{ display:grid; grid-template-columns:1fr auto; gap:4px 18px; align-items:center;
+  border-bottom:1px solid var(--line); padding:15px 8px; text-decoration:none; color:var(--ink); transition:background 150ms ease; }
+.rlink:hover, .rlink:focus-visible{ background:var(--cream-2); outline:none; }
+.rlink .rt{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:18px; line-height:1.15; letter-spacing:-0.01em; grid-column:1; }
+.rlink .rw{ grid-column:1; font-size:14px; line-height:1.45; color:var(--grey); margin-top:2px; }
+.rlink .rpack{ grid-column:2; grid-row:1 / span 2; font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); white-space:nowrap; align-self:center; }
+.rlink .rpack .oa{ color:var(--orange); margin-left:8px; }
+
+/* the pack grid: clear, clickable cards */
+.lib-packs{ margin-top:clamp(30px,3.5vw,44px); }
+.lib-packs[hidden]{ display:none; }
+.lib-packs .ph{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey); margin:0 0 16px; }
+.pack-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr)); gap:16px; }
+.pack-card{ border:1px solid var(--ink); border-radius:2px; padding:clamp(20px,2.2vw,26px);
+  display:flex; flex-direction:column; gap:10px; text-decoration:none; color:var(--ink); background:none; transition:background 150ms ease; }
+.pack-card:hover, .pack-card:focus-visible{ background:var(--cream-2); outline:none; }
+.pc-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.pc-tag{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); }
+.pc-n{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--orange); }
+.pack-card h2{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(21px,2.2vw,25px); line-height:1.06; letter-spacing:-0.015em; margin:0; }
+.pack-card p{ margin:0; font-size:14.5px; line-height:1.5; color:var(--ink-soft); flex:1; }
+.pc-open{ font-family:'Space Mono',ui-monospace,monospace; font-size:13px; color:var(--ink); display:inline-flex; align-items:center; gap:8px; margin-top:4px; }
+.pc-open .oa{ color:var(--orange); }
+.pack-card:hover .pc-open, .pack-card:focus-visible .pc-open{ color:var(--orange); }
+.lib-empty{ padding:34px 8px; color:var(--grey); font-size:16px; }
+.lib-empty[hidden]{ display:none; }
 </style>`;
 
   const total = PACKS.reduce((n, p) => n + p.prompts.length, 0);
 
-  let rows = "";
-  PACKS.forEach((p, i) => {
-    rows += `
-    <a class="drawer" href="packs/${esc(p.id)}.html" data-role="${esc(p.id)}" data-search="${esc((p.name + " " + p.chip + " " + p.blurb.join(" ")).toLowerCase())}">
-      <span class="tab">PACK/${packNo(i)} &middot; ${esc(p.chip)}</span>
-      <div class="d-body">
-        <h2 class="d-name">${esc(p.name)}</h2>
-        <p class="d-blurb"><span>${esc(p.blurb[0])}</span><span>${esc(p.blurb[1])}</span></p>
-      </div>
-      <span class="stamp">${p.prompts.length} prompts &middot; updated ${esc(p.updated)} <span class="arrow">&#8594;</span></span>
-    </a>`;
-  });
+  const cards = PACKS.map((p) => `
+      <a class="pack-card" href="packs/${esc(p.id)}.html">
+        <div class="pc-top"><span class="pc-tag">${esc(p.chip)}</span><span class="pc-n">${p.prompts.length} prompts</span></div>
+        <h2>${esc(p.name)}</h2>
+        <p>${esc(p.blurb[0])} ${esc(p.blurb[1])}</p>
+        <span class="pc-open">Open pack <span class="oa">&#8594;</span></span>
+      </a>`).join("");
 
-  const roleBtns = PACKS.map((p) => `<button type="button" class="rolebtn" data-filter="${esc(p.id)}">${esc(p.chip)}</button>`).join("\n        ");
+  const body = `
+<div class="wrap lib-top">
+  <p class="eyebrow">The prompt library</p>
+  <h1 class="h-page">Steal these prompts</h1>
+  <p class="lede">Eight packs, ${total} prompts, all free. Copy one, fill the brackets, paste it into ChatGPT, Claude, or Gemini. Every one is written to be used, not admired.</p>
+
+  <div class="lib-searchbox">
+    <canvas data-dot="search" data-size="20" style="width:20px;height:20px;"></canvas>
+    <input type="search" id="lib-q" placeholder="Search all ${total} prompts by name" autocomplete="off" aria-label="Search all prompts">
+  </div>
+</div>
+
+<div class="wrap lib-results" id="lib-results" hidden aria-live="polite">
+  <p class="results-count" id="results-count"></p>
+  <ul class="result-list" id="result-list"></ul>
+  <p class="lib-empty" id="lib-empty" hidden>No prompt matches that. Try a shorter or different word.</p>
+</div>
+
+<div class="wrap lib-packs" id="lib-packs">
+  <p class="ph">${PACKS.length} packs, sorted by who they are for</p>
+  <div class="pack-grid">
+    ${cards}
+  </div>
+</div>
+`;
 
   const script = `
 <script>
 (function(){
   var input = document.getElementById('lib-q');
-  var drawers = Array.prototype.slice.call(document.querySelectorAll('.drawer'));
+  var packs = document.getElementById('lib-packs');
+  var results = document.getElementById('lib-results');
+  var list = document.getElementById('result-list');
+  var count = document.getElementById('results-count');
   var empty = document.getElementById('lib-empty');
-  var roleBtns = Array.prototype.slice.call(document.querySelectorAll('.rolebtn'));
-  var role = 'all';
-  function apply(){
-    var q = (input.value || '').trim().toLowerCase();
-    var shown = 0;
-    drawers.forEach(function(d){
-      var okRole = role === 'all' || d.getAttribute('data-role') === role;
-      var okText = !q || d.getAttribute('data-search').indexOf(q) !== -1;
-      // also search individual prompt titles via the shared index
-      if (okRole && !okText && q && window.MC2DATA && MC2DATA.promptIndex){
-        okText = MC2DATA.promptIndex.some(function(it){
-          return it.pack === d.getAttribute('data-role') && (it.title.toLowerCase().indexOf(q) !== -1 || it.when.toLowerCase().indexOf(q) !== -1);
-        });
-      }
-      var on = okRole && okText;
-      d.style.display = on ? '' : 'none';
-      if (on) shown++;
-    });
-    empty.style.display = shown ? 'none' : 'block';
+  var IDX = (window.MC2DATA && MC2DATA.promptIndex) || [];
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function shortPack(n){ return n.replace(/^Best prompts for /,'').replace(/^Building software with AI$/,'Building'); }
+  function render(raw){
+    var q = raw.trim().toLowerCase();
+    if(!q){ packs.hidden = false; results.hidden = true; list.innerHTML=''; return; }
+    packs.hidden = true; results.hidden = false;
+    var hits = IDX.filter(function(it){ return (it.title+' '+it.when+' '+it.packName).toLowerCase().indexOf(q) !== -1; });
+    count.textContent = hits.length + (hits.length===1?' prompt matches ':' prompts match ') + '“' + raw.trim() + '”';
+    if(!hits.length){ list.innerHTML=''; empty.hidden=false; return; }
+    empty.hidden = true;
+    list.innerHTML = hits.map(function(it){
+      return '<a class="rlink" href="'+it.url+'"><span class="rt">'+esc(it.title)+'</span>'
+        + '<span class="rw">'+esc(it.when)+'</span>'
+        + '<span class="rpack">'+esc(shortPack(it.packName))+'<span class="oa">&#8594;</span></span></a>';
+    }).join('');
   }
-  if (input) input.addEventListener('input', apply);
-  roleBtns.forEach(function(b){
-    b.addEventListener('click', function(){
-      var f = b.getAttribute('data-filter');
-      if (role === f){ role = 'all'; b.classList.remove('active'); }
-      else { role = f; roleBtns.forEach(function(x){ x.classList.remove('active'); }); b.classList.add('active'); }
-      apply();
-    });
-  });
+  if(input){ input.addEventListener('input', function(){ render(input.value); }); }
 })();
 </script>`;
 
-  const body = `
-<div class="wrap lib-top">
-  <canvas class="lib-mark" data-dot="prompt" data-size="52" style="width:52px;height:52px;"></canvas>
-  <p class="eyebrow">The prompt library</p>
-  <div class="lib-lead">
-    <div>
-      <h1 class="h-page">Steal these prompts</h1>
-      <p class="lede">Eight folders, ${total} prompts, all free. Copy one, fill the brackets, paste it into ChatGPT, Claude, or Gemini. Every one is written to be used, not admired.</p>
-    </div>
-    <span class="lib-count">${PACKS.length} packs &middot; ${total} prompts &middot; updated ${esc(UPDATED)}</span>
-  </div>
-
-  <div class="lib-bar">
-    <div class="lib-search">
-      <label for="lib-q"><canvas data-dot="search" data-size="20" style="width:20px;height:20px;"></canvas><span class="sr-only">Search prompts</span></label>
-      <input type="search" id="lib-q" placeholder="Search prompts" autocomplete="off" aria-label="Search prompts">
-    </div>
-    <div class="lib-filters" role="group" aria-label="Filter by role">
-      <span class="rl">Filter</span>
-      ${roleBtns}
-    </div>
-  </div>
-</div>
-
-<nav class="wrap cabinet" aria-label="Prompt packs">
-  ${rows}
-  <p class="lib-empty" id="lib-empty">No prompts match that. Try a shorter word or another folder.</p>
-</nav>
-`;
-
-  const html = head("Prompt library", "Eight folders of free, copy-ready prompts for ChatGPT, Claude, and Gemini.", prefix)
-    + `\n<style>.sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }</style>`
+  const html = head("Prompt library", "Eight packs of free, copy-ready prompts for ChatGPT, Claude, and Gemini.", prefix)
     + css + "\n</head>\n<body>\n"
     + header(prefix) + "\n" + body + "\n" + footer(prefix) + script + "\n</body>\n</html>\n";
 
@@ -333,12 +302,8 @@ function buildPack(pack, i) {
     <p class="folder-tab">PACK/${packNo(i)} &middot; ${esc(pack.chip)}</p>
     <div class="folder-body">
       <h1 class="h-page">${esc(pack.name)}</h1>
-      <p class="folder-meta">${pack.prompts.length} prompts &middot; updated ${esc(pack.updated)}</p>
+      <p class="folder-meta">${pack.prompts.length} prompts</p>
       <p class="folder-intro">${esc(pack.blurb[0])} ${esc(pack.blurb[1])}</p>
-
-      <p class="cover-note">What this pack does, honestly:</p>
-      <div class="honest-bar" style="max-width:340px;" aria-hidden="true"><span class="fill" style="width:80%"></span><span class="rest"></span></div>
-      <p class="cover-note"><span class="on">${esc(coverText[0])}</span> <span class="rest">${esc(coverText[1])}</span></p>
     </div>
   </div>
 
@@ -415,7 +380,6 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
   <div class="spec-meta">
     <span><a href="../packs/${esc(pack.id)}.html" style="text-decoration:none;color:inherit;">${esc(pack.chip)}</a></span>
     <span class="id">PROMPT/${packNo(packIndex)}.${promptNo(promptIndex)}</span>
-    <span>updated ${esc(pack.updated)}</span>
   </div>
 
   <h1 class="h-page">${esc(pr.title)}</h1>
