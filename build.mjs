@@ -167,7 +167,7 @@ function buildLibrary() {
 <div class="wrap lib-top">
   <p class="eyebrow">The prompt library</p>
   <h1 class="h-page">Steal these prompts</h1>
-  <p class="lede">Eight packs, ${total} prompts, all free. Copy one, fill the brackets, paste it into ChatGPT, Claude, or Gemini. Every one is written to be used, not admired.</p>
+  <p class="lede">Eight packs, ${total} prompts, all free. Copy one, fill in the brackets, and paste it into ChatGPT, Claude, or Gemini. These are the ones I keep going back to, so take whatever helps.</p>
 
   <div class="lib-searchbox">
     <canvas data-dot="search" data-size="20" style="width:20px;height:20px;"></canvas>
