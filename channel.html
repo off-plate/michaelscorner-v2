@@ -4,30 +4,54 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Channel · Michael's Corner</title>
-<meta name="description" content="The same work on video, so you can watch how it actually goes, dead ends included.">
+<meta name="description" content="Plain-talk AI videos, no hype. Watch how it actually goes, dead ends included.">
 <link rel="icon" href="assets/favicon.svg">
 <link rel="preload" href="assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
 <style>
-  /* CHANNEL · programme guide (kept from v1, restyled) */
-  .feature{ display:grid; grid-template-columns:1.3fr 1fr; gap:clamp(24px,3vw,44px); align-items:center; border:1px solid var(--ink); border-radius:2px; overflow:hidden; }
-  .feature .fthumb{ aspect-ratio:16/9; background:var(--ink); position:relative; display:flex; align-items:center; justify-content:center; height:100%; }
-  .feature .dur{ position:absolute; bottom:12px; right:12px; background:var(--cream); color:var(--ink); font-family:'Space Mono',monospace; font-size:12px; padding:3px 8px; }
-  .feature .fmeta{ padding:clamp(22px,2.4vw,32px); }
-  .notice{ display:flex; align-items:center; gap:10px; font-family:'Space Mono',monospace; font-size:13px; color:var(--grey); margin:14px 0 clamp(24px,3vw,36px); }
+  /* CHANNEL · programme guide (V1 layout, V2 tokens) */
+  .ch-head{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,3vw,48px); align-items:end; margin-bottom:clamp(20px,2.5vw,32px); }
+  .ch-head .sub{ display:flex; flex-direction:column; gap:14px; align-items:flex-start; }
+  .notice{ display:flex; align-items:center; gap:10px; font-family:'Space Mono',monospace; font-size:13px; color:var(--grey); margin:0 0 clamp(24px,3vw,34px); }
   .notice .dot{ width:8px; height:8px; border-radius:50%; background:var(--orange); flex:none; }
-  .filters{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:clamp(20px,2.4vw,30px); }
-  .catrow{ margin-top:clamp(28px,3vw,44px); }
-  .catrow .rowhead{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:16px; }
-  .catrow .rowhead .cnt{ font-family:'Space Mono',monospace; font-size:12px; color:var(--grey); }
-  .vtile{ width:min(300px,80vw); border:1px solid var(--ink); border-radius:2px; overflow:hidden; }
-  .vtile .thumb{ aspect-ratio:16/9; background:var(--ink); display:flex; align-items:center; justify-content:center; position:relative; }
-  .vtile .dur{ position:absolute; bottom:8px; right:8px; background:var(--cream); color:var(--ink); font-family:'Space Mono',monospace; font-size:11px; padding:2px 6px; }
-  .vtile .vmeta{ padding:14px 16px; }
-  .vtile .vt{ font-size:15px; line-height:1.35; margin:0; }
-  .vtile .vcat{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey); margin:0 0 6px; }
-  @media (max-width:820px){ .feature{ grid-template-columns:1fr; } }
+
+  /* the striped video thumbnail (an intentional pattern, not a placeholder) */
+  .vthumb{ aspect-ratio:16/9; position:relative; display:flex; align-items:center; justify-content:center;
+    background:repeating-linear-gradient(45deg, var(--cream-3) 0 14px, var(--cream-2) 14px 28px); border-bottom:1px solid var(--ink); }
+  .vthumb .play{ width:46px; height:46px; border-radius:50%; background:var(--ink); display:flex; align-items:center; justify-content:center; }
+  .vthumb .play::after{ content:''; border-left:13px solid var(--cream); border-top:8px solid transparent; border-bottom:8px solid transparent; margin-left:4px; }
+  .vthumb .dur{ position:absolute; bottom:10px; right:10px; background:var(--ink); color:var(--cream); font-family:'Space Mono',monospace; font-size:11px; padding:3px 8px; }
+
+  /* featured */
+  .feature{ display:grid; grid-template-columns:1.25fr 1fr; border:1px solid var(--ink); border-radius:2px; overflow:hidden; margin-bottom:clamp(30px,3.5vw,46px); }
+  .feature .vthumb{ border-bottom:none; border-right:1px solid var(--ink); height:100%; }
+  .feature .fbody{ padding:clamp(24px,3vw,40px); display:flex; flex-direction:column; justify-content:center; }
+
+  /* toolbar */
+  .ch-bar{ display:flex; flex-wrap:wrap; gap:14px 16px; align-items:center; justify-content:space-between;
+    border-top:2px solid var(--ink); padding-top:18px; margin-bottom:clamp(26px,3vw,36px); }
+  .ch-bar .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .ch-bar input{ min-width:190px; flex:1; max-width:320px; }
+
+  /* category rows */
+  .catrow{ margin-bottom:clamp(36px,3.5vw,50px); }
+  .catrow .rh{ display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:16px; flex-wrap:wrap; }
+  .catrow .rh .t{ display:flex; align-items:baseline; gap:12px; }
+  .catrow .rh .cnt{ font-family:'Space Mono',monospace; font-size:13px; color:var(--grey-2); }
+  .paddles{ display:flex; gap:8px; }
+  .paddle{ width:40px; height:40px; border:1px solid var(--ink); background:none; color:var(--ink); font-size:17px; cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:2px; transition:background 150ms ease, color 150ms ease; }
+  .paddle:hover{ background:var(--ink); color:var(--cream); }
+  .vcard{ flex:0 0 clamp(268px,80vw,314px); border:1px solid var(--ink); border-radius:2px; display:flex; flex-direction:column; overflow:hidden; }
+  .vcard .vb{ padding:16px 18px 18px; }
+  .vcard .vb h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:18px; line-height:1.12; margin:0 0 6px; }
+  .vcard .vb p{ font-size:14px; line-height:1.45; color:var(--ink-soft); margin:0; }
+
+  @media (max-width:760px){
+    .ch-head{ grid-template-columns:1fr; align-items:start; }
+    .feature{ grid-template-columns:1fr; }
+    .feature .vthumb{ border-right:none; border-bottom:1px solid var(--ink); }
+  }
 </style>
 </head>
 <body>
@@ -53,27 +77,38 @@
 
 <main>
   <section class="wrap sec">
-    <div class="sec-head">
+    <div class="ch-head">
       <div>
-        <p class="eyebrow"><canvas data-dot="play" data-size="30" style="width:30px;height:30px;vertical-align:middle;margin-right:8px;"></canvas>Channel</p>
-        <h1 class="h-page">Watch how it actually goes.</h1>
+        <p class="eyebrow"><canvas data-dot="play" data-size="30" style="width:30px;height:30px;vertical-align:middle;margin-right:8px;"></canvas>On the channel</p>
+        <h1 class="h-page">Watch and learn</h1>
+      </div>
+      <div class="sub">
+        <p style="margin:0; color:var(--ink-soft); max-width:46ch;">Plain talk, no hype. Watch how it actually goes, dead ends included. Filter by topic, or swipe a row to see more.</p>
+        <a class="btn" href="https://youtube.com" target="_blank" rel="noopener">Subscribe on YouTube <span class="oa">&#8599;</span></a>
       </div>
     </div>
-    <p class="notice"><span class="dot"></span> Filming now. Links land here as episodes publish.</p>
+
+    <p class="notice"><span class="dot"></span> Filming now. Every card below becomes a real link the day its episode goes up.</p>
 
     <!-- featured -->
     <div class="feature">
-      <div class="fthumb"><canvas data-dot="play" data-size="64" style="width:64px;height:64px;"></canvas><span class="dur">10 min</span></div>
-      <div class="fmeta">
-        <p class="mono" style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--orange); margin:0 0 12px;">Latest, soon</p>
+      <div class="vthumb"><span class="play"></span><span class="dur">10 min</span></div>
+      <div class="fbody">
+        <p class="mono" style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--orange); margin:0 0 12px;">First up · For beginners</p>
         <h2 class="h-sec">Your first hour with an AI assistant</h2>
         <p style="margin:14px 0 0; color:var(--ink-soft); max-width:48ch;">Set it up and do something useful right away. The exact hour I would walk a friend through, no theory.</p>
         <p style="margin:20px 0 0;"><a class="backlink" href="start.html">Read the written version <span class="orange">&#8594;</span></a></p>
       </div>
     </div>
 
-    <div class="filters" id="filters"></div>
+    <!-- toolbar -->
+    <div class="ch-bar">
+      <div class="chips" id="chips"></div>
+      <input type="search" id="q" placeholder="Search videos" aria-label="Search videos">
+    </div>
+
     <div id="rows"></div>
+    <p id="empty" class="lede" style="display:none;">No videos match that. Try another topic.</p>
   </section>
 </main>
 
@@ -104,47 +139,82 @@
 <script src="shared.js"></script>
 <script>
 (function () {
+  var cats = ['Building with AI', 'For beginners', 'Prompting', 'Behind the build'];
   var vids = [
-    { t: 'AI for people who are not techies', d: '8 min', c: 'For beginners' },
-    { t: 'Your first hour with an AI assistant', d: '10 min', c: 'For beginners' },
-    { t: 'The five prompts I use every day', d: '9 min', c: 'For beginners' },
-    { t: 'Stop overthinking your prompts', d: '6 min', c: 'For beginners' },
-    { t: 'Write prompts that actually work', d: '12 min', c: 'Prompting' },
-    { t: 'Make AI sound like you', d: '11 min', c: 'Prompting' },
-    { t: 'Give the model a job, not a wish', d: '7 min', c: 'Prompting' },
-    { t: 'Fix a prompt that gives bad answers', d: '8 min', c: 'Prompting' },
-    { t: 'Connect AI to a real database', d: '14 min', c: 'Building with AI' },
-    { t: 'Make it look good without a designer', d: '12 min', c: 'Building with AI' },
-    { t: 'Add a feature without breaking things', d: '12 min', c: 'Building with AI' },
-    { t: 'How I debug code I cannot read', d: '11 min', c: 'Behind the build' },
-    { t: 'A week of building in public', d: '15 min', c: 'Behind the build' },
-    { t: 'What I got wrong this month', d: '11 min', c: 'Behind the build' }
+    { t: 'I built 20 apps in 30 days', d: '14 min', c: 'Building with AI', desc: 'What happened, what broke, and what I would skip next time.' },
+    { t: 'Build a website with AI, start to finish', d: '19 min', c: 'Building with AI', desc: 'A full build, from empty folder to live page.' },
+    { t: 'Ship a small app in a weekend', d: '22 min', c: 'Building with AI', desc: 'Pick a tiny idea and get it working in two days.' },
+    { t: 'From idea to live site in one sitting', d: '16 min', c: 'Building with AI', desc: 'No planning week. Just open the laptop and ship.' },
+    { t: 'Connect AI to a real database', d: '14 min', c: 'Building with AI', desc: 'Store and read real data without a backend team.' },
+    { t: 'Make it look good without a designer', d: '12 min', c: 'Building with AI', desc: 'Simple rules that make a rough build look finished.' },
+    { t: 'Add a feature without breaking things', d: '12 min', c: 'Building with AI', desc: 'How I change working code and stay calm.' },
+    { t: 'AI for people who are not techies', d: '8 min', c: 'For beginners', desc: 'No code, no jargon. Just what it is good for.' },
+    { t: 'Your first hour with an AI assistant', d: '10 min', c: 'For beginners', desc: 'Set it up and do something useful right away.' },
+    { t: 'The five prompts I use every day', d: '9 min', c: 'For beginners', desc: 'The short, boring prompts that do most of the work.' },
+    { t: 'Stop overthinking your prompts', d: '6 min', c: 'For beginners', desc: 'Say what you want, what to keep, what to drop.' },
+    { t: 'What can AI actually do for you?', d: '7 min', c: 'For beginners', desc: 'A plain tour of the jobs it is genuinely good at.' },
+    { t: 'Pick the right AI tool', d: '9 min', c: 'For beginners', desc: 'How to choose without trying all of them.' },
+    { t: 'Common beginner mistakes', d: '8 min', c: 'For beginners', desc: 'The small habits that lead to bad answers.' },
+    { t: 'How to talk to AI like a person', d: '6 min', c: 'For beginners', desc: 'Plain language beats clever tricks, every time.' },
+    { t: 'A simple daily AI habit', d: '5 min', c: 'For beginners', desc: 'One small routine that compounds fast.' },
+    { t: 'Write prompts that actually work', d: '12 min', c: 'Prompting', desc: 'A simple shape for prompts that get good answers.' },
+    { t: 'Make AI sound like you', d: '11 min', c: 'Prompting', desc: 'Teach the model your voice in a few lines.' },
+    { t: 'Give the model a job, not a wish', d: '7 min', c: 'Prompting', desc: 'Why clear roles beat vague requests.' },
+    { t: 'Templates I reuse every week', d: '10 min', c: 'Prompting', desc: 'The handful of prompts I never rewrite.' },
+    { t: 'Fix a prompt that gives bad answers', d: '8 min', c: 'Prompting', desc: 'A quick way to debug a prompt that is not working.' },
+    { t: 'Prompts for editing and proofreading', d: '7 min', c: 'Prompting', desc: 'Catch mistakes without losing your voice.' },
+    { t: 'How I debug code I cannot read', d: '11 min', c: 'Behind the build', desc: 'A loop anyone can follow, no computer science needed.' },
+    { t: 'I am not a developer. I ship anyway.', d: '7 min', c: 'Behind the build', desc: 'Why the old gatekeeping does not hold up.' },
+    { t: 'A week of building in public', d: '15 min', c: 'Behind the build', desc: 'Five days, one project, shown in full.' },
+    { t: 'My exact daily setup', d: '9 min', c: 'Behind the build', desc: 'The tools and tabs I actually keep open.' },
+    { t: 'What I got wrong this month', d: '11 min', c: 'Behind the build', desc: 'The mistakes, said out loud, so you can skip them.' }
   ];
-  var cats = vids.map(function (v) { return v.c; }).filter(function (c, i, a) { return a.indexOf(c) === i; });
-  var filter = 'all';
-  var fbox = document.getElementById('filters'), rows = document.getElementById('rows');
+
+  var filter = 'all', query = '';
+  var chipsBox = document.getElementById('chips'), rows = document.getElementById('rows'), empty = document.getElementById('empty');
 
   function chips() {
     var all = [{ l: 'All topics', v: 'all' }].concat(cats.map(function (c) { return { l: c, v: c }; }));
-    fbox.innerHTML = all.map(function (c) { return '<button class="chip' + (filter === c.v ? ' active' : '') + '" data-v="' + MC2.esc(c.v) + '">' + MC2.esc(c.l) + '</button>'; }).join('');
-    Array.prototype.forEach.call(fbox.querySelectorAll('.chip'), function (b) {
+    chipsBox.innerHTML = all.map(function (c) { return '<button class="chip' + (filter === c.v ? ' active' : '') + '" data-v="' + MC2.esc(c.v) + '">' + MC2.esc(c.l) + '</button>'; }).join('');
+    Array.prototype.forEach.call(chipsBox.querySelectorAll('.chip'), function (b) {
       b.addEventListener('click', function () { filter = b.getAttribute('data-v'); render(); });
     });
   }
-  function tile(v) {
-    return '<div class="vtile"><div class="thumb"><canvas data-dot="play" data-size="44" style="width:44px;height:44px;"></canvas><span class="dur">' + MC2.esc(v.d) + '</span></div>' +
-      '<div class="vmeta"><p class="vcat">' + MC2.esc(v.c) + '</p><p class="vt">' + MC2.esc(v.t) + '</p></div></div>';
+  function card(v) {
+    return '<div class="vcard"><div class="vthumb"><span class="play"></span><span class="dur">' + MC2.esc(v.d) + '</span></div>' +
+      '<div class="vb"><h3>' + MC2.esc(v.t) + '</h3><p>' + MC2.esc(v.desc) + '</p></div></div>';
+  }
+  function match(v) {
+    var q = query.trim().toLowerCase();
+    return !q || (v.t + ' ' + v.desc + ' ' + v.c).toLowerCase().indexOf(q) !== -1;
   }
   function render() {
     chips();
     var shown = cats.filter(function (c) { return filter === 'all' || filter === c; });
-    rows.innerHTML = shown.map(function (c) {
-      var items = vids.filter(function (v) { return v.c === c; });
-      return '<div class="catrow"><div class="rowhead"><h3 class="h-item">' + MC2.esc(c) + '</h3><span class="cnt">' + items.length + ' videos</span></div>' +
-        '<div class="scroller">' + items.map(tile).join('') + '</div></div>';
-    }).join('');
+    var html = '';
+    shown.forEach(function (c) {
+      var items = vids.filter(function (v) { return v.c === c && match(v); });
+      if (!items.length) return;
+      var id = 'sc-' + c.replace(/\W+/g, '');
+      html += '<div class="catrow"><div class="rh"><div class="t"><h2 class="h-sec" style="font-size:clamp(22px,2.6vw,30px);">' + MC2.esc(c) + '</h2>' +
+        '<span class="cnt">' + items.length + (items.length === 1 ? ' video' : ' videos') + '</span></div>' +
+        '<div class="paddles"><button class="paddle" data-sc="' + id + '" data-dir="-1" aria-label="Scroll left">&#8592;</button>' +
+        '<button class="paddle" data-sc="' + id + '" data-dir="1" aria-label="Scroll right">&#8594;</button></div></div>' +
+        '<div class="scroller" id="' + id + '" data-scroller>' + items.map(card).join('') + '</div></div>';
+    });
+    var any = html !== '';
+    rows.innerHTML = html; rows.style.display = any ? '' : 'none'; empty.style.display = any ? 'none' : 'block';
+    Array.prototype.forEach.call(rows.querySelectorAll('.paddle'), function (b) {
+      b.addEventListener('click', function () {
+        var sc = document.getElementById(b.getAttribute('data-sc'));
+        var c0 = sc && sc.firstElementChild;
+        var step = c0 ? c0.getBoundingClientRect().width + 18 : 300;
+        sc.scrollBy({ left: (+b.getAttribute('data-dir')) * step, behavior: MC2.reducedMotion ? 'auto' : 'smooth' });
+      });
+    });
     MC2.mountDevices(rows);
   }
+  document.getElementById('q').addEventListener('input', function (e) { query = e.target.value; render(); });
   render();
 })();
 </script>
