@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Difficult-email prompt builder · Michael's Corner</title>
+<meta name="description" content="Answer six short questions about the email you are dreading; get a precise, copy-ready prompt for your AI.">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.wrap-tool{ max-width:1200px; margin:0 auto; padding-left:var(--pad); padding-right:var(--pad); }
+.t-back{ margin:clamp(18px,3vw,28px) 0 0; }
+.t-hero{ padding:clamp(18px,2.6vw,28px) 0 clamp(22px,3vw,34px); border-bottom:1px solid var(--ink); }
+.t-desig{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--orange); margin:0 0 14px; }
+.t-hero h1{ margin:0; }
+.t-pitch{ margin:14px 0 0; max-width:60ch; font-size:clamp(16px,1.4vw,19px); line-height:1.55; color:var(--ink-soft); }
+.t-note{ font-family:'Space Mono',monospace; font-size:12.5px; color:var(--grey); margin:10px 0 0; }
+.t-updated{ font-family:'Space Mono',monospace; font-size:12px; color:var(--grey-2); margin:12px 0 0; }
+.face{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:clamp(24px,3.5vw,52px); padding:clamp(26px,4vw,44px) 0; align-items:start; }
+@media(max-width:900px){ .face{ grid-template-columns:1fr; } }
+.controls{ display:flex; flex-direction:column; gap:clamp(16px,2vw,22px); }
+.ctl label,.ctl .lab{ display:block; font-size:14px; font-weight:500; margin:0 0 8px; }
+.ctl select,.ctl input[type=text],.ctl textarea{ width:100%; }
+.ctl textarea{ resize:vertical; min-height:96px; line-height:1.5; }
+.counter{ font-family:'Space Mono',monospace; font-size:12px; color:var(--grey); margin:6px 0 0; text-align:right; }
+.counter.warn{ color:var(--orange); }
+.seg{ display:inline-flex; border:1px solid var(--ink); border-radius:2px; overflow:hidden; flex-wrap:wrap; }
+.seg button{ background:none; border:none; border-right:1px solid var(--ink); padding:10px 15px; font-family:inherit; font-size:14px; cursor:pointer; color:var(--ink); }
+.seg button:last-child{ border-right:none; }
+.seg button[aria-pressed=true]{ background:var(--ink); color:var(--cream); }
+.checks{ display:flex; flex-direction:column; gap:8px; }
+.chk{ display:flex; align-items:center; gap:10px; font-size:14px; cursor:pointer; }
+.chk input{ width:18px; height:18px; accent-color:var(--orange); }
+.readout{ background:var(--ink); color:var(--ink-text); border-radius:2px; padding:clamp(22px,3vw,32px); position:sticky; top:96px; }
+@media(max-width:900px){ .readout{ position:static; } }
+.figure-lab{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#b9b2a4; margin:0 0 10px; display:flex; align-items:center; gap:8px; }
+.prompt-block{ font-family:'Space Mono',monospace; font-size:12.5px; line-height:1.6; color:#f0ebe0; background:#211d18; border:1px solid #4a453c; border-radius:2px; padding:16px; white-space:pre-wrap; word-break:break-word; max-height:340px; overflow:auto; }
+.p-primary{ margin:14px 0 0; }
+.rec-wrap{ margin:clamp(18px,2.5vw,24px) 0 0; }
+.fineprint{ font-family:'Space Mono',monospace; font-size:11px; line-height:1.75; color:#b9b2a4; margin:16px 0 0; }
+.actions{ display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 0; }
+.actions button{ background:none; border:1px solid #4a453c; color:var(--ink-text); padding:10px 16px; border-radius:2px; font-family:inherit; font-size:14px; cursor:pointer; }
+.actions button:hover{ border-color:var(--orange); }
+.read-band{ border-top:1px solid var(--ink); padding:clamp(24px,3vw,40px) 0; }
+.read-band h2{ margin:0 0 12px; }
+.read-band p{ max-width:64ch; font-size:16px; line-height:1.6; color:var(--ink-soft); margin:0 0 10px; }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="../index.html"><img src="../assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="../kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="../index.html" data-nav="home">Home</a>
+      <a href="../start.html" data-nav="start">Start here</a>
+      <a href="../library.html" data-nav="library">Library</a>
+      <a href="../tools.html" data-nav="tools">Tools</a>
+      <a href="../bill.html" data-nav="bill">The Real Bill</a>
+      <a href="../channel.html" data-nav="channel">Channel</a>
+      <a href="../about.html" data-nav="about">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="wrap-tool">
+  <p class="t-back"><a class="backlink" href="../tools.html"><canvas data-dot="arrow" data-size="14" style="width:14px;height:14px;transform:rotate(180deg);"></canvas> All tools</a></p>
+  <div class="t-hero">
+    <p class="t-desig"><canvas data-dot="tools" data-size="16" style="width:16px;height:16px;vertical-align:-3px;"></canvas> TOOL/07</p>
+    <h1 class="h-page">Difficult-email prompt builder</h1>
+    <p class="t-pitch">Answer six short questions about the email you are dreading; get a precise, copy-ready prompt for your AI, with your facts and your hard lines baked in.</p>
+    <p class="t-note">This builds the prompt. Your AI writes the draft. You decide to send.</p>
+    <p class="t-updated">Updated 07/2026</p>
+  </div>
+
+  <div class="face">
+    <form class="controls" id="form">
+      <div class="ctl">
+        <label for="situation">The situation</label>
+        <select id="situation">
+          <option value="invoice">chasing an unpaid invoice</option>
+          <option value="no">saying no to a client</option>
+          <option value="price">raising your price</option>
+          <option value="scope">pushing back on scope creep</option>
+          <option value="apology">apologizing for a mistake</option>
+          <option value="complaint">answering an angry complaint</option>
+          <option value="delay">announcing a delay</option>
+        </select>
+      </div>
+      <div class="ctl">
+        <label for="reader">The reader</label>
+        <select id="reader">
+          <option value="longterm">long-term client</option>
+          <option value="new">new client</option>
+          <option value="supplier">supplier</option>
+          <option value="boss">boss</option>
+          <option value="colleague">colleague</option>
+          <option value="stranger">stranger</option>
+        </select>
+      </div>
+      <div class="ctl">
+        <span class="lab" id="templab">Temperature</span>
+        <div class="seg" role="group" aria-labelledby="templab" id="temp">
+          <button type="button" data-temp="friendly" aria-pressed="false">still friendly</button>
+          <button type="button" data-temp="neutral" aria-pressed="true">neutral</button>
+          <button type="button" data-temp="tense" aria-pressed="false">already tense</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <span class="lab" id="langlab">Email language</span>
+        <div class="seg" role="group" aria-labelledby="langlab" id="lang">
+          <button type="button" data-lang="en" aria-pressed="true">English</button>
+          <button type="button" data-lang="cz" aria-pressed="false">Czech</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label for="facts">The facts</label>
+        <textarea id="facts" maxlength="1000" placeholder="Invoice 2026-041, 18 500 Kč, due June 12. Second reminder. They said &quot;next week&quot; twice."></textarea>
+        <p class="counter" id="facts-count">0 / 1000</p>
+      </div>
+      <div class="ctl">
+        <label for="outcome">Outcome you want</label>
+        <input type="text" id="outcome" maxlength="140" placeholder="a payment date confirmed this week">
+        <p class="counter" id="out-count">0 / 140</p>
+      </div>
+      <div class="ctl">
+        <span class="lab">Hard lines</span>
+        <div class="checks">
+          <label class="chk"><input type="checkbox" id="h-noapology"> no apology</label>
+          <label class="chk"><input type="checkbox" id="h-nodiscount"> no discount</label>
+          <label class="chk"><input type="checkbox" id="h-door"> keep the door open</label>
+          <label class="chk"><input type="checkbox" id="h-final"> this is the final notice</label>
+        </div>
+      </div>
+    </form>
+
+    <div class="readout" id="readout">
+      <p class="figure-lab"><canvas data-dot="prompt" data-size="16" style="width:16px;height:16px;"></canvas> Your prompt</p>
+      <pre class="prompt-block" id="prompt" role="status" aria-live="polite"></pre>
+      <div class="p-primary"><button type="button" class="btn-orange" id="copy-prompt">Copy prompt <span class="oa">&#8599;</span></button></div>
+      <div class="rec-wrap" id="rec"></div>
+      <div class="fineprint" id="fine"></div>
+      <div class="actions">
+        <button type="button" id="share-btn">Share settings</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="read-band">
+    <h2 class="h-sec">Why a builder, not a generator</h2>
+    <p>The expensive work in a hard email is translation: turning what happened into words that get the outcome without burning the relationship. This tool does the structure. Your AI writes the draft from your facts. You read it and decide to send.</p>
+    <p>Nothing is generated on this page. Every line in the prompt came from an input you can see.</p>
+  </div>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="../library.html">Prompt library</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../bill.html">The Real Bill</a>
+    </div>
+    <div class="foot-col">
+      <a href="../start.html">Start here</a>
+      <a href="../kit.html">The Starter Kit</a>
+      <a href="../about.html">About</a>
+    </div>
+    <div class="foot-meta mono">
+      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Updated 07/2026 · Prague</span>
+    </div>
+  </div>
+</footer>
+<script src="../icons.js"></script>
+<script src="../signature.js"></script>
+<script src="../shared.js"></script>
+<script>
+(function(){
+  "use strict";
+  var $=function(id){ return document.getElementById(id); };
+  var SIT={
+    invoice:['chasing an unpaid invoice','The job: a payment reminder that gets a date, not an argument. Firm on the money, zero drama about the person.'],
+    no:['saying no to a client','The job: a clear no that closes this ask without closing the relationship. No fake maybes.'],
+    price:['raising your price','The job: announce the new price plainly, anchor it to what they get, and do not apologize for it.'],
+    scope:['pushing back on scope creep','The job: name what was agreed, name what is being added, and offer a paid path for the extra. Friendly, not soft.'],
+    apology:['apologizing for a mistake','The job: own the mistake specifically, say the fix and the date, skip the groveling. One apology, not five.'],
+    complaint:['answering an angry complaint','The job: answer the anger without absorbing it. Acknowledge what is legitimate, correct what is wrong, offer one concrete step.'],
+    delay:['announcing a delay','The job: deliver the bad news in the first sentence, the new date in the second, and what you are doing about it in the third.']
+  };
+  var READER={ longterm:'long-term client', new:'new client', supplier:'supplier', boss:'boss', colleague:'colleague', stranger:'stranger' };
+  var TEMP={ friendly:'Warm and personal.', neutral:'Cordial and businesslike.', tense:'Calm, short, and completely unprovokable. No sarcasm, no defensiveness.' };
+  var MOD={ boss:'Respect the hierarchy without begging.', new:'You are still proving reliability.', supplier:'You are the customer; be direct.', stranger:'Skip pleasantries entirely.' };
+  var TEMPNAME={ friendly:'still friendly', neutral:'neutral', tense:'already tense' };
+
+  var state={ temp:'neutral', lang:'en' };
+  var lastPrompt='';
+
+  function seg(id,attr,onset){
+    $(id).addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b)return;
+      var v=b.getAttribute('data-'+attr); onset(v);
+      var btns=this.querySelectorAll('button'); for(var i=0;i<btns.length;i++){ btns[i].setAttribute('aria-pressed',String(btns[i]===b)); }
+      build();
+    });
+  }
+  seg('temp','temp',function(v){ state.temp=v; });
+  seg('lang','lang',function(v){ state.lang=v; });
+
+  function hardLines(){
+    var out=[];
+    var noap=$('h-noapology').checked, nod=$('h-nodiscount').checked, door=$('h-door').checked, fin=$('h-final').checked;
+    if(noap) out.push('Do not apologize.');
+    if(nod) out.push('Do not offer a discount or a price cut.');
+    if(fin && door) out.push('Firm on the deadline, open about the relationship: make clear the door stays open once this is settled.');
+    else {
+      if(fin) out.push('State plainly that this is the last reminder before next steps, without threatening language.');
+      if(door) out.push('Keep the door open for future work.');
+    }
+    return out;
+  }
+  function hardCount(){ return [$('h-noapology'),$('h-nodiscount'),$('h-door'),$('h-final')].filter(function(c){return c.checked;}).length; }
+
+  function build(){
+    var sitKey=$('situation').value, readerKey=$('reader').value;
+    var facts=$('facts').value.trim(), outcome=$('outcome').value.trim();
+    var langWord = state.lang==='cz' ? 'Czech' : 'English';
+
+    var lines=[];
+    lines.push('Help me write an email I am dreading. Write the draft; I will decide whether to send it. Write the email in '+langWord+'.');
+    lines.push('');
+    lines.push(SIT[sitKey][1]);
+    lines.push('');
+    var tone='Tone: '+TEMP[state.temp];
+    if(MOD[readerKey]) tone+=' '+MOD[readerKey];
+    lines.push('Reader: '+READER[readerKey]+'. '+tone);
+    lines.push('');
+    lines.push('The facts:');
+    lines.push(facts || '[paste the facts here]');
+    lines.push('');
+    lines.push('What I want out of this: '+(outcome || '[what outcome do you want?]'));
+
+    var hl=hardLines();
+    if(hl.length){
+      lines.push('');
+      lines.push('Hard lines:');
+      hl.forEach(function(h){ lines.push('- '+h); });
+    }
+    // language mismatch note
+    var hasDia=/[ěščřžýáíéúůňťďóĚŠČŘŽÝÁÍÉ]/.test(facts);
+    if(facts){
+      if(state.lang==='en' && hasDia) lines.push('','The facts below may be in another language; the email must be in English.');
+      else if(state.lang==='cz' && !hasDia && /[a-z]/i.test(facts) && facts.length>15) lines.push('','The facts below may be in another language; the email must be in Czech.');
+    }
+    lines.push('');
+    lines.push('Voice rules: Under 150 words. Lead with the point in the first sentence. One clear ask. No em dashes. No filler openers like "I hope this finds you well". No fake warmth, no corporate phrases.');
+    if(state.lang==='cz') lines.push('Piš česky, vykej. Žádné anglicismy, žádné kalky z angličtiny.');
+    lines.push('');
+    lines.push('Give me: a subject line, the email body, and a one-line follow-up I can send if there is no reply in 5 days.');
+    lines.push('');
+    lines.push('If any key fact is missing from the above, ask me before writing.');
+
+    lastPrompt=lines.join('\n');
+    $('prompt').textContent=lastPrompt;
+
+    // receipt
+    var rows=[
+      {k:'SITUATION', v:SIT[sitKey][0]},
+      {k:'READER', v:READER[readerKey]},
+      {k:'TEMPERATURE', v:TEMPNAME[state.temp]},
+      {k:'LANGUAGE', v:langWord},
+      {k:'HARD LINES', v: hardCount()? String(hardCount()) : 'none'},
+      {k:'FACTS', v: facts? ('provided · '+facts.length+' chars') : 'missing'}
+    ];
+    var reason = facts ? '' : 'no facts given; the draft will be generic';
+    $('rec').innerHTML=MC2.receipt({
+      title:'difficult-email', date:'Updated 07/2026 · '+clock(),
+      rows:rows, verdict:{ stamp:'PROMPT READY', text:reason, ink:false }
+    });
+
+    $('fine').innerHTML=['Assembled on this page from your inputs. Nothing was generated.','Your AI writes the draft. You decide to send.'].map(function(l){return MC2.esc(l);}).join('<br>');
+    writeHash();
+  }
+
+  function clock(){ var d=new Date(); return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2); }
+
+  // counters
+  function counter(id,cid,max,warnAt){
+    var el=$(id), c=$(cid);
+    function upd(){ var n=el.value.length; c.textContent=n+' / '+max; c.classList.toggle('warn', warnAt && n>=warnAt); }
+    el.addEventListener('input',function(){ upd(); build(); });
+    upd();
+  }
+  counter('facts','facts-count',1000,950);
+  counter('outcome','out-count',140,130);
+
+  $('situation').addEventListener('change',build);
+  $('reader').addEventListener('change',build);
+  ['h-noapology','h-nodiscount','h-door','h-final'].forEach(function(id){ $(id).addEventListener('change',build); });
+  $('copy-prompt').addEventListener('click',function(){ MC2.copy(lastPrompt,this,'Copied'); });
+  $('share-btn').addEventListener('click',function(){ var u=location.href; if(navigator.share){ navigator.share({title:'Difficult-email prompt',url:u}).catch(function(){}); } else { MC2.copy(u,this,'Link copied'); } });
+
+  function writeHash(){
+    var s='s='+$('situation').value+'&r='+$('reader').value+'&t='+state.temp+'&l='+state.lang+
+      '&h='+[$('h-noapology').checked?1:0,$('h-nodiscount').checked?1:0,$('h-door').checked?1:0,$('h-final').checked?1:0].join('');
+    try{ history.replaceState(null,'',location.pathname+location.search+'#'+s); }catch(e){}
+  }
+  function readHash(){
+    var h=location.hash.replace(/^#/,''); if(!h) return;
+    var o={}; h.split('&').forEach(function(p){ var kv=p.split('='); o[kv[0]]=kv[1]; });
+    if(o.s && SIT[o.s]) $('situation').value=o.s;
+    if(o.r && READER[o.r]) $('reader').value=o.r;
+    if(o.t && TEMP[o.t]){ state.temp=o.t; var tb=$('temp').querySelectorAll('button'); for(var i=0;i<tb.length;i++){ tb[i].setAttribute('aria-pressed',String(tb[i].getAttribute('data-temp')===o.t)); } }
+    if(o.l && (o.l==='en'||o.l==='cz')){ state.lang=o.l; var lb=$('lang').querySelectorAll('button'); for(var j=0;j<lb.length;j++){ lb[j].setAttribute('aria-pressed',String(lb[j].getAttribute('data-lang')===o.l)); } }
+    if(o.h && /^[01]{4}$/.test(o.h)){ $('h-noapology').checked=o.h[0]==='1'; $('h-nodiscount').checked=o.h[1]==='1'; $('h-door').checked=o.h[2]==='1'; $('h-final').checked=o.h[3]==='1'; }
+  }
+
+  readHash(); build();
+})();
+</script>
+</body>
+</html>

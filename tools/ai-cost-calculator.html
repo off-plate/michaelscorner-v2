@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI cost calculator · Michael's Corner</title>
+<meta name="description" content="Drag three sliders, see what a month of AI actually costs, on rates you can edit.">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+/* ---- instrument face: controls left, ink readout right, cream receipt on the ink ---- */
+.wrap-tool{ max-width:1200px; margin:0 auto; padding-left:var(--pad); padding-right:var(--pad); }
+.t-back{ margin:clamp(18px,3vw,28px) 0 0; }
+.t-hero{ padding:clamp(18px,2.6vw,28px) 0 clamp(22px,3vw,34px); border-bottom:1px solid var(--ink); }
+.t-desig{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--orange); margin:0 0 14px; }
+.t-hero h1{ margin:0; }
+.t-pitch{ margin:14px 0 0; max-width:58ch; font-size:clamp(16px,1.4vw,19px); line-height:1.55; color:var(--ink-soft); }
+.t-updated{ font-family:'Space Mono',monospace; font-size:12px; color:var(--grey-2); margin:12px 0 0; }
+.face{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:clamp(24px,3.5vw,52px); padding:clamp(26px,4vw,44px) 0; align-items:start; }
+@media(max-width:900px){ .face{ grid-template-columns:1fr; } }
+.controls{ display:flex; flex-direction:column; gap:clamp(18px,2.4vw,26px); }
+.ctl .row-lab{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin:0 0 8px; }
+.ctl label{ font-size:14px; font-weight:500; }
+.echo{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:22px; letter-spacing:-0.01em; font-variant-numeric:tabular-nums; }
+.ctl input[type=range]{ width:100%; display:block; }
+.seg{ display:inline-flex; border:1px solid var(--ink); border-radius:2px; overflow:hidden; }
+.seg button{ background:none; border:none; border-right:1px solid var(--ink); padding:10px 16px; font-family:inherit; font-size:14px; cursor:pointer; color:var(--ink); }
+.seg button:last-child{ border-right:none; }
+.seg button[aria-pressed=true]{ background:var(--ink); color:var(--cream); }
+.assump{ border:1px solid var(--line); border-radius:2px; }
+.assump summary{ cursor:pointer; padding:12px 14px; font-family:'Space Mono',monospace; font-size:12.5px; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.assump summary::-webkit-details-marker{ display:none; }
+.assump summary .tw{ color:var(--orange); }
+.abody{ padding:2px 14px 16px; display:flex; flex-direction:column; gap:14px; }
+.a-head{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; color:var(--grey); line-height:1.5; }
+.rate-grid{ display:grid; grid-template-columns:auto 1fr 1fr; gap:8px 12px; align-items:center; font-family:'Space Mono',monospace; font-size:12.5px; }
+.rate-grid .rh{ color:var(--grey); font-size:11px; text-transform:uppercase; letter-spacing:0.06em; }
+.a-num{ display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:13px; }
+.a-num .lab{ color:var(--ink-soft); }
+.a-num .hint{ display:block; font-size:11px; color:var(--grey); font-family:'Space Mono',monospace; margin-top:3px; }
+input.assumef{ width:92px; border:none; border-bottom:2px dotted var(--orange); background:none; border-radius:0; padding:6px 2px; font-family:'Space Mono',monospace; font-size:13px; text-align:right; }
+input.assumef:focus-visible{ outline:none; border-bottom-color:var(--ink); }
+.reset{ background:none; border:none; color:var(--grey); font-size:12px; font-family:'Space Mono',monospace; text-decoration:underline; text-underline-offset:2px; cursor:pointer; padding:0; align-self:flex-start; }
+.reset:hover{ color:var(--orange); }
+.readout{ background:var(--ink); color:var(--ink-text); border-radius:2px; padding:clamp(22px,3vw,32px); position:sticky; top:96px; }
+@media(max-width:900px){ .readout{ position:static; } }
+.figure-lab{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#b9b2a4; margin:0 0 4px; }
+.figure{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(46px,8vw,80px); line-height:0.95; letter-spacing:-0.03em; font-variant-numeric:tabular-nums; margin:0; }
+.figure-sub{ font-family:'Space Mono',monospace; font-size:14px; color:#d9d2c5; margin:8px 0 0; }
+.rec-wrap{ margin:clamp(20px,3vw,26px) 0 0; }
+.fineprint{ font-family:'Space Mono',monospace; font-size:11px; line-height:1.75; color:#b9b2a4; margin:16px 0 0; }
+.fineprint a{ color:#f0d9c8; }
+.actions{ display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 0; }
+.actions button{ background:none; border:1px solid #4a453c; color:var(--ink-text); padding:10px 16px; border-radius:2px; font-family:inherit; font-size:14px; cursor:pointer; }
+.actions button:hover{ border-color:var(--orange); }
+.read-band{ border-top:1px solid var(--ink); padding:clamp(24px,3vw,40px) 0; }
+.read-band h2{ margin:0 0 12px; }
+.read-band p{ max-width:64ch; font-size:16px; line-height:1.6; color:var(--ink-soft); margin:0 0 10px; }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="../index.html"><img src="../assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="../kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="../index.html" data-nav="home">Home</a>
+      <a href="../start.html" data-nav="start">Start here</a>
+      <a href="../library.html" data-nav="library">Library</a>
+      <a href="../tools.html" data-nav="tools">Tools</a>
+      <a href="../bill.html" data-nav="bill">The Real Bill</a>
+      <a href="../channel.html" data-nav="channel">Channel</a>
+      <a href="../about.html" data-nav="about">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="wrap-tool">
+  <p class="t-back"><a class="backlink" href="../tools.html"><canvas data-dot="arrow" data-size="14" style="width:14px;height:14px;transform:rotate(180deg);"></canvas> All tools</a></p>
+  <div class="t-hero">
+    <p class="t-desig"><canvas data-dot="tools" data-size="16" style="width:16px;height:16px;vertical-align:-3px;"></canvas> TOOL/01</p>
+    <h1 class="h-page">AI cost calculator</h1>
+    <p class="t-pitch">Drag three sliders, see what a month of AI actually costs, on rates you can edit. Pure arithmetic. Every constant is visible and yours to change.</p>
+    <p class="t-updated">Updated 07/2026</p>
+  </div>
+
+  <div class="face">
+    <div class="controls">
+      <div class="ctl">
+        <div class="row-lab"><label for="msgs">Messages per day</label><span class="echo" id="e-msgs">20</span></div>
+        <input type="range" id="msgs" min="1" max="200" step="1" value="20">
+      </div>
+      <div class="ctl">
+        <div class="row-lab"><label for="win">Words you send</label><span class="echo" id="e-win">120</span></div>
+        <input type="range" id="win" min="10" max="1000" step="10" value="120">
+      </div>
+      <div class="ctl">
+        <div class="row-lab"><label for="wout">Words it writes back</label><span class="echo" id="e-wout">300</span></div>
+        <input type="range" id="wout" min="10" max="2000" step="10" value="300">
+      </div>
+      <div class="ctl">
+        <div class="row-lab"><span class="lab" id="tierlab" style="font-size:14px;font-weight:500;">Model tier</span></div>
+        <div class="seg" role="group" aria-labelledby="tierlab" id="tier">
+          <button type="button" data-tier="fast" aria-pressed="false">Fast</button>
+          <button type="button" data-tier="balanced" aria-pressed="true">Balanced</button>
+          <button type="button" data-tier="top" aria-pressed="false">Top</button>
+        </div>
+      </div>
+
+      <details class="assump" id="rates-box" open>
+        <summary>Rates per 1M tokens <span class="tw">assumptions, edit me</span></summary>
+        <div class="abody">
+          <p class="a-head">Last checked 07/2026. Dollars per 1,000,000 tokens.</p>
+          <div class="rate-grid" id="rate-grid">
+            <span class="rh"></span><span class="rh">In $/1M</span><span class="rh">Out $/1M</span>
+            <span>Fast</span>
+            <input class="assumef" type="number" id="r-fast-in" min="0" max="999" step="0.05" aria-label="Fast tier input rate per 1M tokens">
+            <input class="assumef" type="number" id="r-fast-out" min="0" max="999" step="0.05" aria-label="Fast tier output rate per 1M tokens">
+            <span>Balanced</span>
+            <input class="assumef" type="number" id="r-balanced-in" min="0" max="999" step="0.05" aria-label="Balanced tier input rate per 1M tokens">
+            <input class="assumef" type="number" id="r-balanced-out" min="0" max="999" step="0.05" aria-label="Balanced tier output rate per 1M tokens">
+            <span>Top</span>
+            <input class="assumef" type="number" id="r-top-in" min="0" max="999" step="0.05" aria-label="Top tier input rate per 1M tokens">
+            <input class="assumef" type="number" id="r-top-out" min="0" max="999" step="0.05" aria-label="Top tier output rate per 1M tokens">
+          </div>
+          <button type="button" class="reset" id="reset-rates">reset rates to defaults</button>
+        </div>
+      </details>
+
+      <details class="assump" id="more-box">
+        <summary>Assumptions <span class="tw">edit me</span></summary>
+        <div class="abody">
+          <div class="a-num"><span class="lab">Days you use it per month</span><input class="assumef" type="number" id="a-days" min="1" max="31" step="1" aria-label="Days used per month"></div>
+          <div class="a-num"><span class="lab">Tokens per word<span class="hint">Czech text? Use 2.0</span></span><input class="assumef" type="number" id="a-tpw" min="0.5" max="4" step="0.1" aria-label="Tokens per word"></div>
+          <div class="a-num"><span class="lab">K&#269; per USD</span><input class="assumef" type="number" id="a-fx" min="15" max="35" step="0.5" aria-label="Koruna per US dollar"></div>
+          <button type="button" class="reset" id="reset-more">reset assumptions to defaults</button>
+        </div>
+      </details>
+    </div>
+
+    <div class="readout" id="readout">
+      <p class="figure-lab" id="figlab">Cost per month</p>
+      <p class="figure" id="figure">$0.00</p>
+      <p class="figure-sub" id="figsub">&#8776; 0 K&#269;</p>
+      <div class="rec-wrap" id="rec" role="status" aria-live="polite"></div>
+      <div class="fineprint" id="fine"></div>
+      <div class="actions">
+        <button type="button" id="copy-btn">Copy as text</button>
+        <button type="button" id="share-btn">Share</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="read-band">
+    <h2 class="h-sec">How to read this number</h2>
+    <p>This is a guide, not a bill. It multiplies your words by an estimate of tokens, then by the per-token rate you see above. Rates move, so they are yours to edit. The K&#269; line uses the exchange rate in the assumptions.</p>
+    <p>Under twenty dollars a month usually means the API beats a fixed subscription. Above that, run the <a href="subscription-vs-api.html" style="color:var(--orange);">breakeven tool</a> before you pick.</p>
+  </div>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="../library.html">Prompt library</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../bill.html">The Real Bill</a>
+    </div>
+    <div class="foot-col">
+      <a href="../start.html">Start here</a>
+      <a href="../kit.html">The Starter Kit</a>
+      <a href="../about.html">About</a>
+    </div>
+    <div class="foot-meta mono">
+      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Updated 07/2026 · Prague</span>
+    </div>
+  </div>
+</footer>
+<script src="../icons.js"></script>
+<script src="../signature.js"></script>
+<script src="../shared.js"></script>
+<script>
+(function(){
+  "use strict";
+  var LAST_CHECKED='07/2026', SUB_ASSUMED=20;
+  var RATE_DEFAULTS={ fast:[0.80,4.00], balanced:[3.00,15.00], top:[15.00,75.00] };
+  var MORE_DEFAULTS={ days:30, tpw:1.3, fx:23 };
+  var S={ get:function(k,d){ try{ var v=localStorage.getItem(k); return v?JSON.parse(v):d; }catch(e){ return d; } },
+          set:function(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} } };
+  function clamp(n,a,b){ return n<a?a:(n>b?b:n); }
+  function fnum(el,d){ var v=parseFloat(el.value); return isNaN(v)?d:v; }
+
+  var rates=Object.assign({}, RATE_DEFAULTS, S.get('mc-tools.rates.v1',{}));
+  var more=Object.assign({}, MORE_DEFAULTS, S.get('mc-tools.calc.v1',{}));
+  var state={ msgs:20, win:120, wout:300, tier:'balanced' };
+  var badFields=[];
+
+  var $=function(id){ return document.getElementById(id); };
+  var els={ msgs:$('msgs'), win:$('win'), wout:$('wout'),
+            emsgs:$('e-msgs'), ewin:$('e-win'), ewout:$('e-wout'),
+            figure:$('figure'), figsub:$('figsub'), rec:$('rec'), fine:$('fine') };
+
+  function fillRates(){
+    ['fast','balanced','top'].forEach(function(t){
+      $('r-'+t+'-in').value=rates[t][0];
+      $('r-'+t+'-out').value=rates[t][1];
+    });
+  }
+  function fillMore(){ $('a-days').value=more.days; $('a-tpw').value=more.tpw; $('a-fx').value=more.fx; }
+
+  function usd(n){
+    if(n>0 && n<0.01) return '< $0.01';
+    return '$'+(n<100 ? n.toFixed(2) : String(Math.round(n)));
+  }
+
+  function compute(){
+    badFields=[];
+    // read rate fields (empty/NaN -> default, flag)
+    ['fast','balanced','top'].forEach(function(t){
+      var ri=$('r-'+t+'-in'), ro=$('r-'+t+'-out');
+      var vi=parseFloat(ri.value), vo=parseFloat(ro.value);
+      if(isNaN(vi)){ vi=RATE_DEFAULTS[t][0]; badFields.push(t+' in'); }
+      if(isNaN(vo)){ vo=RATE_DEFAULTS[t][1]; badFields.push(t+' out'); }
+      rates[t]=[clamp(vi,0,999), clamp(vo,0,999)];
+    });
+    more.days=clamp(fnum($('a-days'),MORE_DEFAULTS.days),1,31);
+    more.tpw=clamp(fnum($('a-tpw'),MORE_DEFAULTS.tpw),0.5,4);
+    more.fx=clamp(fnum($('a-fx'),MORE_DEFAULTS.fx),15,35);
+    S.set('mc-tools.rates.v1',rates);
+    S.set('mc-tools.calc.v1',more);
+
+    var rIn=rates[state.tier][0], rOut=rates[state.tier][1];
+    var tin=state.win*more.tpw, tout=state.wout*more.tpw;
+    var perMsg=tin/1e6*rIn + tout/1e6*rOut;
+    var daily=state.msgs*perMsg;
+    var monthly=daily*more.days;
+    var kc=monthly*more.fx;
+
+    var inTokDay=Math.round(state.msgs*tin), outTokDay=Math.round(state.msgs*tout);
+
+    // headline
+    els.figure.textContent=usd(monthly);
+    els.figsub.textContent='≈ '+MC2.kc(kc);
+
+    // verdict
+    var stamp, ink=false, reason='';
+    if(monthly<2){ stamp='POCKET CHANGE'; }
+    else if(monthly<20){ stamp='CHEAPER THAN A SUBSCRIPTION'; reason='assuming the usual $'+SUB_ASSUMED+'/month plan'; }
+    else if(monthly<60){ stamp='SUBSCRIPTION TERRITORY'; ink=true; reason='run the breakeven tool before you pick'; }
+    else { stamp='HEAVY USE. CHECK THE BREAKEVEN.'; ink=true; reason='run the breakeven tool before you pick'; }
+
+    var rows=[
+      {k:'Messages / day', v:String(state.msgs)},
+      {k:'Input tokens / day', v:fmt(inTokDay)},
+      {k:'Output tokens / day', v:fmt(outTokDay)},
+      {k:'Rate in *', v:'$'+rIn.toFixed(2)+' / 1M'},
+      {k:'Rate out *', v:'$'+rOut.toFixed(2)+' / 1M'},
+      {k:'Cost / day', v:usd(daily)},
+      {k:'TOTAL / MONTH', v:usd(monthly), big:true},
+      {k:'≈ Kč *', v:MC2.kc(kc)}
+    ];
+    els.rec.innerHTML=MC2.receipt({
+      title:'ai-cost-calculator', date:'Updated '+LAST_CHECKED+' · '+clock(),
+      rows:rows, verdict:{ stamp:stamp, text:reason, ink:ink }
+    });
+
+    var fp=['* assumptions you can edit', 'Rates last checked '+LAST_CHECKED+'.', 'Based on '+more.days+' days a month.'];
+    if(rIn===0 && rOut===0) fp.push('You set the rates to zero.');
+    if(badFields.length) fp.push('Blank rate treated as default: '+badFields.join(', ')+'.');
+    fp.push('A guide, not a bill.','Computed on this page. Nothing was sent anywhere.');
+    els.fine.innerHTML=fp.map(function(l){ return MC2.esc(l); }).join('<br>');
+
+    lastText=serialize(rows,monthly,kc,stamp,reason,fp);
+    writeHash();
+  }
+
+  var lastText='';
+  function serialize(rows,monthly,kc,stamp,reason,fp){
+    var out=["MICHAEL'S CORNER  ai-cost-calculator","Updated "+LAST_CHECKED+" "+clock(),"------------------------------"];
+    rows.forEach(function(r){ out.push(pad(r.k, r.v)); });
+    out.push("------------------------------","VERDICT: "+stamp);
+    if(reason) out.push(reason);
+    out.push("","* assumptions you can edit","A guide, not a bill.","Computed on this page. Nothing was sent anywhere.");
+    return out.join("\n");
+  }
+  function pad(k,v){ var w=32; var line=k; var sp=w-k.length-v.length; if(sp<2)sp=2; while(sp-->0)line+=' '; return line+v; }
+  function fmt(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' '); }
+  function clock(){ var d=new Date(); return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2); }
+
+  // ---- hash state ----
+  function writeHash(){
+    var s='m='+state.msgs+'&wi='+state.win+'&wo='+state.wout+'&t='+state.tier;
+    try{ history.replaceState(null,'',location.pathname+location.search+'#'+s); }catch(e){}
+  }
+  function readHash(){
+    var h=location.hash.replace(/^#/,''); if(!h) return;
+    var o={}; h.split('&').forEach(function(p){ var kv=p.split('='); o[kv[0]]=kv[1]; });
+    if(o.m!=null) state.msgs=clamp(parseInt(o.m,10)||20,1,200);
+    if(o.wi!=null) state.win=clamp(parseInt(o.wi,10)||120,10,1000);
+    if(o.wo!=null) state.wout=clamp(parseInt(o.wo,10)||300,10,2000);
+    if(o.t && /^(fast|balanced|top)$/.test(o.t)) state.tier=o.t;
+  }
+
+  function syncInputs(){
+    els.msgs.value=state.msgs; els.win.value=state.win; els.wout.value=state.wout;
+    els.emsgs.textContent=state.msgs; els.ewin.textContent=state.win; els.ewout.textContent=state.wout;
+    var btns=$('tier').querySelectorAll('button');
+    for(var i=0;i<btns.length;i++){ btns[i].setAttribute('aria-pressed', String(btns[i].getAttribute('data-tier')===state.tier)); }
+  }
+
+  // ---- wiring ----
+  els.msgs.addEventListener('input',function(){ state.msgs=parseInt(this.value,10); els.emsgs.textContent=state.msgs; compute(); });
+  els.win.addEventListener('input',function(){ state.win=parseInt(this.value,10); els.ewin.textContent=state.win; compute(); });
+  els.wout.addEventListener('input',function(){ state.wout=parseInt(this.value,10); els.ewout.textContent=state.wout; compute(); });
+  $('tier').addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b)return; state.tier=b.getAttribute('data-tier'); syncInputs(); compute(); });
+  ['r-fast-in','r-fast-out','r-balanced-in','r-balanced-out','r-top-in','r-top-out','a-days','a-tpw','a-fx'].forEach(function(id){
+    $(id).addEventListener('input',compute);
+  });
+  $('reset-rates').addEventListener('click',function(){ rates=Object.assign({},RATE_DEFAULTS); S.set('mc-tools.rates.v1',rates); fillRates(); compute(); });
+  $('reset-more').addEventListener('click',function(){ more=Object.assign({},MORE_DEFAULTS); S.set('mc-tools.calc.v1',more); fillMore(); compute(); });
+  $('copy-btn').addEventListener('click',function(){ MC2.copy(lastText,this,'Copied'); });
+  $('share-btn').addEventListener('click',function(){
+    var url=location.href;
+    if(navigator.share){ navigator.share({title:'AI cost calculator',url:url}).catch(function(){}); }
+    else { MC2.copy(url,this,'Link copied'); }
+  });
+
+  readHash(); fillRates(); fillMore(); syncInputs(); compute();
+})();
+</script>
+</body>
+</html>

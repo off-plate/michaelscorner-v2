@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompt tightener · Michael's Corner</title>
+<meta name="description" content="Paste a rambling prompt; it strips the filler it can prove is filler and flags the vague asks it cannot fix.">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.wrap-tool{ max-width:1200px; margin:0 auto; padding-left:var(--pad); padding-right:var(--pad); }
+.t-back{ margin:clamp(18px,3vw,28px) 0 0; }
+.t-hero{ padding:clamp(18px,2.6vw,28px) 0 clamp(22px,3vw,34px); border-bottom:1px solid var(--ink); }
+.t-desig{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--orange); margin:0 0 14px; }
+.t-hero h1{ margin:0; }
+.t-pitch{ margin:14px 0 0; max-width:60ch; font-size:clamp(16px,1.4vw,19px); line-height:1.55; color:var(--ink-soft); }
+.t-updated{ font-family:'Space Mono',monospace; font-size:12px; color:var(--grey-2); margin:12px 0 0; }
+.face{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:clamp(24px,3.5vw,52px); padding:clamp(26px,4vw,44px) 0; align-items:start; }
+@media(max-width:900px){ .face{ grid-template-columns:1fr; } }
+.controls{ display:flex; flex-direction:column; gap:clamp(14px,2vw,18px); }
+.ctl label{ font-size:14px; font-weight:500; display:block; margin:0 0 8px; }
+textarea#input{ width:100%; min-height:280px; resize:vertical; line-height:1.55; }
+.counter{ font-family:'Space Mono',monospace; font-size:12.5px; color:var(--grey); margin:8px 0 0; }
+.toggle{ display:flex; align-items:center; gap:10px; font-size:14px; cursor:pointer; }
+.toggle input{ width:18px; height:18px; accent-color:var(--orange); }
+.demo{ background:none; border:1px solid var(--ink); border-radius:2px; padding:9px 14px; font-family:inherit; font-size:13px; cursor:pointer; align-self:flex-start; }
+.demo:hover{ border-color:var(--orange); }
+.readout{ background:var(--ink); color:var(--ink-text); border-radius:2px; padding:clamp(22px,3vw,32px); position:sticky; top:96px; }
+@media(max-width:900px){ .readout{ position:static; } }
+.figure-lab{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#b9b2a4; margin:0 0 10px; display:flex; align-items:center; gap:10px; }
+.out-block{ font-family:'Space Mono',monospace; font-size:12.5px; line-height:1.7; color:#f0ebe0; background:#211d18; border:1px solid #4a453c; border-radius:2px; padding:16px; white-space:pre-wrap; word-break:break-word; max-height:300px; overflow:auto; min-height:60px; }
+.out-block del{ color:#8a847a; text-decoration:line-through; }
+.out-block ins{ color:var(--orange); text-decoration:none; }
+.out-block .protected{ border-left:2px solid var(--orange); padding-left:4px; color:#d9d2c5; }
+.p-primary{ margin:14px 0 0; }
+.rec-wrap{ margin:clamp(18px,2.5vw,24px) 0 0; }
+.list-head{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#b9b2a4; margin:18px 0 8px; }
+.rm-list,.flag-list{ font-family:'Space Mono',monospace; font-size:12px; line-height:1.7; color:#d9d2c5; margin:0; padding:0; list-style:none; }
+.rm-list li{ display:flex; justify-content:space-between; gap:12px; }
+.flag-list li{ margin-bottom:8px; }
+.flag-list .fl-tag{ color:var(--orange); }
+.fineprint{ font-family:'Space Mono',monospace; font-size:11px; line-height:1.75; color:#b9b2a4; margin:16px 0 0; }
+.actions{ display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 0; }
+.actions button{ background:none; border:1px solid #4a453c; color:var(--ink-text); padding:10px 16px; border-radius:2px; font-family:inherit; font-size:14px; cursor:pointer; }
+.actions button:hover{ border-color:var(--orange); }
+.read-band{ border-top:1px solid var(--ink); padding:clamp(24px,3vw,40px) 0; }
+.read-band h2{ margin:0 0 12px; }
+.read-band p{ max-width:64ch; font-size:16px; line-height:1.6; color:var(--ink-soft); margin:0 0 10px; }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="../index.html"><img src="../assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="../kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="../index.html" data-nav="home">Home</a>
+      <a href="../start.html" data-nav="start">Start here</a>
+      <a href="../library.html" data-nav="library">Library</a>
+      <a href="../tools.html" data-nav="tools">Tools</a>
+      <a href="../bill.html" data-nav="bill">The Real Bill</a>
+      <a href="../channel.html" data-nav="channel">Channel</a>
+      <a href="../about.html" data-nav="about">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="wrap-tool">
+  <p class="t-back"><a class="backlink" href="../tools.html"><canvas data-dot="arrow" data-size="14" style="width:14px;height:14px;transform:rotate(180deg);"></canvas> All tools</a></p>
+  <div class="t-hero">
+    <p class="t-desig"><canvas data-dot="tools" data-size="16" style="width:16px;height:16px;vertical-align:-3px;"></canvas> TOOL/06</p>
+    <h1 class="h-page">Prompt tightener</h1>
+    <p class="t-pitch">Paste a rambling prompt; it strips the filler it can prove is filler, flags the vague asks it cannot fix for you, and shows the word count drop. Deletion only. It never rewrites or adds a word.</p>
+    <p class="t-updated">Updated 07/2026</p>
+  </div>
+
+  <div class="face">
+    <div class="controls">
+      <div class="ctl">
+        <label for="input">Paste your prompt</label>
+        <textarea id="input" placeholder="Hi, I was wondering if you could please help me write a really good product description..."></textarea>
+        <p class="counter" id="counter">0 words</p>
+      </div>
+      <label class="toggle"><input type="checkbox" id="showchanges" checked> Show changes (strike removed words)</label>
+      <button type="button" class="demo" id="demo">Load a rambling example</button>
+    </div>
+
+    <div class="readout" id="readout">
+      <p class="figure-lab" id="lab"><canvas data-dot="prompt" data-size="16" style="width:16px;height:16px;"></canvas> Tightened prompt</p>
+      <pre class="out-block" id="out" role="status" aria-live="polite"></pre>
+      <div class="p-primary"><button type="button" class="btn-orange" id="copy-tight">Copy tightened prompt <span class="oa">&#8599;</span></button></div>
+      <div class="rec-wrap" id="rec"></div>
+      <div id="removed"></div>
+      <div id="flags"></div>
+      <div class="fineprint" id="fine"></div>
+      <div class="actions">
+        <button type="button" id="copy-report">Copy report</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="read-band">
+    <h2 class="h-sec">Why deletion, not rewriting</h2>
+    <p>If a tool rewrites your prompt, your meaning can drift and you would not notice. This one only removes exact filler phrases from a published list. Anything it is unsure about becomes a flag for you, not an edit. Text inside quotes or backticks is left alone.</p>
+    <p>A tight prompt is not a shorter prompt for its own sake. It is one where every word is doing a job.</p>
+  </div>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="../library.html">Prompt library</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../bill.html">The Real Bill</a>
+    </div>
+    <div class="foot-col">
+      <a href="../start.html">Start here</a>
+      <a href="../kit.html">The Starter Kit</a>
+      <a href="../about.html">About</a>
+    </div>
+    <div class="foot-meta mono">
+      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Updated 07/2026 · Prague</span>
+    </div>
+  </div>
+</footer>
+<script src="../icons.js"></script>
+<script src="../signature.js"></script>
+<script src="../shared.js"></script>
+<script>
+(function(){
+  "use strict";
+  var $=function(id){ return document.getElementById(id); };
+  var CAP=50000;
+  function esc(s){ return MC2.esc(s); }
+
+  var REMOVE=[
+    {label:'greeting', re:/^[ \t]*(hi|hello|hey)\b[ ,!.]*/gim, to:''},
+    {label:'"I was wondering if you could"', re:/\bI was wondering if you could\b/gi, to:''},
+    {label:'"can/could you please"', re:/\b(can|could) you(,)?( please)?\b/gi, to:''},
+    {label:'"I would/want/need you to"', re:/\bI (?:would like|'?d like|want|need) you to\b/gi, to:''},
+    {label:'"it is important that you"', re:/\bit is important that you\b/gi, to:''},
+    {label:'"please"', re:/\bplease\b/gi, to:''},
+    {label:'"thank you in advance"/"thanks"', re:/\b(thank you in advance|thanks!?)/gi, to:''},
+    {label:'"go ahead and"', re:/\bgo ahead and\b/gi, to:''},
+    {label:'"feel free to"', re:/\bfeel free to\b/gi, to:''},
+    {label:'"make/be sure to"', re:/\b(make|be) sure to\b/gi, to:''},
+    {label:'filler adverb', re:/\b(very|really|actually|basically)\b/gi, to:''},
+    {label:'"in order to" -> "to"', re:/\bin order to\b/gi, to:'to'},
+    {label:'"the fact that" -> "that"', re:/\bthe fact that\b/gi, to:'that'},
+    {label:'"at this point in time" -> "now"', re:/\bat this point in time\b/gi, to:'now'},
+    {label:'"in the event that" -> "if"', re:/\bin the event that\b/gi, to:'if'},
+    {label:'CZ greeting', re:/^[ \t]*(ahoj|dobrý den)\b[ ,!.]*/gim, to:''},
+    {label:'"chtěl bych, abys"', re:/\bchtěl[aá]? bych,? abys\b/gi, to:''},
+    {label:'"mohl bys prosím"', re:/\bmohl[aá]? bys( prosím)?\b/gi, to:''},
+    {label:'CZ "prosím"', re:/\bprosím\b/gi, to:''},
+    {label:'"v podstatě"', re:/\bv podstatě\b/gi, to:''},
+    {label:'"vlastně"', re:/\bvlastně\b/gi, to:''},
+    {label:'CZ "opravdu"', re:/\bopravdu\b/gi, to:''}
+  ];
+
+  var FLAGS=[
+    {test:function(t){ return /\b(improve|enhance|optimi[sz]e|polish|clean up|make it better|make it pop)\b/i.test(t); },
+     advice:'Vague ask. Say what better means: shorter? warmer? for whom?', tag:'VAGUE VERB'},
+    {test:function(t){ return !/\b(list|table|bullets?|json|steps|format|paragraphs?|words?|sentences?)\b/i.test(t); },
+     advice:"You didn't say what shape the answer should take.", tag:'NO OUTPUT SHAPE'},
+    {test:function(t){ return !/\d+\s*(words|sentences|lines|bullets|paragraphs)/i.test(t) && !/\b(short|brief|stručně)\b/i.test(t); },
+     advice:'No length cap. Expect an essay.', tag:'NO LENGTH CAP'},
+    {test:function(t){ return !/\b(for a |for my |audience|readers?|customers?|clients?|beginner)\b/i.test(t); },
+     advice:'No audience named. Say who it is for.', tag:'NO AUDIENCE', soft:true}
+  ];
+
+  function tightenSeg(seg, removals){
+    var plain='', html='', pos=0, guard=0;
+    while(pos<seg.length && guard++<200000){
+      var best=null;
+      for(var i=0;i<REMOVE.length;i++){
+        var r=REMOVE[i]; r.re.lastIndex=pos;
+        var m=r.re.exec(seg);
+        if(m && m[0].length>0){
+          if(!best || m.index<best.m.index || (m.index===best.m.index && i<best.i)) best={m:m, rule:r, i:i};
+        }
+      }
+      if(!best){ plain+=seg.slice(pos); html+=esc(seg.slice(pos)); break; }
+      plain+=seg.slice(pos,best.m.index); html+=esc(seg.slice(pos,best.m.index));
+      var matched=best.m[0], repl=best.rule.to||'';
+      removals[best.rule.label]=(removals[best.rule.label]||0)+1;
+      plain+=repl;
+      html+='<del>'+esc(matched)+'</del>'+(repl?'<ins>'+esc(repl)+'</ins>':'');
+      pos=best.m.index+matched.length;
+    }
+    return {plain:plain, html:html};
+  }
+
+  function cleanup(s){
+    s=s.replace(/[ \t]+/g,' ');
+    s=s.replace(/([.!?])\s*,\s*/g,'$1 ');       // orphan comma left after a deletion
+    s=s.replace(/\s+,/g,',');
+    s=s.replace(/,\s*,/g,',');
+    s=s.replace(/([.!?])[ \t]*([.!?])/g,'$2');   // doubled terminal punctuation
+    s=s.replace(/ +([.!?;:])/g,'$1');
+    s=s.replace(/^[ \t]*[,;:]\s*/gm,'');         // leading orphan punctuation on a line
+    s=s.replace(/[ \t]+\n/g,'\n').replace(/\n[ \t]+/g,'\n');
+    s=s.replace(/\n{3,}/g,'\n\n').trim();
+    s=s.replace(/(^|[.!?]\s+|\n\s*)([a-zěščřžýáíéúůňťď])/g, function(m,p,c){ return p+c.toUpperCase(); });
+    return s;
+  }
+
+  function wordCount(s){ s=s.trim(); return s? s.split(/\s+/).length : 0; }
+
+  function process(text){
+    var removals={};
+    // split protected spans (code fences, inline backticks, quoted strings)
+    var protRe=/```[\s\S]*?```|`[^`]*`|"[^"]*"/g;
+    var plain='', html='', last=0, m;
+    while((m=protRe.exec(text))){
+      var normal=text.slice(last, m.index);
+      var t=tightenSeg(normal, removals);
+      plain+=t.plain; html+=t.html;
+      plain+=m[0]; html+='<span class="protected">'+esc(m[0])+'</span>';
+      last=m.index+m[0].length;
+    }
+    var tail=tightenSeg(text.slice(last), removals);
+    plain+=tail.plain; html+=tail.html;
+
+    var cleaned=cleanup(plain);
+
+    var flags=[];
+    FLAGS.forEach(function(f){ if(f.test(text)) flags.push(f); });
+    flags.sort(function(a,b){ return (a.soft?1:0)-(b.soft?1:0); });
+
+    return { plain:cleaned, html:html, removals:removals, flags:flags };
+  }
+
+  function render(text){
+    var before=wordCount(text);
+    var r=process(text);
+    var after=wordCount(r.plain);
+    var cut = before>0 ? Math.round((before-after)/before*100) : 0;
+    var removedTotal=Object.keys(r.removals).reduce(function(a,k){ return a+r.removals[k]; },0);
+
+    // output block
+    $('out').innerHTML = $('showchanges').checked ? r.html : esc(r.plain);
+
+    // stamp
+    var stamp, ink=false, reason='';
+    if(before>0 && after<3 && before>=3){ stamp='NOTHING LEFT'; ink=true; reason='that was all filler. Say what you actually want.'; }
+    else if(cut>=25){ stamp='TIGHTENED HARD'; }
+    else if(cut>=5){ stamp='TRIMMED'; }
+    else if(r.flags.length){ stamp='TIGHT, BUT VAGUE'; ink=true; }
+    else { stamp='ALREADY TIGHT'; reason='nothing worth cutting. Send it.'; }
+
+    var rows=[
+      {k:'Words before / after', v:before+' → '+after},
+      {k:'Cut', v:(cut>0?'−':'')+cut+'%', orange:true},
+      {k:'Filler removed', v: removedTotal+(removedTotal===1?' phrase':' phrases')},
+      {k:'Flags', v:String(r.flags.length)}
+    ];
+    $('rec').innerHTML=MC2.receipt({ title:'prompt-tightener', date:'Updated 07/2026 · '+clock(),
+      rows:rows, verdict:{ stamp:stamp, text:reason, ink:ink } });
+
+    // removed list
+    var keys=Object.keys(r.removals).sort(function(a,b){ return r.removals[b]-r.removals[a]; });
+    if(keys.length){
+      var li=keys.map(function(k){ return '<li><span>'+esc(k)+'</span><span>×'+r.removals[k]+'</span></li>'; }).join('');
+      $('removed').innerHTML='<p class="list-head">Removed</p><ul class="rm-list">'+li+'</ul>';
+    } else $('removed').innerHTML='';
+
+    // flags list
+    if(r.flags.length){
+      var fl=r.flags.map(function(f){ return '<li><span class="fl-tag">'+esc(f.tag)+'</span> '+esc(f.advice)+'</li>'; }).join('');
+      $('flags').innerHTML='<p class="list-head">Flags (not edited)</p><ul class="flag-list">'+fl+'</ul>';
+    } else $('flags').innerHTML='';
+
+    $('fine').innerHTML=['Deletion-only. Nothing was rewritten or added.','Text in quotes or backticks was left untouched.','Your prompt never left this page.'].map(esc).join('<br>');
+
+    lastPlain=r.plain;
+    lastReport=report(before,after,cut,removedTotal,keys,r,stamp);
+  }
+
+  var lastPlain='', lastReport='';
+  function report(before,after,cut,removedTotal,keys,r,stamp){
+    var out=["MICHAEL'S CORNER  prompt-tightener","------------------------------",
+      "Words before/after: "+before+" -> "+after, "Cut: "+cut+"%", "Filler removed: "+removedTotal, "Verdict: "+stamp,"","Removed:"];
+    keys.forEach(function(k){ out.push("  "+k+" x"+r.removals[k]); });
+    if(r.flags.length){ out.push("","Flags:"); r.flags.forEach(function(f){ out.push("  ["+f.tag+"] "+f.advice); }); }
+    out.push("","Tightened prompt:","",r.plain);
+    return out.join("\n");
+  }
+  function clock(){ var d=new Date(); return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2); }
+
+  function run(){
+    var text=$('input').value;
+    if(text.length>CAP){ text=text.slice(0,CAP); $('input').value=text; }
+    $('counter').textContent=wordCount(text)+' words';
+    if(!text.trim()){ $('out').innerHTML='<span style="color:#8a847a;">Paste a prompt to tighten it.</span>'; $('rec').innerHTML=''; $('removed').innerHTML=''; $('flags').innerHTML=''; $('fine').innerHTML=''; lastPlain=''; return; }
+    if(text.length>20000 && !MC2.reducedMotion){
+      MC2.waveWork($('lab'), $('out'), function(done){ setTimeout(function(){ render(text); done(); }, 0); }, 450);
+    } else render(text);
+  }
+
+  $('input').addEventListener('input',run);
+  $('showchanges').addEventListener('change',run);
+  $('copy-tight').addEventListener('click',function(){ if(lastPlain) MC2.copy(lastPlain,this,'Copied'); });
+  $('copy-report').addEventListener('click',function(){ if(lastReport) MC2.copy(lastReport,this,'Copied'); });
+  $('demo').addEventListener('click',function(){
+    $('input').value="Hi there! I was wondering if you could please help me out. Basically, in order to grow my business, I really want you to write a very good product description for my new coffee blend. The fact that it is important that you make it pop and feel free to make it better. Thank you in advance!";
+    run();
+  });
+
+  run();
+})();
+</script>
+</body>
+</html>

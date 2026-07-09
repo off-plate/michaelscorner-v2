@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-slop detector · Michael's Corner</title>
+<meta name="description" content="Paste any text; a public list of pattern rules counts the AI tells and stamps a slop score, with every flagged line shown.">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.wrap-tool{ max-width:1200px; margin:0 auto; padding-left:var(--pad); padding-right:var(--pad); }
+.t-back{ margin:clamp(18px,3vw,28px) 0 0; }
+.t-hero{ padding:clamp(18px,2.6vw,28px) 0 clamp(22px,3vw,34px); border-bottom:1px solid var(--ink); }
+.t-desig{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--orange); margin:0 0 14px; }
+.t-hero h1{ margin:0; }
+.t-pitch{ margin:14px 0 0; max-width:60ch; font-size:clamp(16px,1.4vw,19px); line-height:1.55; color:var(--ink-soft); }
+.t-updated{ font-family:'Space Mono',monospace; font-size:12px; color:var(--grey-2); margin:12px 0 0; }
+.face{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:clamp(24px,3.5vw,52px); padding:clamp(26px,4vw,44px) 0; align-items:start; }
+@media(max-width:900px){ .face{ grid-template-columns:1fr; } }
+.controls{ display:flex; flex-direction:column; gap:14px; }
+.ctl label{ font-size:14px; font-weight:500; display:block; margin:0 0 8px; }
+textarea#paste{ width:100%; min-height:300px; resize:vertical; line-height:1.55; }
+.counter{ font-family:'Space Mono',monospace; font-size:12.5px; color:var(--grey); margin:8px 0 0; }
+.counter.over{ color:var(--orange); }
+.demo{ background:none; border:1px solid var(--ink); border-radius:2px; padding:9px 14px; font-family:inherit; font-size:13px; cursor:pointer; align-self:flex-start; }
+.demo:hover{ border-color:var(--orange); }
+.readout{ background:var(--ink); color:var(--ink-text); border-radius:2px; padding:clamp(22px,3vw,32px); position:sticky; top:96px; }
+@media(max-width:900px){ .readout{ position:static; } }
+.figure-lab{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#b9b2a4; margin:0 0 4px; display:flex; align-items:center; gap:8px; }
+.figure{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(46px,8vw,80px); line-height:0.95; letter-spacing:-0.03em; font-variant-numeric:tabular-nums; margin:0; }
+.figure-sub{ font-family:'Space Mono',monospace; font-size:14px; color:#d9d2c5; margin:8px 0 0; }
+.rec-wrap{ margin:clamp(20px,3vw,26px) 0 0; }
+.list-head{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:#b9b2a4; margin:20px 0 10px; }
+.find{ font-family:'Space Mono',monospace; font-size:12px; line-height:1.6; color:#d9d2c5; padding:8px 0; border-top:1px solid #2b2820; }
+.find .meta{ color:#8a847a; }
+.find mark{ background:var(--orange); color:var(--cream); padding:0 2px; }
+.fineprint{ font-family:'Space Mono',monospace; font-size:11px; line-height:1.75; color:#b9b2a4; margin:16px 0 0; }
+.actions{ display:flex; gap:10px; flex-wrap:wrap; margin:16px 0 0; }
+.actions button{ background:none; border:1px solid #4a453c; color:var(--ink-text); padding:10px 16px; border-radius:2px; font-family:inherit; font-size:14px; cursor:pointer; }
+.actions button:hover{ border-color:var(--orange); }
+.rules-band{ border-top:1px solid var(--ink); padding:clamp(24px,3vw,40px) 0; }
+.rules-band summary{ cursor:pointer; font-family:'Space Mono',monospace; font-size:13px; color:var(--ink); }
+.rules-table{ width:100%; border-collapse:collapse; font-family:'Space Mono',monospace; font-size:12.5px; margin-top:16px; }
+.rules-table th,.rules-table td{ text-align:left; border-bottom:1px solid var(--line); padding:8px 12px 8px 0; vertical-align:top; }
+.rules-table th{ font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--grey); }
+.rules-table td.pts{ text-align:right; white-space:nowrap; color:var(--orange); }
+.read-band{ border-top:1px solid var(--ink); padding:clamp(24px,3vw,40px) 0; }
+.read-band h2{ margin:0 0 12px; }
+.read-band p{ max-width:64ch; font-size:16px; line-height:1.6; color:var(--ink-soft); margin:0 0 10px; }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="../index.html"><img src="../assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="../kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="../index.html" data-nav="home">Home</a>
+      <a href="../start.html" data-nav="start">Start here</a>
+      <a href="../library.html" data-nav="library">Library</a>
+      <a href="../tools.html" data-nav="tools">Tools</a>
+      <a href="../bill.html" data-nav="bill">The Real Bill</a>
+      <a href="../channel.html" data-nav="channel">Channel</a>
+      <a href="../about.html" data-nav="about">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="wrap-tool">
+  <p class="t-back"><a class="backlink" href="../tools.html"><canvas data-dot="arrow" data-size="14" style="width:14px;height:14px;transform:rotate(180deg);"></canvas> All tools</a></p>
+  <div class="t-hero">
+    <p class="t-desig"><canvas data-dot="tools" data-size="16" style="width:16px;height:16px;vertical-align:-3px;"></canvas> TOOL/05</p>
+    <h1 class="h-page">AI-slop detector</h1>
+    <p class="t-pitch">Paste any text; a public list of pattern rules counts the AI tells and stamps a slop score, with every flagged line shown. It counts the habits AI text leans on. It cannot prove who wrote it.</p>
+    <p class="t-updated">Updated 07/2026</p>
+  </div>
+
+  <div class="face">
+    <div class="controls">
+      <div class="ctl">
+        <label for="paste">Paste your text</label>
+        <textarea id="paste" placeholder="Paste a product description, a listing, a reel script, anything you are about to ship."></textarea>
+        <p class="counter" id="counter">0 words</p>
+      </div>
+      <button type="button" class="demo" id="demo">Try it on a slop sample</button>
+    </div>
+
+    <div class="readout" id="readout">
+      <p class="figure-lab" id="lab"><canvas data-dot="tools" data-size="16" style="width:16px;height:16px;"></canvas> Slop score</p>
+      <p class="figure" id="figure">0</p>
+      <p class="figure-sub" id="figsub">paste text to score it</p>
+      <div class="rec-wrap" id="rec" role="status" aria-live="polite"></div>
+      <div id="findings"></div>
+      <div class="fineprint" id="fine"></div>
+      <div class="actions">
+        <button type="button" id="copy-report">Copy report</button>
+      </div>
+    </div>
+  </div>
+
+  <details class="rules-band">
+    <summary>View all rules</summary>
+    <div id="rules-out"></div>
+  </details>
+
+  <div class="read-band">
+    <h2 class="h-sec">What the score means</h2>
+    <p>The score is hand-tuned so raw chatbot marketing copy lands above 60 and edited human copy lands under 20. It is a density measure: tells per word, floored so a two-line paste cannot spike. Every rule that ran is listed above, so the page cannot lie about what it counted.</p>
+    <p>A high score is not proof of anything. It means the text leans on patterns AI over-produces. Fix the flagged lines and the number drops.</p>
+  </div>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="../library.html">Prompt library</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../bill.html">The Real Bill</a>
+    </div>
+    <div class="foot-col">
+      <a href="../start.html">Start here</a>
+      <a href="../kit.html">The Starter Kit</a>
+      <a href="../about.html">About</a>
+    </div>
+    <div class="foot-meta mono">
+      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Updated 07/2026 · Prague</span>
+    </div>
+  </div>
+</footer>
+<script src="../icons.js"></script>
+<script src="../signature.js"></script>
+<script src="../shared.js"></script>
+<script>
+(function(){
+  "use strict";
+  var $=function(id){ return document.getElementById(id); };
+  var CAP=200000;
+  function esc(s){ return MC2.esc(s); }
+
+  var EN_BUZZ=['seamless','revolutionary','world-class','best-in-class','next-level','supercharge','empower','unlock','elevate','streamline','robust','transformative','unleash','delve','cutting-edge','game-changer'];
+  var CZ_BUZZ=['revoluční','inovativní','špičkový','bezproblémový','přelomový','posunout na další úroveň'];
+
+  function buzzRe(w){
+    if(w==='cutting-edge') return /\bcutting[-\s]?edge\b/gi;
+    if(w==='world-class') return /\bworld[-\s]?class\b/gi;
+    if(w==='best-in-class') return /\bbest[-\s]?in[-\s]?class\b/gi;
+    if(w==='next-level') return /\bnext[-\s]?level\b/gi;
+    if(w==='game-changer') return /\bgame[-\s]?chang(?:er|ing)\b/gi;
+    return new RegExp('\\b'+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','gi');
+  }
+
+  // rule = {desc, cat, catLabel, re, points, cap}
+  var RULES=[
+    {desc:'em dash', cat:'punct', catLabel:'EM DASHES', re:/—|\s–\s/g, points:2, cap:10},
+    {desc:'not just X but Y', cat:'construction', catLabel:'CONSTRUCTIONS', re:/\bnot (just|only)\b[^.!?\n]{3,80}?\bbut\b/gi, points:3},
+    {desc:"it's not X, it's Y", cat:'construction', catLabel:'CONSTRUCTIONS', re:/\bit'?s not (just )?[^.!?\n]{3,60}?[,.] it'?s\b/gi, points:3},
+    {desc:"whether you're opener", cat:'construction', catLabel:'CONSTRUCTIONS', re:/\bwhether you'?re\b[^.!?\n]{3,60}?\bor\b/gi, points:2},
+    {desc:'may help / can potentially / could arguably', cat:'hedge', catLabel:'HEDGES', re:/\b(may help|can potentially|could arguably)\b/gi, points:2},
+    {desc:"it's worth noting / important to note", cat:'hedge', catLabel:'HEDGES', re:/\bit'?s (worth noting|important to (note|remember))\b/gi, points:2},
+    {desc:"in today's fast-paced world", cat:'cliche', catLabel:'CLICHÉS', re:/\bin today'?s fast[-\s]?paced world\b/gi, points:3},
+    {desc:'in the digital age', cat:'cliche', catLabel:'CLICHÉS', re:/\bin the digital age\b/gi, points:2},
+    {desc:'navigate the landscape', cat:'cliche', catLabel:'CLICHÉS', re:/\bnavigate the landscape\b/gi, points:2},
+    {desc:'rich tapestry', cat:'cliche', catLabel:'CLICHÉS', re:/\brich tapestry\b/gi, points:3},
+    {desc:"let's dive in / dive into", cat:'cliche', catLabel:'CLICHÉS', re:/\b(let'?s dive in|dive into)\b/gi, points:2},
+    {desc:'emoji bullet (line start)', cat:'format', catLabel:'EMOJI BULLETS', re:/^[ \t]*\p{Extended_Pictographic}/gmu, points:1, cap:5},
+    {desc:'in conclusion, (closer)', cat:'closer', catLabel:'CLOSERS', re:/^[ \t]*in conclusion,/gim, points:1},
+    // Czech
+    {desc:'nejen X, ale Y', cat:'construction', catLabel:'CONSTRUCTIONS', re:/\bne(jen|jenom)\b[^.!?\n]{3,80}?\bale\b/gi, points:3},
+    {desc:'v dnešní ... době', cat:'cliche', catLabel:'CLICHÉS', re:/\bv dnešní (uspěchané|digitální|moderní|rychlé) době\b/gi, points:3},
+    {desc:'ať už jste ... nebo', cat:'construction', catLabel:'CONSTRUCTIONS', re:/\bať už (jste|jsi)\b[^.!?\n]{3,60}?\bnebo\b/gi, points:2}
+  ];
+  // buzzwords as individual rules (cap 20 each)
+  EN_BUZZ.forEach(function(w){ RULES.push({desc:'buzzword "'+w+'"', cat:'buzzword', catLabel:'BUZZWORDS', re:buzzRe(w), points:2, cap:20}); });
+  CZ_BUZZ.forEach(function(w){ RULES.push({desc:'buzzword "'+w+'"', cat:'buzzword', catLabel:'BUZZWORDS', re:buzzRe(w), points:2, cap:20}); });
+
+  function lineNo(text, idx){ var n=1; for(var i=0;i<idx;i++){ if(text.charCodeAt(i)===10) n++; } return n; }
+  function makeFinding(text, idx, len, cat){
+    var ls=text.lastIndexOf('\n', idx-1)+1;
+    var le=text.indexOf('\n', idx); if(le<0) le=text.length;
+    var line=text.slice(ls, le);
+    var off=idx-ls;
+    var start=Math.max(0, off-40), end=Math.min(line.length, off+len+40);
+    var pre=(start>0?'…':'')+line.slice(start, off);
+    var mt=line.slice(off, off+len);
+    var post=line.slice(off+len, end)+(end<line.length?'…':'');
+    return { line:lineNo(text,idx), cat:cat, pre:pre, match:mt, post:post };
+  }
+
+  function scan(text){
+    var byCat={}, findings=[], total=0;
+    RULES.forEach(function(r){
+      r.re.lastIndex=0; var m, count=0, guard=0;
+      while((m=r.re.exec(text)) && guard++<2000){
+        if(m[0].length===0){ r.re.lastIndex++; continue; }
+        count++;
+        if(findings.length<300) findings.push(makeFinding(text, m.index, m[0].length, r.cat));
+      }
+      if(count>0){
+        var pts=Math.min(count*r.points, r.cap||Infinity);
+        total+=pts;
+        var c=byCat[r.catLabel]||(byCat[r.catLabel]={count:0,pts:0});
+        c.count+=count; c.pts+=pts;
+      }
+    });
+    return { byCat:byCat, findings:findings, total:total };
+  }
+
+  var lastReport='';
+  function render(text){
+    var res=scan(text);
+    var words=text.trim()? text.trim().split(/\s+/).length : 0;
+    var density=res.total*100/Math.max(words,40);
+    var score=Math.min(100, Math.round(density*4));
+
+    var stamp, ink=false, reason='';
+    if(score<15){ stamp='CLEAN'; reason='reads human'; }
+    else if(score<40){ stamp='A FEW TELLS'; }
+    else if(score<70){ stamp='READS AI-ASSISTED'; ink=true; }
+    else { stamp='PURE SLOP'; ink=true; }
+
+    $('figure').textContent=score;
+    $('figsub').textContent=stamp;
+
+    var cats=Object.keys(res.byCat);
+    var rows=cats.length? cats.map(function(c){ return { k:c+' ×'+res.byCat[c].count, v:res.byCat[c].pts+' pts' }; }) : [{k:'FINDINGS · none', v:''}];
+    rows.push({ k:'SLOP SCORE', v:score+'/100', big:true });
+
+    $('rec').innerHTML=MC2.receipt({ title:'ai-slop-detector', date:'Updated 07/2026 · '+clock(),
+      rows:rows, verdict:{ stamp:stamp, text:reason, ink:ink } });
+
+    // findings list
+    if(res.findings.length){
+      var html='<p class="list-head">Flagged '+res.findings.length+(res.findings.length===1?' line':' lines')+'</p>';
+      res.findings.forEach(function(f){
+        html+='<div class="find"><span class="meta">line '+f.line+' · '+f.cat+' · </span>'+esc(f.pre)+'<mark>'+esc(f.match)+'</mark>'+esc(f.post)+'</div>';
+      });
+      $('findings').innerHTML=html;
+    } else $('findings').innerHTML= words? '<p class="list-head">No tells found</p>' : '';
+
+    var fp=[RULES.length+' rules ran; the full list is below.',
+            'Hand-tuned: raw chatbot marketing lands 60+, edited human copy under 20.'];
+    if(words>0 && words<40) fp.push('Short text, the score is noisy.');
+    fp.push('This cannot prove who wrote it.','Your text never left this page.');
+    $('fine').innerHTML=fp.map(esc).join('<br>');
+
+    lastReport=report(score,stamp,res,words);
+  }
+
+  function report(score,stamp,res,words){
+    var out=["MICHAEL'S CORNER  ai-slop-detector","------------------------------",
+      "SLOP SCORE: "+score+"/100  ("+stamp+")","words: "+words,"","By category:"];
+    Object.keys(res.byCat).forEach(function(c){ out.push("  "+c+" x"+res.byCat[c].count+"  "+res.byCat[c].pts+" pts"); });
+    out.push("","Findings:");
+    res.findings.forEach(function(f){ out.push("  line "+f.line+" ["+f.cat+"] "+f.pre+f.match+f.post); });
+    out.push("","This cannot prove who wrote it. Your text never left this page.");
+    return out.join("\n");
+  }
+  function clock(){ var d=new Date(); return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2); }
+
+  function run(){
+    var text=$('paste').value;
+    var over=text.length>CAP;
+    $('counter').textContent=(text.trim()? text.trim().split(/\s+/).length : 0)+' words';
+    $('counter').classList.toggle('over',over);
+    if(over){
+      $('figure').textContent='·'; $('figsub').textContent='over the 200k cap';
+      $('rec').innerHTML=''; $('findings').innerHTML='';
+      $('fine').innerHTML=esc('That is more than 200 thousand characters. Split it before any tool sees it.');
+      return;
+    }
+    if(!text.trim()){
+      $('figure').textContent='0'; $('figsub').textContent='paste text to score it';
+      $('rec').innerHTML=''; $('findings').innerHTML=''; $('fine').innerHTML=''; return;
+    }
+    if(text.length>20000 && !MC2.reducedMotion){
+      MC2.waveWork($('lab'), $('readout'), function(done){ setTimeout(function(){ render(text); done(); },0); }, 450);
+    } else render(text);
+  }
+
+  // rules table
+  (function(){
+    var rows=RULES.map(function(r){ return '<tr><td>'+esc(r.cat)+'</td><td>'+esc(r.desc)+'</td><td class="pts">'+r.points+' pt'+(r.points>1?'s':'')+(r.cap?' (cap '+r.cap+')':'')+'</td></tr>'; }).join('');
+    $('rules-out').innerHTML='<table class="rules-table"><thead><tr><th>Category</th><th>Rule</th><th>Points</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  })();
+
+  $('paste').addEventListener('input',run);
+  $('copy-report').addEventListener('click',function(){ if(lastReport) MC2.copy(lastReport,this,'Copied'); });
+  $('demo').addEventListener('click',function(){
+    $('paste').value="In today's fast-paced world, businesses need to unlock their true potential. Our revolutionary, cutting-edge platform is a game-changer that will supercharge your workflow and deliver a truly seamless experience. It's not just a tool, it's a partner. Whether you're a startup or an enterprise, we empower you to elevate your brand and streamline operations. Let's dive into a rich tapestry of world-class, best-in-class features. It's worth noting that this next-level solution may help you navigate the landscape of modern business. We build the future, not just software. In conclusion, it is time to unleash your potential and delve into what is possible.";
+    run();
+  });
+
+  run();
+})();
+</script>
+</body>
+</html>

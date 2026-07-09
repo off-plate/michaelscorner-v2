@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Should you automate it? · Michael's Corner</title>
+<meta name="description" content="Six honest questions about the task, one stamped verdict: automate now, assist only, or leave it human.">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.wrap-tool{ max-width:1200px; margin:0 auto; padding-left:var(--pad); padding-right:var(--pad); }
+.t-back{ margin:clamp(18px,3vw,28px) 0 0; }
+.t-hero{ padding:clamp(18px,2.6vw,28px) 0 clamp(22px,3vw,34px); border-bottom:1px solid var(--ink); }
+.t-desig{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--orange); margin:0 0 14px; }
+.t-hero h1{ margin:0; }
+.t-pitch{ margin:14px 0 0; max-width:58ch; font-size:clamp(16px,1.4vw,19px); line-height:1.55; color:var(--ink-soft); }
+.t-updated{ font-family:'Space Mono',monospace; font-size:12px; color:var(--grey-2); margin:12px 0 0; }
+.face{ display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:clamp(24px,3.5vw,52px); padding:clamp(26px,4vw,44px) 0; align-items:start; }
+@media(max-width:900px){ .face{ grid-template-columns:1fr; } }
+.q{ padding:0 0 clamp(16px,2vw,22px); border-bottom:1px solid var(--line); margin-bottom:clamp(16px,2vw,22px); }
+.q:last-of-type{ border-bottom:none; }
+.q-lab{ display:flex; align-items:baseline; gap:10px; margin:0 0 12px; }
+.q-num{ font-family:'Space Mono',monospace; font-size:12px; color:var(--orange); }
+.q-txt{ font-size:15px; font-weight:500; }
+.q-wt{ font-family:'Space Mono',monospace; font-size:11px; color:var(--grey); margin-left:auto; white-space:nowrap; }
+.opts{ display:flex; flex-direction:column; gap:8px; }
+.opt{ display:block; }
+.opt input{ position:absolute; opacity:0; width:1px; height:1px; }
+.opt span{ display:block; border:1px solid var(--ink); border-radius:2px; padding:11px 14px; font-size:14px; cursor:pointer; transition:background 150ms ease,border-color 150ms ease; }
+.opt input:checked + span{ background:var(--ink); color:var(--cream); }
+.opt input:focus-visible + span{ outline:2px solid var(--orange); outline-offset:2px; }
+.runbar{ display:flex; align-items:center; gap:16px; margin-top:8px; flex-wrap:wrap; }
+.left-note{ font-family:'Space Mono',monospace; font-size:13px; color:var(--grey); }
+.readout{ background:var(--ink); color:var(--ink-text); border-radius:2px; padding:clamp(22px,3vw,32px); position:sticky; top:96px; }
+@media(max-width:900px){ .readout{ position:static; } }
+.figure-lab{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#b9b2a4; margin:0 0 4px; }
+.figure{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(46px,8vw,80px); line-height:0.95; letter-spacing:-0.03em; font-variant-numeric:tabular-nums; margin:0; }
+.figure-sub{ font-family:'Space Mono',monospace; font-size:14px; color:#d9d2c5; margin:8px 0 0; }
+.rec-wrap{ margin:clamp(20px,3vw,26px) 0 0; }
+.empty-note{ font-family:'Space Mono',monospace; font-size:13px; color:#b9b2a4; margin:clamp(20px,3vw,26px) 0 0; }
+.fineprint{ font-family:'Space Mono',monospace; font-size:11px; line-height:1.75; color:#b9b2a4; margin:16px 0 0; }
+.actions{ display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 0; }
+.actions button{ background:none; border:1px solid #4a453c; color:var(--ink-text); padding:10px 16px; border-radius:2px; font-family:inherit; font-size:14px; cursor:pointer; }
+.actions button:hover{ border-color:var(--orange); }
+.read-band{ border-top:1px solid var(--ink); padding:clamp(24px,3vw,40px) 0; }
+.read-band h2{ margin:0 0 12px; }
+.read-band p{ max-width:64ch; font-size:16px; line-height:1.6; color:var(--ink-soft); margin:0 0 10px; }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="../index.html"><img src="../assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="../kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="../index.html" data-nav="home">Home</a>
+      <a href="../start.html" data-nav="start">Start here</a>
+      <a href="../library.html" data-nav="library">Library</a>
+      <a href="../tools.html" data-nav="tools">Tools</a>
+      <a href="../bill.html" data-nav="bill">The Real Bill</a>
+      <a href="../channel.html" data-nav="channel">Channel</a>
+      <a href="../about.html" data-nav="about">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="wrap-tool">
+  <p class="t-back"><a class="backlink" href="../tools.html"><canvas data-dot="arrow" data-size="14" style="width:14px;height:14px;transform:rotate(180deg);"></canvas> All tools</a></p>
+  <div class="t-hero">
+    <p class="t-desig"><canvas data-dot="tools" data-size="16" style="width:16px;height:16px;vertical-align:-3px;"></canvas> TOOL/04</p>
+    <h1 class="h-page">Should you automate it?</h1>
+    <p class="t-pitch">Six honest questions about the task, one stamped verdict: automate now, assist only, or leave it human. The weights are published and the opinion is the product.</p>
+    <p class="t-updated">Updated 07/2026</p>
+  </div>
+
+  <div class="face">
+    <form class="controls" id="quiz">
+      <div id="questions"></div>
+      <div class="runbar">
+        <button type="submit" class="btn" id="run" disabled>Score it <span class="oa">&#8594;</span></button>
+        <span class="left-note" id="left">6 of 6 left</span>
+      </div>
+    </form>
+
+    <div class="readout" id="readout">
+      <p class="figure-lab">Score</p>
+      <p class="figure" id="figure">&middot;</p>
+      <p class="figure-sub" id="figsub">answer all six, then score</p>
+      <div class="rec-wrap" id="rec" role="status" aria-live="polite"></div>
+      <p class="empty-note" id="empty">No verdict yet.</p>
+      <div class="fineprint" id="fine"></div>
+      <div class="actions" id="acts" hidden>
+        <button type="button" id="copy-btn">Copy as text</button>
+        <button type="button" id="share-btn">Share</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="read-band">
+    <h2 class="h-sec">How the score works</h2>
+    <p>Each answer scores 0, 1 or 2, weighted by how much it matters. Frequency and whether the task is rules or judgment carry the most weight, because those decide whether a machine can follow it at all.</p>
+    <p>Three hard rules can override the score: a judgment call with expensive mistakes stays human, sensitive data caps you at assist-only, and rare tasks with slow setup never pay back. Those are not negotiable.</p>
+  </div>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="../library.html">Prompt library</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../bill.html">The Real Bill</a>
+    </div>
+    <div class="foot-col">
+      <a href="../start.html">Start here</a>
+      <a href="../kit.html">The Starter Kit</a>
+      <a href="../about.html">About</a>
+    </div>
+    <div class="foot-meta mono">
+      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Updated 07/2026 · Prague</span>
+    </div>
+  </div>
+</footer>
+<script src="../icons.js"></script>
+<script src="../signature.js"></script>
+<script src="../shared.js"></script>
+<script>
+(function(){
+  "use strict";
+  var QS=[
+    {id:'freq', short:'FREQUENCY', q:'How often does it happen?', w:25, opts:['monthly or rarer','weekly','daily or more']},
+    {id:'rules', short:'RULES', q:'Is it rules or judgment?', w:25, opts:['pure judgment','a mix','clear rules']},
+    {id:'error', short:'ERROR COST', q:'If it goes wrong once?', w:20, opts:['expensive or embarrassing','annoying','trivial, easy to catch']},
+    {id:'data', short:'DATA', q:'What data does it touch?', w:10, opts:['sensitive client or personal data','internal only','nothing sensitive']},
+    {id:'setup', short:'SETUP', q:'Honest setup estimate?', w:10, opts:['a weekend or more','an afternoon','under an hour']},
+    {id:'volume', short:'VOLUME', q:'How much time does it eat?', w:10, opts:['minutes a week','about an hour a week','hours every week']}
+  ];
+  var ans=[null,null,null,null,null,null];
+  var lastText='';
+  var $=function(id){ return document.getElementById(id); };
+
+  // build questions
+  var qhtml='';
+  QS.forEach(function(Q,i){
+    qhtml+='<fieldset class="q" style="border:none;padding:0;margin:0;"><div class="q-lab"><span class="q-num">Q'+(i+1)+'</span><legend class="q-txt" style="padding:0;">'+Q.q+'</legend><span class="q-wt">weight '+Q.w+'</span></div><div class="opts">';
+    Q.opts.forEach(function(o,j){
+      qhtml+='<label class="opt"><input type="radio" name="'+Q.id+'" value="'+j+'"><span>'+o+'</span></label>';
+    });
+    qhtml+='</div></fieldset>';
+  });
+  $('questions').innerHTML=qhtml;
+
+  function answered(){ return ans.filter(function(a){ return a!==null; }).length; }
+  function updateRun(){
+    var left=6-answered();
+    $('left').textContent = left===0 ? 'all six answered' : left+' of 6 left';
+    $('run').disabled = left!==0;
+  }
+
+  $('quiz').addEventListener('change',function(e){
+    var idx=QS.map(function(q){return q.id;}).indexOf(e.target.name);
+    if(idx>=0){ ans[idx]=parseInt(e.target.value,10); updateRun(); }
+  });
+
+  $('quiz').addEventListener('submit',function(e){ e.preventDefault(); if(answered()===6) score(); });
+
+  function score(){
+    var earned=QS.map(function(Q,i){ return ans[i]/2*Q.w; });
+    var total=earned.reduce(function(a,b){ return a+b; },0);
+    var scoreN=Math.round(total);
+
+    // base band
+    var band = scoreN>=70 ? 'AUTOMATE NOW' : (scoreN>=45 ? 'ASSIST ONLY' : 'LEAVE IT HUMAN');
+
+    // overrides
+    var fired=[];
+    if(ans[2]===0 && ans[1]===0) fired.push({name:'JUDGMENT + EXPENSIVE', force:'human', reason:'a judgment call with expensive mistakes is exactly what you never hand to a machine.'});
+    if(ans[3]===0) fired.push({name:'SENSITIVE DATA', force:'assist', reason:"keep sensitive data out of tools you don't control. Draft locally, decide yourself."});
+    if(ans[0]===0 && ans[4]===0) fired.push({name:'RARE + SLOW SETUP', force:'human', reason:'the setup would never pay itself back.'});
+
+    var forcedHuman=fired.some(function(f){ return f.force==='human'; });
+    var cappedAssist=fired.some(function(f){ return f.force==='assist'; });
+    var overridden=false, overrideReason='';
+    if(forcedHuman){ band='LEAVE IT HUMAN'; overridden=true; overrideReason=fired.filter(function(f){return f.force==='human';})[0].reason; }
+    else if(cappedAssist && band==='AUTOMATE NOW'){ band='ASSIST ONLY'; overridden=true; overrideReason=fired.filter(function(f){return f.force==='assist';})[0].reason; }
+    else if(cappedAssist){ overridden=fired.length>0; }
+
+    var ink = band==='LEAVE IT HUMAN';
+    // orange stamps for AUTOMATE NOW and ASSIST ONLY per spec
+    // reasoning line
+    var reason;
+    if(overridden && overrideReason){ reason=overrideReason; }
+    else if(band==='ASSIST ONLY'){ reason='let AI write the draft. You keep the decision.'; }
+    else {
+      // highest weighted contributor
+      var max=Math.max.apply(null,earned);
+      var maxIdx=earned.indexOf(max);
+      var ties=earned.filter(function(v){ return v===max; }).length;
+      if(ties>1){ reason='no single driver; the score carries the answer.'; }
+      else if(maxIdx===0){ reason='it happens daily; frequency is where automation pays.'; }
+      else if(maxIdx===1){ reason='clear rules means a machine can actually follow them.'; }
+      else if(maxIdx===2){ reason='cheap mistakes make a safe sandbox. Let it run.'; }
+      else { reason='no single driver; the score carries the answer.'; }
+    }
+
+    // rows
+    var rows=QS.map(function(Q,i){
+      return { k:Q.short+' · '+Q.opts[ans[i]], v:Math.round(earned[i])+'/'+Q.w };
+    });
+    fired.forEach(function(f){ rows.push({ k:'OVERRIDE', v:f.name, orange:true }); });
+    rows.push({ k:'SCORE', v:scoreN+'/100'+(overridden?', overridden':''), big:true });
+
+    $('figure').textContent=scoreN;
+    $('figsub').textContent=band;
+    $('empty').hidden=true; $('acts').hidden=false;
+
+    $('rec').innerHTML=MC2.receipt({
+      title:'should-you-automate', date:'Updated 07/2026 · '+clock(),
+      rows:rows, verdict:{ stamp:band, text:reason, ink:ink }
+    });
+
+    var fp=['Weights: frequency 25, rules 25, error cost 20, data 10, setup 10, volume 10.',
+            'Band edges are inclusive: 70+ automate, 45+ assist.',
+            'The opinion is the product.',
+            'Scored on this page. Nothing was sent anywhere.'];
+    $('fine').innerHTML=fp.map(function(l){ return MC2.esc(l); }).join('<br>');
+
+    lastText=serialize(rows,band,reason);
+    writeHash();
+  }
+
+  function serialize(rows,band,reason){
+    var out=["MICHAEL'S CORNER  should-you-automate","------------------------------"];
+    rows.forEach(function(r){ out.push(pad(r.k,r.v)); });
+    out.push("------------------------------","VERDICT: "+band, reason,"","Scored on this page. Nothing was sent anywhere.");
+    return out.join("\n");
+  }
+  function pad(k,v){ var w=40,line=k,sp=w-k.length-v.length; if(sp<2)sp=2; while(sp-->0)line+=' '; return line+v; }
+  function clock(){ var d=new Date(); return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2); }
+
+  function writeHash(){
+    var s='a='+ans.join('');
+    try{ history.replaceState(null,'',location.pathname+location.search+'#'+s); }catch(e){}
+  }
+  function readHash(){
+    var m=/a=([0-2]{6})/.exec(location.hash); if(!m) return;
+    for(var i=0;i<6;i++){ ans[i]=parseInt(m[1][i],10); }
+    QS.forEach(function(Q,i){ var el=document.querySelector('input[name="'+Q.id+'"][value="'+ans[i]+'"]'); if(el) el.checked=true; });
+  }
+
+  $('copy-btn').addEventListener('click',function(){ MC2.copy(lastText,this,'Copied'); });
+  $('share-btn').addEventListener('click',function(){ var u=location.href; if(navigator.share){ navigator.share({title:'Should you automate it?',url:u}).catch(function(){}); } else { MC2.copy(u,this,'Link copied'); } });
+
+  readHash(); updateRun();
+  if(answered()===6) score();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tools · Michael's Corner</title>
+<meta name="description" content="Seven tools that genuinely run in your browser: cost, context, breakeven, an automate scorecard, a slop detector, a prompt tightener, and an email prompt builder.">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preload" href="assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ---- tools hub: the instrument panel. A hairline lattice, grouped by function.
+       Not a card grid. Each cell is one instrument. ---- */
+.panel-head{ padding:clamp(24px,4vw,44px) 0 clamp(20px,3vw,30px); border-bottom:1px solid var(--ink); }
+.panel-head h1{ margin:0; }
+.panel-lede{ margin:14px 0 0; max-width:56ch; font-size:clamp(17px,1.5vw,20px); line-height:1.5; color:var(--ink-soft); }
+.panel-priv{ font-family:'Space Mono',monospace; font-size:12.5px; color:var(--orange); margin:16px 0 0; display:inline-flex; align-items:center; gap:8px; }
+
+.group{ border-bottom:1px solid var(--ink); }
+.group-inner{ display:grid; grid-template-columns:auto 1fr; }
+@media(max-width:720px){ .group-inner{ grid-template-columns:1fr; } }
+.rail{ writing-mode:vertical-rl; transform:rotate(180deg); font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:var(--grey); padding:22px 10px; border-right:1px solid var(--line); display:flex; align-items:center; justify-content:center; white-space:nowrap; }
+@media(max-width:720px){ .rail{ writing-mode:horizontal-tb; transform:none; border-right:none; border-bottom:1px solid var(--line); padding:14px 4px; justify-content:flex-start; } }
+.cells{ display:grid; grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr)); }
+.cell{ border-left:1px solid var(--line); border-bottom:1px solid var(--line); padding:clamp(20px,2.4vw,28px); display:flex; flex-direction:column; gap:12px; transition:background 150ms ease; position:relative; }
+.cells .cell:first-child{ border-left:none; }
+.cell:hover{ background:var(--cream-2); }
+.cell-desig{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.1em; color:var(--orange); }
+.cell h2{ margin:0; }
+.cell h2 a{ text-decoration:none; color:var(--ink); }
+.cell h2 a:hover{ color:var(--orange); }
+.cell-line{ font-size:14.5px; line-height:1.5; color:var(--ink-soft); margin:0; max-width:38ch; }
+.cell-foot{ margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:12px; padding-top:6px; }
+.open{ font-family:'Space Mono',monospace; font-size:12.5px; color:var(--ink); text-decoration:none; display:inline-flex; align-items:center; gap:7px; border-bottom:1px solid var(--ink); padding-bottom:2px; }
+.open:hover{ color:var(--orange); border-color:var(--orange); }
+.preview{ border-top:1px dashed var(--line); padding-top:12px; display:flex; flex-direction:column; gap:8px; }
+.preview .prow{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+.preview label{ font-size:12.5px; color:var(--grey); font-family:'Space Mono',monospace; }
+.preview .pval{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:22px; letter-spacing:-0.01em; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.preview .prow:last-child .pval{ font-size:17px; }
+.preview input[type=range]{ width:100%; }
+.preview .phint{ font-family:'Space Mono',monospace; font-size:11px; color:var(--grey-2); margin:0; }
+
+.bench{ padding:clamp(28px,4vw,48px) 0; }
+.bench h2{ margin:0 0 6px; }
+.bench p.sub{ font-family:'Space Mono',monospace; font-size:12.5px; color:var(--grey); margin:0 0 18px; }
+.bench-list{ list-style:none; margin:0; padding:0; }
+.bench-item{ display:grid; grid-template-columns:auto 1fr; gap:14px; padding:14px 0; border-top:1px solid var(--line); font-size:14.5px; line-height:1.5; }
+.bench-item .bn{ font-family:'Space Mono',monospace; font-size:12px; color:var(--grey); white-space:nowrap; }
+.bench-item .bt{ color:var(--ink-soft); }
+.bench-item .bt b{ color:var(--ink); font-weight:600; }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="index.html" data-nav="home">Home</a>
+      <a href="start.html" data-nav="start">Start here</a>
+      <a href="library.html" data-nav="library">Library</a>
+      <a href="tools.html" data-nav="tools">Tools</a>
+      <a href="bill.html" data-nav="bill">The Real Bill</a>
+      <a href="channel.html" data-nav="channel">Channel</a>
+      <a href="about.html" data-nav="about">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="wrap">
+  <div class="panel-head">
+    <h1 class="h-page">Tools</h1>
+    <p class="panel-lede">Seven instruments that actually run. No signup, no email gate. Drag a slider and the number is real, computed here.</p>
+    <p class="panel-priv"><canvas data-dot="tools" data-size="16" style="width:16px;height:16px;"></canvas> Everything here runs in your browser. Nothing you type leaves this page.</p>
+  </div>
+
+  <!-- GROUP: money & size -->
+  <section class="group">
+    <div class="group-inner">
+      <div class="rail">Money &amp; size</div>
+      <div class="cells">
+        <div class="cell">
+          <span class="cell-desig">TOOL/01</span>
+          <h2 class="h-item"><a href="tools/ai-cost-calculator.html">AI cost calculator</a></h2>
+          <p class="cell-line">What a month of AI actually costs, on rates you can edit.</p>
+          <div class="preview">
+            <div class="prow"><label for="p-msgs">Messages / day</label><span class="pval" id="p-msgs-v">20</span></div>
+            <input type="range" id="p-msgs" min="1" max="200" step="1" value="20" aria-label="Preview: messages per day">
+            <div class="prow"><span class="phint">balanced tier, default assumptions</span><span class="pval" id="p-cost">0 Kč</span></div>
+          </div>
+          <div class="cell-foot"><span></span><a class="open" href="tools/ai-cost-calculator.html">Open <canvas data-dot="arrow" data-size="13" style="width:13px;height:13px;"></canvas></a></div>
+        </div>
+
+        <div class="cell">
+          <span class="cell-desig">TOOL/02</span>
+          <h2 class="h-item"><a href="tools/fits-in-context.html">Fits-in-context checker</a></h2>
+          <p class="cell-line">Whether your document fits a model's window or needs splitting.</p>
+          <div class="preview">
+            <div class="prow"><label for="p-words">Words</label><span class="pval" id="p-words-v">2 000</span></div>
+            <input type="range" id="p-words" min="100" max="20000" step="100" value="2000" aria-label="Preview: number of words">
+            <div class="prow"><span class="phint">at ~1.3 tokens/word</span><span class="pval" id="p-tokens">0</span></div>
+          </div>
+          <div class="cell-foot"><span></span><a class="open" href="tools/fits-in-context.html">Open <canvas data-dot="arrow" data-size="13" style="width:13px;height:13px;"></canvas></a></div>
+        </div>
+
+        <div class="cell">
+          <span class="cell-desig">TOOL/03</span>
+          <h2 class="h-item"><a href="tools/subscription-vs-api.html">Subscription vs API</a></h2>
+          <p class="cell-line">Your usage, both prices, one answer: which way is cheaper and where the lines cross.</p>
+          <div class="cell-foot"><span class="phint" style="font-family:'Space Mono',monospace;font-size:11px;color:var(--grey-2);">shares your edited rates</span><a class="open" href="tools/subscription-vs-api.html">Open <canvas data-dot="arrow" data-size="13" style="width:13px;height:13px;"></canvas></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GROUP: the decision -->
+  <section class="group">
+    <div class="group-inner">
+      <div class="rail">The decision</div>
+      <div class="cells">
+        <div class="cell">
+          <span class="cell-desig">TOOL/04</span>
+          <h2 class="h-item"><a href="tools/should-you-automate.html">Should you automate it?</a></h2>
+          <p class="cell-line">Six honest questions, one stamped verdict: automate now, assist only, or leave it human. Weights are published.</p>
+          <div class="cell-foot"><span class="phint" style="font-family:'Space Mono',monospace;font-size:11px;color:var(--grey-2);">a scorecard with hard overrides</span><a class="open" href="tools/should-you-automate.html">Open <canvas data-dot="arrow" data-size="13" style="width:13px;height:13px;"></canvas></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GROUP: the words -->
+  <section class="group">
+    <div class="group-inner">
+      <div class="rail">The words</div>
+      <div class="cells">
+        <div class="cell">
+          <span class="cell-desig">TOOL/05</span>
+          <h2 class="h-item"><a href="tools/ai-slop-detector.html">AI-slop detector</a></h2>
+          <p class="cell-line">Paste text; a public rule list counts the AI tells and stamps a slop score, every flagged line shown.</p>
+          <div class="cell-foot"><span class="phint" style="font-family:'Space Mono',monospace;font-size:11px;color:var(--grey-2);">English and Czech rules</span><a class="open" href="tools/ai-slop-detector.html">Open <canvas data-dot="arrow" data-size="13" style="width:13px;height:13px;"></canvas></a></div>
+        </div>
+
+        <div class="cell">
+          <span class="cell-desig">TOOL/06</span>
+          <h2 class="h-item"><a href="tools/prompt-tightener.html">Prompt tightener</a></h2>
+          <p class="cell-line">Strips the filler it can prove is filler, flags the vague asks it cannot fix, shows the word drop. Deletion only.</p>
+          <div class="cell-foot"><span class="phint" style="font-family:'Space Mono',monospace;font-size:11px;color:var(--grey-2);">never rewrites your meaning</span><a class="open" href="tools/prompt-tightener.html">Open <canvas data-dot="arrow" data-size="13" style="width:13px;height:13px;"></canvas></a></div>
+        </div>
+
+        <div class="cell">
+          <span class="cell-desig">TOOL/07</span>
+          <h2 class="h-item"><a href="tools/difficult-email-prompt-assembler.html">Difficult-email prompt builder</a></h2>
+          <p class="cell-line">Six questions about the email you dread; a copy-ready prompt with your facts and hard lines baked in.</p>
+          <div class="cell-foot"><span class="phint" style="font-family:'Space Mono',monospace;font-size:11px;color:var(--grey-2);">builds the prompt, your AI runs it</span><a class="open" href="tools/difficult-email-prompt-assembler.html">Open <canvas data-dot="arrow" data-size="13" style="width:13px;height:13px;"></canvas></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bench">
+    <h2 class="h-sec">Considered, not shipped</h2>
+    <p class="sub">Ideas that did not earn a slot. Honest about why.</p>
+    <ul class="bench-list">
+      <li class="bench-item"><span class="bn">CUT/01</span><span class="bt"><b>Automation ROI calculator.</b> The should-you-automate scorecard already answers the same question. Payback framing lives in its fine print. Ships later only if demand shows up.</span></li>
+      <li class="bench-item"><span class="bn">CUT/02</span><span class="bt"><b>Meeting-prep prompt builder.</b> Rarer than hard emails for a solo operator. The difficult-email builder covers the same translation pain with more reach.</span></li>
+      <li class="bench-item"><span class="bn">CUT/03</span><span class="bt"><b>Model picker quiz.</b> Model names change monthly. A stale pick kills trust faster than no tool. The cost calculator teaches the same judgment without naming a model.</span></li>
+    </ul>
+  </section>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="library.html">Prompt library</a>
+      <a href="tools.html">Tools</a>
+      <a href="bill.html">The Real Bill</a>
+    </div>
+    <div class="foot-col">
+      <a href="start.html">Start here</a>
+      <a href="kit.html">The Starter Kit</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="foot-meta mono">
+      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Updated 07/2026 · Prague</span>
+    </div>
+  </div>
+</footer>
+<script src="icons.js"></script>
+<script src="signature.js"></script>
+<script src="shared.js"></script>
+<script>
+(function(){
+  "use strict";
+  var $=function(id){ return document.getElementById(id); };
+  function fmt(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' '); }
+
+  // preview 1: cost. balanced 3/15, tpw 1.3, wIn 120, wOut 300, days 30, fx 23
+  function cost(){
+    var msgs=parseInt($('p-msgs').value,10);
+    $('p-msgs-v').textContent=msgs;
+    var perMsg=(120*1.3/1e6*3)+(300*1.3/1e6*15);
+    var monthly=msgs*perMsg*30, kc=monthly*23;
+    $('p-cost').textContent='≈ '+MC2.kc(kc)+' / mo';
+  }
+  // preview 2: tokens. tpw 1.3
+  function tokens(){
+    var w=parseInt($('p-words').value,10);
+    $('p-words-v').textContent=fmt(w);
+    $('p-tokens').textContent='≈ '+fmt(Math.ceil(w*1.3))+' tokens';
+  }
+  $('p-msgs').addEventListener('input',cost);
+  $('p-words').addEventListener('input',tokens);
+  cost(); tokens();
+})();
+</script>
+</body>
+</html>

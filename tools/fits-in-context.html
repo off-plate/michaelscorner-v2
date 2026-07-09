@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fits-in-context checker · Michael's Corner</title>
+<meta name="description" content="Paste your document, learn instantly whether it fits a model's context window or needs splitting.">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.wrap-tool{ max-width:1200px; margin:0 auto; padding-left:var(--pad); padding-right:var(--pad); }
+.t-back{ margin:clamp(18px,3vw,28px) 0 0; }
+.t-hero{ padding:clamp(18px,2.6vw,28px) 0 clamp(22px,3vw,34px); border-bottom:1px solid var(--ink); }
+.t-desig{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--orange); margin:0 0 14px; }
+.t-hero h1{ margin:0; }
+.t-pitch{ margin:14px 0 0; max-width:58ch; font-size:clamp(16px,1.4vw,19px); line-height:1.55; color:var(--ink-soft); }
+.t-updated{ font-family:'Space Mono',monospace; font-size:12px; color:var(--grey-2); margin:12px 0 0; }
+.face{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:clamp(24px,3.5vw,52px); padding:clamp(26px,4vw,44px) 0; align-items:start; }
+@media(max-width:900px){ .face{ grid-template-columns:1fr; } }
+.controls{ display:flex; flex-direction:column; gap:clamp(18px,2.4vw,26px); }
+.ctl label{ font-size:14px; font-weight:500; display:block; margin:0 0 8px; }
+.ctl .row-lab{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin:0 0 8px; }
+.echo{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:20px; letter-spacing:-0.01em; font-variant-numeric:tabular-nums; }
+.ctl input[type=range]{ width:100%; display:block; }
+textarea#paste{ width:100%; min-height:220px; resize:vertical; line-height:1.5; }
+.counter{ font-family:'Space Mono',monospace; font-size:12.5px; color:var(--grey); margin:8px 0 0; }
+.counter.over{ color:var(--orange); }
+.hint{ font-size:12px; color:var(--grey); font-family:'Space Mono',monospace; margin:6px 0 0; }
+.win-row{ display:flex; align-items:center; gap:12px; }
+input.assumef{ width:120px; border:none; border-bottom:2px dotted var(--orange); background:none; border-radius:0; padding:6px 2px; font-family:'Space Mono',monospace; font-size:13px; text-align:right; }
+input.assumef:focus-visible{ outline:none; border-bottom-color:var(--ink); }
+input.assumef.small{ width:70px; }
+.a-num{ display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:13px; }
+.a-num .lab{ color:var(--ink-soft); }
+.readout{ background:var(--ink); color:var(--ink-text); border-radius:2px; padding:clamp(22px,3vw,32px); position:sticky; top:96px; }
+@media(max-width:900px){ .readout{ position:static; } }
+.figure-lab{ font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#b9b2a4; margin:0 0 4px; }
+.figure{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(46px,8vw,80px); line-height:0.95; letter-spacing:-0.03em; font-variant-numeric:tabular-nums; margin:0; }
+.figure-sub{ font-family:'Space Mono',monospace; font-size:14px; color:#d9d2c5; margin:8px 0 0; }
+.rec-wrap{ margin:clamp(20px,3vw,26px) 0 0; }
+.empty-note{ font-family:'Space Mono',monospace; font-size:13px; color:#b9b2a4; margin:clamp(20px,3vw,26px) 0 0; }
+.fineprint{ font-family:'Space Mono',monospace; font-size:11px; line-height:1.75; color:#b9b2a4; margin:16px 0 0; }
+.actions{ display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 0; }
+.actions button{ background:none; border:1px solid #4a453c; color:var(--ink-text); padding:10px 16px; border-radius:2px; font-family:inherit; font-size:14px; cursor:pointer; }
+.actions button:hover{ border-color:var(--orange); }
+.read-band{ border-top:1px solid var(--ink); padding:clamp(24px,3vw,40px) 0; }
+.read-band h2{ margin:0 0 12px; }
+.read-band p{ max-width:64ch; font-size:16px; line-height:1.6; color:var(--ink-soft); margin:0 0 10px; }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="../index.html"><img src="../assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="../kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="../index.html" data-nav="home">Home</a>
+      <a href="../start.html" data-nav="start">Start here</a>
+      <a href="../library.html" data-nav="library">Library</a>
+      <a href="../tools.html" data-nav="tools">Tools</a>
+      <a href="../bill.html" data-nav="bill">The Real Bill</a>
+      <a href="../channel.html" data-nav="channel">Channel</a>
+      <a href="../about.html" data-nav="about">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="wrap-tool">
+  <p class="t-back"><a class="backlink" href="../tools.html"><canvas data-dot="arrow" data-size="14" style="width:14px;height:14px;transform:rotate(180deg);"></canvas> All tools</a></p>
+  <div class="t-hero">
+    <p class="t-desig"><canvas data-dot="tools" data-size="16" style="width:16px;height:16px;vertical-align:-3px;"></canvas> TOOL/02</p>
+    <h1 class="h-page">Fits-in-context checker</h1>
+    <p class="t-pitch">Paste your document, learn instantly whether it fits a model's context window or needs splitting. The paste never leaves this page.</p>
+    <p class="t-updated">Updated 07/2026</p>
+  </div>
+
+  <div class="face">
+    <div class="controls">
+      <div class="ctl">
+        <label for="paste">Paste your text</label>
+        <textarea id="paste" placeholder="Paste the document, transcript, or listings you want to feed a model."></textarea>
+        <p class="counter" id="counter">0 characters &#183; &#8776; 0 words &#183; &#8776; 0 tokens</p>
+      </div>
+      <div class="ctl">
+        <div class="row-lab"><label for="cpt">Chars per token</label><span class="echo" id="e-cpt">4.0</span></div>
+        <input type="range" id="cpt" min="2" max="6" step="0.1" value="4">
+        <p class="hint">Czech text? Use 3.</p>
+      </div>
+      <div class="ctl">
+        <div class="row-lab"><label for="reserve">Answer reserve</label><span class="echo" id="e-reserve">30%</span></div>
+        <input type="range" id="reserve" min="0" max="60" step="5" value="30">
+        <p class="hint">Room kept for the system prompt and the model's reply.</p>
+      </div>
+      <div class="ctl">
+        <label for="custom">Your model's window (optional)</label>
+        <div class="win-row">
+          <input class="assumef" type="number" id="custom" min="1000" max="10000000" step="1000" placeholder="e.g. 256000" aria-label="Your model context window in tokens">
+          <span class="hint" style="margin:0;">tokens</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="readout" id="readout">
+      <p class="figure-lab">Estimated tokens</p>
+      <p class="figure" id="figure">0</p>
+      <p class="figure-sub" id="figsub">paste something to begin</p>
+      <div class="rec-wrap" id="rec" role="status" aria-live="polite"></div>
+      <p class="empty-note" id="empty">Paste something first.</p>
+      <div class="fineprint" id="fine"></div>
+      <div class="actions" id="acts" hidden>
+        <button type="button" id="copy-btn">Copy as text</button>
+        <button type="button" id="share-btn">Share</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="read-band">
+    <h2 class="h-sec">How to read this number</h2>
+    <p>The character count is exact. The token estimate is characters divided by the chars-per-token figure you set, so it is a rough guide by design, not a promise. A window has to hold your text plus the reply, which is why some room is reserved.</p>
+    <p>FITS means comfortable room. TIGHT means it squeezes in but risks truncation. SPLIT means break it into the number of parts shown.</p>
+  </div>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="../library.html">Prompt library</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../bill.html">The Real Bill</a>
+    </div>
+    <div class="foot-col">
+      <a href="../start.html">Start here</a>
+      <a href="../kit.html">The Starter Kit</a>
+      <a href="../about.html">About</a>
+    </div>
+    <div class="foot-meta mono">
+      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Updated 07/2026 · Prague</span>
+    </div>
+  </div>
+</footer>
+<script src="../icons.js"></script>
+<script src="../signature.js"></script>
+<script src="../shared.js"></script>
+<script>
+(function(){
+  "use strict";
+  var LAST_CHECKED='07/2026', CAP=2000000;
+  var WINDOWS=[
+    {name:'Small / local', short:'8K', w:8000},
+    {name:'Free chat', short:'32K', w:32000},
+    {name:'Standard paid', short:'128K', w:128000},
+    {name:'Frontier', short:'200K', w:200000},
+    {name:'Long context', short:'1M', w:1000000}
+  ];
+  function clamp(n,a,b){ return n<a?a:(n>b?b:n); }
+  function fmt(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' '); }
+  function clock(){ var d=new Date(); return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2); }
+  var $=function(id){ return document.getElementById(id); };
+  var els={ paste:$('paste'), cpt:$('cpt'), reserve:$('reserve'), custom:$('custom'),
+            counter:$('counter'), ecpt:$('e-cpt'), eres:$('e-reserve'),
+            figure:$('figure'), figsub:$('figsub'), rec:$('rec'), empty:$('empty'), fine:$('fine'), acts:$('acts') };
+  var state={ cpt:4, reserve:30 };
+  var lastText='';
+
+  function usable(w,res){ return Math.floor(w*(1-res/100)); }
+  function status(tokens,w,res){
+    var u=usable(w,res);
+    if(u<=0) return {label:'SPLIT', parts:99};
+    if(tokens<=0.7*u) return {label:'FITS'};
+    if(tokens<=u) return {label:'TIGHT'};
+    return {label:'SPLIT', parts:Math.ceil(tokens/u)};
+  }
+
+  function compute(){
+    var text=els.paste.value;
+    var chars=text.length;
+    var over=chars>CAP;
+    var words=text.trim()? text.trim().split(/\s+/).length : 0;
+    var tokens=Math.ceil(chars/state.cpt);
+
+    els.counter.textContent=fmt(chars)+' characters · ≈ '+fmt(words)+' words · ≈ '+fmt(tokens)+' tokens';
+    els.counter.classList.toggle('over',over);
+
+    if(over){
+      els.figure.textContent=fmt(chars);
+      els.figsub.textContent='over the 2M cap';
+      els.rec.innerHTML=''; els.acts.hidden=true;
+      els.empty.hidden=false;
+      els.empty.textContent='That is more than 2 million characters. Split it before any tool sees it.';
+      els.fine.innerHTML='';
+      return;
+    }
+    if(chars===0){
+      els.figure.textContent='0';
+      els.figsub.textContent='paste something to begin';
+      els.rec.innerHTML=''; els.acts.hidden=true;
+      els.empty.hidden=false; els.empty.textContent='Paste something first.';
+      els.fine.innerHTML='';
+      return;
+    }
+    els.empty.hidden=true; els.acts.hidden=false;
+    els.figure.textContent='≈ '+fmt(tokens);
+    els.figsub.textContent=fmt(chars)+' characters · ≈ '+fmt(words)+' words';
+
+    var res=state.reserve;
+    var wins=WINDOWS.slice();
+    var custom=parseInt(els.custom.value,10);
+    if(!isNaN(custom) && custom>=1000){ wins.push({name:'Your model', short:fmt(custom), w:clamp(custom,1000,10000000), custom:true}); }
+
+    var rows=[
+      {k:'Characters', v:fmt(chars)},
+      {k:'≈ Tokens *', v:fmt(tokens)}
+    ];
+    var st={};
+    wins.forEach(function(win){
+      var s=status(tokens,win.w,res); st[win.w]=s;
+      var amt = s.label==='SPLIT' ? 'SPLIT ×'+s.parts : s.label;
+      rows.push({k:win.name+' · '+win.short, v:amt});
+    });
+
+    // overall stamp
+    var stamp, ink=false, reason='';
+    var fits=function(w){ var s=st[w]; return s && s.label!=='SPLIT'; };
+    if(fits(8000)){ stamp='FITS EVERYWHERE'; }
+    else if(fits(128000)){ stamp='FITS THE USUAL MODELS'; }
+    else if(fits(200000)||fits(1000000)){ stamp='BIG. GO LONG-CONTEXT OR SPLIT.'; ink=true; }
+    else {
+      stamp='SPLIT IT'; ink=true;
+      var u=usable(1000000,res); var parts=Math.max(2,Math.ceil(tokens/u));
+      var pw=Math.floor(words/parts);
+      reason='try '+parts+' parts of about '+fmt(pw)+' words each';
+    }
+
+    els.rec.innerHTML=MC2.receipt({
+      title:'fits-in-context', date:'Updated '+LAST_CHECKED+' · '+clock(),
+      rows:rows, verdict:{ stamp:stamp, text:reason, ink:ink }
+    });
+
+    var fp=['* ≈ '+state.cpt.toFixed(1)+' characters per token, editable.',
+            'Reserve: '+res+'% kept for the answer.',
+            'Windows last checked '+LAST_CHECKED+'.'];
+    if(chars<200) fp.push('Short text, everything fits, nothing to worry about.');
+    fp.push('Your text never left this page.');
+    els.fine.innerHTML=fp.map(function(l){ return MC2.esc(l); }).join('<br>');
+
+    lastText=serialize(rows,stamp,reason);
+    writeHash();
+  }
+
+  function serialize(rows,stamp,reason){
+    var out=["MICHAEL'S CORNER  fits-in-context","------------------------------"];
+    rows.forEach(function(r){ out.push(pad(r.k,r.v)); });
+    out.push("------------------------------","VERDICT: "+stamp);
+    if(reason) out.push(reason);
+    out.push("","Your text never left this page.");
+    return out.join("\n");
+  }
+  function pad(k,v){ var w=34,line=k,sp=w-k.length-v.length; if(sp<2)sp=2; while(sp-->0)line+=' '; return line+v; }
+
+  function writeHash(){
+    var s='c='+state.cpt+'&r='+state.reserve; var cu=parseInt(els.custom.value,10);
+    if(!isNaN(cu)) s+='&w='+cu;
+    try{ history.replaceState(null,'',location.pathname+location.search+'#'+s); }catch(e){}
+  }
+  function readHash(){
+    var h=location.hash.replace(/^#/,''); if(!h) return;
+    var o={}; h.split('&').forEach(function(p){ var kv=p.split('='); o[kv[0]]=kv[1]; });
+    if(o.c!=null) state.cpt=clamp(parseFloat(o.c)||4,2,6);
+    if(o.r!=null) state.reserve=clamp(parseInt(o.r,10)||30,0,60);
+    if(o.w!=null) els.custom.value=clamp(parseInt(o.w,10)||0,1000,10000000);
+  }
+
+  els.paste.addEventListener('input',compute);
+  els.custom.addEventListener('input',compute);
+  els.cpt.addEventListener('input',function(){ state.cpt=parseFloat(this.value); els.ecpt.textContent=state.cpt.toFixed(1); compute(); });
+  els.reserve.addEventListener('input',function(){ state.reserve=parseInt(this.value,10); els.eres.textContent=state.reserve+'%'; compute(); });
+  $('copy-btn').addEventListener('click',function(){ MC2.copy(lastText,this,'Copied'); });
+  $('share-btn').addEventListener('click',function(){ var u=location.href; if(navigator.share){ navigator.share({title:'Fits-in-context checker',url:u}).catch(function(){}); } else { MC2.copy(u,this,'Link copied'); } });
+
+  readHash();
+  els.cpt.value=state.cpt; els.ecpt.textContent=state.cpt.toFixed(1);
+  els.reserve.value=state.reserve; els.eres.textContent=state.reserve+'%';
+  compute();
+})();
+</script>
+</body>
+</html>
