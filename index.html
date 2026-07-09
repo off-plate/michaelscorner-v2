@@ -40,7 +40,9 @@
   .pcards{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
   .pcard{ border:1px solid var(--ink); border-radius:2px; padding:22px; display:flex; flex-direction:column; gap:12px; }
   .pcard .when{ font-size:14px; color:var(--grey); flex:1; }
-  .pcard .cbtn{ align-self:flex-start; }
+  .pcard-actions{ display:flex; align-items:center; gap:18px; margin-top:2px; }
+  .pcard-open{ font-size:14px; color:var(--grey); text-decoration:none; display:inline-flex; align-items:center; gap:6px; white-space:nowrap; transition:color 150ms ease; }
+  .pcard-open:hover{ color:var(--orange); }
 
   /* thesis band: the Honest Bar 80/20 */
   .thesis{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,4vw,56px); align-items:center; }
@@ -91,7 +93,7 @@
   <!-- ===== opening spread ===== -->
   <section class="wrap hero">
     <div>
-      <h1 class="h-display">AI moves too fast to read about.</h1>
+      <h1 class="h-display">AI moves too fast to read about<span class="orange">.</span></h1>
       <p class="sub lede">Every week a new model drops and the feed tells you that you are already behind. I use these tools on real projects most evenings, so here is what worked, what failed, and what it really cost.</p>
       <div class="row">
         <a class="btn" href="library.html">Browse the library <span class="oa">&#8594;</span></a>
@@ -111,8 +113,7 @@
   <section class="wrap sec">
     <div class="lead">
       <div>
-        <p class="lead-kicker"><canvas data-dot="receipt" data-size="34" style="width:34px;height:34px;"></canvas> <span class="eyebrow" style="margin:0;">The lead story</span></p>
-        <h2 class="h-sec">Each project gets a receipt.</h2>
+        <h2 class="h-sec">Each project gets a receipt<span class="orange">.</span></h2>
         <p class="lede" style="margin-top:14px;">The hours, the koruna, and an honest verdict. Including the projects where AI was not worth it. A page of wins would teach you nothing.</p>
         <p style="margin-top:20px;"><a class="backlink" href="bill.html">Read all six receipts <span class="orange">&#8594;</span></a></p>
       </div>
@@ -124,8 +125,7 @@
   <section class="wrap sec">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Free tool · no signup</p>
-        <h2 class="h-sec">What a month of AI actually costs.</h2>
+        <h2 class="h-sec">What a month of AI actually costs<span class="orange">.</span></h2>
       </div>
       <a class="backlink" href="tools.html">All the tools <span class="orange">&#8594;</span></a>
     </div>
@@ -165,8 +165,7 @@
   <section class="wrap sec">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">Steal these</p>
-        <h2 class="h-sec">The prompts I keep going back to.</h2>
+        <h2 class="h-sec">The prompts I keep going back to<span class="orange">.</span></h2>
       </div>
       <a class="backlink" href="library.html">The whole library <span class="orange">&#8594;</span></a>
     </div>
@@ -177,8 +176,7 @@
   <section class="wrap sec">
     <div class="thesis">
       <div>
-        <p class="eyebrow">The whole idea</p>
-        <h2 class="h-sec">The last 20% is where the money is.</h2>
+        <h2 class="h-sec">The last 20% is where the money is<span class="orange">.</span></h2>
         <p class="lede" style="margin-top:14px;">AI gets you to 70 or 80% of a project fast, and it feels like magic. Then the real work starts: checking the numbers, fixing the design, dealing with the rule some platform will not bend. That last part is the job, so that is the part I show you.</p>
       </div>
       <div class="bar-wrap">
@@ -192,8 +190,7 @@
   <section class="wrap sec">
     <div class="sec-head">
       <div>
-        <p class="eyebrow">On video</p>
-        <h2 class="h-sec">Watch how it actually goes.</h2>
+        <h2 class="h-sec">Watch how it actually goes<span class="orange">.</span></h2>
       </div>
       <a class="backlink" href="channel.html">The channel <span class="orange">&#8594;</span></a>
     </div>
@@ -204,8 +201,7 @@
   <section class="wrap sec">
     <div class="kitbar">
       <div>
-        <p class="eyebrow">The free kit</p>
-        <h2 class="h-sec" style="margin-bottom:10px;">Everything I would hand a friend starting out.</h2>
+        <h2 class="h-sec" style="margin-bottom:10px;">Everything I would hand a friend starting out<span class="orange">.</span></h2>
         <p class="small" style="max-width:52ch;">Six things, listed in full before you give an email. The 10 prompts I reuse, the model guide, the first-hour walkthrough, the cost cheat sheet, and more.</p>
       </div>
       <a class="btn-orange" href="kit.html" style="white-space:nowrap;">See what is inside <span>&#8594;</span></a>
@@ -288,8 +284,8 @@
   pc.innerHTML = samples.map(function (s) {
     return '<div class="pcard"><h3 class="h-item">' + MC2.esc(s.title) + '</h3>' +
       '<p class="when">' + MC2.esc(s.when) + '</p>' +
-      '<button class="btn cbtn" data-id="' + s.id + '">Copy prompt</button>' +
-      '<a class="backlink" href="prompts/' + s.id + '.html">Open <span class="orange">&#8594;</span></a></div>';
+      '<div class="pcard-actions"><button class="btn cbtn" data-id="' + s.id + '">Copy prompt</button>' +
+      '<a class="pcard-open" href="prompts/' + s.id + '.html">Open <span class="orange">&#8594;</span></a></div></div>';
   }).join('');
   Array.prototype.forEach.call(pc.querySelectorAll('.cbtn'), function (btn) {
     btn.addEventListener('click', function () {
