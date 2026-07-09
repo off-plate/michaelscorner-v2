@@ -116,7 +116,7 @@ function buildLibrary() {
 .lib-mark{ display:block; margin:0 0 18px; }
 .lib-lead{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
 .lib-lead .lede{ margin:14px 0 0; }
-.lib-count{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.1em; color:var(--grey); white-space:nowrap; }
+.lib-count{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.08em; color:var(--grey); }
 
 /* toolbar: search + role filters, one hairline strip */
 .lib-bar{ margin-top:clamp(24px,3vw,36px); border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); padding:14px 0; display:flex; align-items:center; justify-content:space-between; gap:16px 24px; flex-wrap:wrap; }
@@ -152,7 +152,7 @@ function buildLibrary() {
 .drawer .d-name{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(22px,2.6vw,30px); line-height:1.02; letter-spacing:-0.02em; margin:0 0 8px; }
 .drawer .d-blurb{ margin:0; font-size:15.5px; line-height:1.55; color:var(--ink-soft); max-width:66ch; }
 .drawer .d-blurb span{ display:block; }
-.drawer .stamp{ grid-column:2; grid-row:2; font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--grey-2); text-align:right; white-space:nowrap; padding-top:4px; transition:color 150ms ease; }
+.drawer .stamp{ grid-column:2; grid-row:2; font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--grey-2); text-align:right; padding-top:4px; transition:color 150ms ease; }
 .drawer:hover .stamp, .drawer:focus-visible .stamp{ color:var(--ink); }
 .drawer .arrow{ color:var(--orange); font-family:'Space Mono',monospace; }
 .lib-empty{ padding:40px 8px; color:var(--grey); font-size:16px; display:none; }

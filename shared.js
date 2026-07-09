@@ -143,9 +143,44 @@ window.MC2 = window.MC2 || {};
     }
   }
 
+  /* ---------- mobile menu (hamburger), injected once, works on every page ---------- */
+  function buildMobileMenu() {
+    var head = document.querySelector('.site-head');
+    if (!head || head.querySelector('.nav-toggle')) return;
+    var top = head.querySelector('.head-top');
+    var nav = head.querySelector('.head-nav');
+    if (!top || !nav) return;
+
+    var btn = document.createElement('button');
+    btn.className = 'nav-toggle no-fx';
+    btn.setAttribute('aria-label', 'Open menu');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = '<span></span><span></span><span></span>';
+    top.appendChild(btn);
+
+    /* the handle + free-kit link, shown only inside the open panel on mobile */
+    var extra = document.createElement('div');
+    extra.className = 'nav-extra';
+    extra.innerHTML = '<span class="h">@michaelflorian_ai</span><a href="kit.html">Free kit <span class="oa">↗</span></a>';
+    nav.appendChild(extra);
+
+    function setOpen(open) {
+      head.classList.toggle('nav-open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    btn.addEventListener('click', function () { setOpen(!head.classList.contains('nav-open')); });
+    nav.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+    /* if resized up to desktop, always reset to closed */
+    var mq = window.matchMedia('(max-width:720px)');
+    (mq.addEventListener ? mq.addEventListener.bind(mq, 'change') : mq.addListener.bind(mq))(function () { setOpen(false); });
+  }
+
   /* ---------- boot ---------- */
   function boot() {
     activeNav();
+    buildMobileMenu();
     MC2.mountDevices(document);
     document.body.classList.add('mc-enter');
   }
