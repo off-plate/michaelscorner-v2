@@ -12,13 +12,19 @@
 }
 
 *{ box-sizing:border-box; }
-html{ scroll-behavior:auto; }
+/* overflow-x:clip contains decorative bleed (the .fx corner brackets sit a few px
+   outside their element) so no page ever scrolls sideways. clip keeps position:sticky working. */
+html{ scroll-behavior:auto; overflow-x:clip; }
 body{
   margin:0; background:var(--cream); color:var(--ink);
   font-family:'General Sans',system-ui,sans-serif; font-weight:400;
   -webkit-font-smoothing:antialiased; line-height:1.55;
   display:flex; min-height:100vh; flex-direction:column;
+  overflow-x:clip;
 }
+/* long words and big display type never punch out of a narrow phone column */
+h1,h2,h3,p,a,span,li,.h-display,.h-page,.h-sec,.h-item,.lede{ overflow-wrap:break-word; }
+canvas,img,svg,video{ max-width:100%; }
 ::selection{ background:var(--orange); color:var(--cream); }
 :focus-visible{ outline:2px solid var(--orange); outline-offset:2px; }
 img{ max-width:100%; }
