@@ -1517,7 +1517,7 @@ End with a table: theme, count, idea title, source quote.`,
         prompt: `You are planning one week of content from a single core idea, one angle per day, without repeating the same post five ways.
 
 The core idea:
-[state it, for example "AI gets you to 80 percent, the last 20 is the real work"]
+[state it, for example "most AI advice online is written by people who do not actually use it"]
 
 My formats and platforms: [what you actually publish, for example "one video plus daily LinkedIn posts"]
 My material: [experiences, examples, numbers you have that relate to the idea]
