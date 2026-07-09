@@ -4,56 +4,217 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Michael's Corner</title>
-<meta name="description" content="Real AI routines, tools, and honest costs from a practitioner. Free to take.">
+<meta name="description" content="Real AI routines, tools, and honest costs from a practitioner who ships in the evenings. Free to take.">
 <link rel="icon" href="assets/favicon.svg">
-<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500&f[]=space-mono@400,700&display=swap" rel="stylesheet">
-<style>
-  /* loader: the living signature mark. Inline so it paints before anything else. */
-  @keyframes mc-blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
-  @keyframes mc-failsafe { to { opacity:0; visibility:hidden; pointer-events:none; } }
-  @keyframes mc-cn-tl { from{opacity:0;transform:translate(-8px,-8px)} to{opacity:1;transform:none} }
-  @keyframes mc-cn-br { from{opacity:0;transform:translate(8px,8px)} to{opacity:1;transform:none} }
-  #mc-loader{ position:fixed; inset:0; z-index:9999; background:#FAF7F2; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; font-family:'Space Mono',ui-monospace,Menlo,monospace; transition:opacity 260ms cubic-bezier(0.22,0.61,0.36,1); animation:mc-failsafe 0s linear 7s forwards; }
-  #mc-loader.mc-hide{ opacity:0; pointer-events:none; }
-  #mc-wave{ margin:0; font-size:clamp(22px,4.6vw,40px); line-height:1; letter-spacing:3px; white-space:pre; color:#F2541B; }
-  #mc-loader .mc-sig{ position:relative; padding:18px 26px; }
-  #mc-loader .mc-sig .cn{ position:absolute; width:15px; height:15px; border:2px solid #F2541B; }
-  #mc-loader .mc-sig .cn.tl{ top:0; left:0; border-right:0; border-bottom:0; animation:mc-cn-tl 240ms cubic-bezier(0.22,0.61,0.36,1) backwards; }
-  #mc-loader .mc-sig .cn.br{ bottom:0; right:0; border-left:0; border-top:0; animation:mc-cn-br 240ms 60ms cubic-bezier(0.22,0.61,0.36,1) backwards; }
-  #mc-loader .mc-name{ font-size:11px; letter-spacing:0.4em; color:#8a847a; text-transform:uppercase; padding-left:0.4em; }
-  #mc-loader .mc-cur{ color:#F2541B; animation:mc-blink 1s steps(1) infinite; }
-  @media (prefers-reduced-motion: reduce){ #mc-loader .mc-sig .cn{ animation:none !important; } }
-</style>
+<link rel="preload" href="assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
+<style>
+  /* HOME · broadsheet front page. Every band a different column ratio. */
+  .hero{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:clamp(28px,4vw,64px); align-items:center;
+    padding:clamp(36px,4vw,60px) 0 clamp(30px,3vw,48px); }
+  .hero-photo{ aspect-ratio:4/5; }
+  .dateline{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin:0 0 18px; }
+  .dateline .rule{ flex:1; min-width:24px; border-top:1px solid var(--ink); height:0; }
+  .hero h1{ margin:0 0 20px; }
+  .hero .sub{ margin:0 0 28px; }
+
+  /* lead story: the embedded Real Bill teaser (this band owns the receipt look) */
+  .lead{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:clamp(24px,3vw,48px); align-items:center; }
+  .lead-kicker{ display:flex; align-items:center; gap:12px; margin:0 0 14px; }
+
+  /* calculator band: instrument, one control set, live number */
+  .calc{ display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--ink); border-radius:2px; overflow:hidden; }
+  .calc-controls{ padding:clamp(22px,2.6vw,32px); border-right:1px solid var(--ink); }
+  .calc-row{ margin-bottom:20px; }
+  .calc-row .top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .calc-row .top b{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:20px; }
+  .calc-row input[type=range]{ width:100%; }
+  .seg{ display:flex; border:1px solid var(--ink); border-radius:2px; overflow:hidden; }
+  .seg button{ flex:1; border:none; padding:12px 0; font-size:14px; font-weight:500; cursor:pointer; background:var(--cream); color:var(--ink); border-right:1px solid var(--ink); }
+  .seg button:last-child{ border-right:none; }
+  .seg button.on{ background:var(--orange); color:var(--cream); }
+  .calc-out{ padding:clamp(22px,2.6vw,32px); background:var(--ink); color:var(--ink-text); display:flex; flex-direction:column; justify-content:space-between; min-height:260px; }
+  .calc-out .fig{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(44px,6vw,72px); line-height:0.9; letter-spacing:-0.02em; }
+  .calc-out .note{ margin:24px 0 0; font-size:14px; line-height:1.55; color:#b9b2a4; }
+
+  /* prompts band: three copyable cards on a 3-track */
+  .pcards{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .pcard{ border:1px solid var(--ink); border-radius:2px; padding:22px; display:flex; flex-direction:column; gap:12px; }
+  .pcard .when{ font-size:14px; color:var(--grey); flex:1; }
+  .pcard .cbtn{ align-self:flex-start; }
+
+  /* thesis band: the Honest Bar 80/20 */
+  .thesis{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,4vw,56px); align-items:center; }
+  .thesis .bar-wrap{ display:flex; flex-direction:column; gap:14px; }
+  .thesis .labels{ display:flex; justify-content:space-between; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey); }
+
+  /* channel + kit bands */
+  .vstrip{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .vtile{ border:1px solid var(--ink); border-radius:2px; overflow:hidden; }
+  .vtile .thumb{ aspect-ratio:16/9; background:var(--ink); display:flex; align-items:center; justify-content:center; position:relative; }
+  .vtile .dur{ position:absolute; bottom:8px; right:8px; background:var(--cream); color:var(--ink); font-family:'Space Mono',monospace; font-size:11px; padding:2px 6px; }
+  .vtile .vmeta{ padding:14px; }
+  .vtile .vmeta .vt{ font-size:14px; line-height:1.35; }
+  .kitbar{ border:1px solid var(--ink); border-radius:2px; background:var(--cream-2); padding:clamp(26px,3vw,40px); display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center; }
+
+  @media (max-width:820px){
+    .hero, .lead, .thesis{ grid-template-columns:1fr; }
+    .calc{ grid-template-columns:1fr; }
+    .calc-controls{ border-right:none; border-bottom:1px solid var(--ink); }
+    .pcards, .vstrip{ grid-template-columns:1fr; }
+    .kitbar{ grid-template-columns:1fr; }
+    .hero-photo{ max-width:420px; }
+  }
+</style>
 </head>
 <body>
-
-<div id="mc-loader">
-  <div class="mc-sig"><span class="cn tl"></span><span class="cn br"></span><div id="mc-wave">&#9601;&#9602;&#9603;&#9604;&#9605;&#9606;&#9607;&#9608;</div></div>
-  <div class="mc-name">Michael's Corner<span class="mc-cur">_</span></div>
-</div>
 
 <header class="site-head">
   <div class="wrap">
     <div class="head-top">
       <span class="head-handle mono">@michaelflorian_ai</span>
-      <a class="head-word" href="#/" data-nav="home"><img src="assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
-      <a class="head-cta" href="#/kit" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
     </div>
     <nav class="head-nav" aria-label="Main">
-      <a href="#/" data-nav="home">Home</a>
-      <a href="#/start" data-nav="start">Start here</a>
-      <a href="#/library" data-nav="library">Library</a>
-      <a href="#/tools" data-nav="tools">Tools</a>
-      <a href="#/bill" data-nav="bill">The Real Bill</a>
-      <a href="#/channel" data-nav="channel">Channel</a>
-      <a href="#/about" data-nav="about">About</a>
+      <a href="index.html" data-nav="home">Home</a>
+      <a href="start.html" data-nav="start">Start here</a>
+      <a href="library.html" data-nav="library">Library</a>
+      <a href="tools.html" data-nav="tools">Tools</a>
+      <a href="bill.html" data-nav="bill">The Real Bill</a>
+      <a href="channel.html" data-nav="channel">Channel</a>
+      <a href="about.html" data-nav="about">About</a>
     </nav>
   </div>
 </header>
 
-<main id="app" tabindex="-1"></main>
+<main>
+  <!-- ===== opening spread ===== -->
+  <section class="wrap hero">
+    <div>
+      <p class="dateline mono"><span>Michael Florian</span><span class="rule"></span><span>Prague · 07/2026</span></p>
+      <h1 class="h-display">AI moves too fast to read about.</h1>
+      <p class="sub lede">Every week a new model drops and the feed tells you that you are already behind. I use these tools on real projects most evenings, so here is what worked, what failed, and what it really cost.</p>
+      <div class="row">
+        <a class="btn" href="library.html">Browse the library <span class="oa">&#8594;</span></a>
+        <a class="btn-ghost" href="bill.html">Read the Real Bill</a>
+      </div>
+    </div>
+    <div>
+      <div class="photo-frame hero-photo">
+        <img src="assets/portrait.jpg" alt="Michael Florian" />
+        <canvas class="halftone" data-photo data-src="assets/portrait.jpg" data-grid="128"></canvas>
+        <span class="pc tl"></span><span class="pc tr"></span><span class="pc bl"></span><span class="pc br"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== lead story: the Real Bill teaser (owns the receipt look) ===== -->
+  <section class="wrap sec">
+    <div class="lead">
+      <div>
+        <p class="lead-kicker"><canvas data-dot="receipt" data-size="34" style="width:34px;height:34px;"></canvas> <span class="eyebrow" style="margin:0;">The lead story</span></p>
+        <h2 class="h-sec">Each project gets a receipt.</h2>
+        <p class="lede" style="margin-top:14px;">The hours, the koruna, and an honest verdict. Including the projects where AI was not worth it. A page of wins would teach you nothing.</p>
+        <p style="margin-top:20px;"><a class="backlink" href="bill.html">Read all six receipts <span class="orange">&#8594;</span></a></p>
+      </div>
+      <div id="lead-receipt"></div>
+    </div>
+  </section>
+
+  <!-- ===== the instrument: live cost calculator ===== -->
+  <section class="wrap sec">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Free tool · no signup</p>
+        <h2 class="h-sec">What a month of AI actually costs.</h2>
+      </div>
+      <a class="backlink" href="tools.html">All the tools <span class="orange">&#8594;</span></a>
+    </div>
+    <div class="calc" aria-label="AI cost calculator">
+      <div class="calc-controls">
+        <div class="calc-row">
+          <div class="top"><label for="c-per">Messages per day</label><b id="c-per-v">20</b></div>
+          <input id="c-per" type="range" min="1" max="200" value="20">
+        </div>
+        <div class="calc-row">
+          <div class="top"><label for="c-win">Words you send</label><b id="c-win-v">120</b></div>
+          <input id="c-win" type="range" min="10" max="1000" step="10" value="120">
+        </div>
+        <div class="calc-row">
+          <div class="top"><label for="c-wout">Words it writes back</label><b id="c-wout-v">300</b></div>
+          <input id="c-wout" type="range" min="10" max="2000" step="10" value="300">
+        </div>
+        <p style="margin:0 0 10px; font-size:15px;">Model tier</p>
+        <div class="seg" role="group" aria-label="Model tier">
+          <button data-tier="fast">Fast</button>
+          <button data-tier="balanced" class="on">Balanced</button>
+          <button data-tier="top">Top</button>
+        </div>
+      </div>
+      <div class="calc-out">
+        <div>
+          <p class="mono" style="margin:0 0 10px; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--orange);">Estimated cost</p>
+          <div class="fig data" id="c-month">$4.05</div>
+          <p style="margin:8px 0 0; font-size:15px; color:#b9b2a4;" class="data">per month, about <span id="c-day">$0.14</span> a day</p>
+        </div>
+        <p class="note" id="c-note">Based on a balanced model, 30 days a month. A rough guide, not a bill.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== steal these: three sample prompts ===== -->
+  <section class="wrap sec">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Steal these</p>
+        <h2 class="h-sec">The prompts I keep going back to.</h2>
+      </div>
+      <a class="backlink" href="library.html">The whole library <span class="orange">&#8594;</span></a>
+    </div>
+    <div class="pcards" id="pcards"></div>
+  </section>
+
+  <!-- ===== the thesis: Honest Bar ===== -->
+  <section class="wrap sec">
+    <div class="thesis">
+      <div>
+        <p class="eyebrow">The whole idea</p>
+        <h2 class="h-sec">The last 20% is where the money is.</h2>
+        <p class="lede" style="margin-top:14px;">AI gets you to 70 or 80% of a project fast, and it feels like magic. Then the real work starts: checking the numbers, fixing the design, dealing with the rule some platform will not bend. That last part is the job, so that is the part I show you.</p>
+      </div>
+      <div class="bar-wrap">
+        <div class="honest-bar orange"><span class="fill" style="width:76%"></span><span class="rest"></span></div>
+        <div class="labels"><span>AI gets you here</span><span>the rest is on you</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== channel strip ===== -->
+  <section class="wrap sec">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">On video</p>
+        <h2 class="h-sec">Watch how it actually goes.</h2>
+      </div>
+      <a class="backlink" href="channel.html">The channel <span class="orange">&#8594;</span></a>
+    </div>
+    <div class="vstrip" id="vstrip"></div>
+  </section>
+
+  <!-- ===== starter kit bar ===== -->
+  <section class="wrap sec">
+    <div class="kitbar">
+      <div>
+        <p class="eyebrow">The free kit</p>
+        <h2 class="h-sec" style="margin-bottom:10px;">Everything I would hand a friend starting out.</h2>
+        <p class="small" style="max-width:52ch;">Six things, listed in full before you give an email. The 10 prompts I reuse, the model guide, the first-hour walkthrough, the cost cheat sheet, and more.</p>
+      </div>
+      <a class="btn-orange" href="kit.html" style="white-space:nowrap;">See what is inside <span>&#8594;</span></a>
+    </div>
+  </section>
+</main>
 
 <footer class="site-foot">
   <div class="wrap foot-grid">
@@ -62,38 +223,101 @@
       <p class="foot-line">AI did not take my job. It made me faster.</p>
     </div>
     <div class="foot-col">
-      <a href="#/library">Prompt library</a>
-      <a href="#/tools">Tools</a>
-      <a href="#/bill">The Real Bill</a>
+      <a href="library.html">Prompt library</a>
+      <a href="tools.html">Tools</a>
+      <a href="bill.html">The Real Bill</a>
     </div>
     <div class="foot-col">
-      <a href="#/start">Start here</a>
-      <a href="#/kit">The Starter Kit</a>
-      <a href="#/about">About</a>
+      <a href="start.html">Start here</a>
+      <a href="kit.html">The Starter Kit</a>
+      <a href="about.html">About</a>
     </div>
     <div class="foot-meta mono">
-      <span id="foot-updated">Updated 07/2026</span>
-      <span>Prague, CZ</span>
+      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Updated 07/2026 · Prague</span>
     </div>
   </div>
 </footer>
 
 <script src="icons.js"></script>
 <script src="signature.js"></script>
-<script src="data/copy.js"></script>
-<script src="data/prompts.js"></script>
-<script src="data/tools.js"></script>
-<script src="data/bills.js"></script>
-<script src="data/videos.js"></script>
-<script src="pages/home.js"></script>
-<script src="pages/start.js"></script>
-<script src="pages/library.js"></script>
-<script src="pages/tools.js"></script>
-<script src="pages/bill.js"></script>
-<script src="pages/channel.js"></script>
-<script src="pages/about.js"></script>
-<script src="pages/kit.js"></script>
-<script src="pages/notfound.js"></script>
-<script src="app.js"></script>
+<script src="photo.js"></script>
+<script src="shared.js"></script>
+<script>
+(function () {
+  "use strict";
+  /* ---- lead receipt (a compact real-bill teaser; numbers honestly pending) ---- */
+  document.getElementById('lead-receipt').innerHTML = MC2.receipt({
+    title: "CASE 02 · FORGE", date: "Updated 07/2026",
+    rows: [
+      { k: "The task", v: "3D training site" },
+      { k: "AI nailed", v: "the Three.js I can't write" },
+      { k: "I took over", v: "readable text, calm camera" },
+      { k: "Real time", v: "being counted" },
+      { k: "Real cost", v: "being counted", orange: true }
+    ],
+    verdict: { stamp: "Worth it", text: "The one project here I could not have built without AI at all." }
+  });
+
+  /* ---- live cost calculator (real math, updates instantly, no fake latency) ---- */
+  var tiers = { fast: { in: 0.8, out: 4, label: 'a fast, cheap model' }, balanced: { in: 3, out: 15, label: 'a balanced model' }, top: { in: 15, out: 75, label: 'a top model' } };
+  var st = { per: 20, win: 120, wout: 300, tier: 'balanced' };
+  function fmt(n) { if (n >= 100) return '$' + n.toFixed(0); if (n >= 10) return '$' + n.toFixed(1); return '$' + n.toFixed(2); }
+  function calc() {
+    var t = tiers[st.tier], tin = st.win * 1.3, tout = st.wout * 1.3;
+    var daily = st.per * (tin / 1e6 * t.in + tout / 1e6 * t.out), monthly = daily * 30;
+    document.getElementById('c-month').textContent = fmt(monthly);
+    document.getElementById('c-day').textContent = fmt(daily);
+    document.getElementById('c-note').textContent = 'Based on ' + t.label + ', 30 days a month. A rough guide, not a bill.';
+  }
+  function bind(id, key) {
+    var el = document.getElementById(id), out = document.getElementById(id + '-v');
+    el.addEventListener('input', function () { st[key] = +el.value; out.textContent = el.value; calc(); });
+  }
+  bind('c-per', 'per'); bind('c-win', 'win'); bind('c-wout', 'wout');
+  var segs = document.querySelectorAll('.seg button');
+  for (var i = 0; i < segs.length; i++) segs[i].addEventListener('click', function () {
+    for (var k = 0; k < segs.length; k++) segs[k].classList.remove('on');
+    this.classList.add('on'); st.tier = this.getAttribute('data-tier'); calc();
+  });
+  calc();
+
+  /* ---- three sample prompts, real text, copyable ---- */
+  var samples = [
+    { id: 'sort-my-day', title: 'Sort my day in five minutes', when: 'When your inbox and task list feel like one big pile and you do not know where to start.',
+      text: "You are my calm, practical chief of staff. Your job is to turn a messy pile of tasks into a plan I can act on in the next hour.\n\nHere is everything on my plate right now:\n[paste your inbox subjects, messages, and to-do items here]\n\nDo this:\n1. Sort every item into three groups: Do today, Do this week, and Drop or delegate.\n2. Put the Do today group in the order I should actually do it, with a one line reason for each item.\n3. Point out anything that feels urgent but is not actually important.\n4. If two items depend on each other, say which comes first.\n5. If an item is too vague to place, put it in a Questions list instead of guessing what I meant.\n\nRules:\n- Keep the whole answer on one screen.\n- Use plain words. No motivational talk, no filler.\n- Do not invent tasks I did not give you.\n\nEnd with one sentence: the single thing that matters most today, and why." },
+    { id: 'interview-me-first', title: 'Make AI ask questions first', when: 'When your request is fuzzy and you know a vague prompt would get a vague answer.',
+      text: "I want help with this: [describe your goal in one or two lines, even roughly].\n\nBefore you give me any answer, act like an experienced consultant taking a brief. Ask me the three to five questions you most need answered to do this well. Ask one short question at a time and wait for my reply before the next one.\n\nRules for the interview:\n1. Ask about things that would actually change your answer, not background trivia.\n2. If my reply is vague, push once for something more concrete before moving on.\n3. Do not start solving the problem while the interview is running.\n\nWhen you have what you need, write \"Ready\" and then give me your best answer based on everything I told you." },
+    { id: 'explain-like-new', title: 'Explain it like I am new', when: 'When someone uses a word you do not understand and you would rather not pretend you do.',
+      text: "I am completely new to [topic or term]. Explain it to me without jargon.\n\nHere is where I met it, so you know the context:\n[paste the sentence, email, or article where it came up, or write \"no context, just curious\"]\n\nDo this:\n1. Say what it is in two or three plain sentences.\n2. Explain why people use it or care about it, with one everyday example I would recognise.\n3. Tell me the one thing beginners most often get wrong about it.\n4. If the meaning changes depending on context, give me the meaning that fits the text I pasted.\n\nRules:\n- Short sentences. Everyday words.\n- If you must use a technical word, put its plain meaning in brackets right after it.\n- Do not assume I know anything about the field.\n\nEnd with one small thing I could try or look at today to see the idea in action." }
+  ];
+  var pc = document.getElementById('pcards');
+  pc.innerHTML = samples.map(function (s) {
+    return '<div class="pcard"><h3 class="h-item">' + MC2.esc(s.title) + '</h3>' +
+      '<p class="when">' + MC2.esc(s.when) + '</p>' +
+      '<button class="btn cbtn" data-id="' + s.id + '">Copy prompt</button>' +
+      '<a class="backlink" href="prompts/' + s.id + '.html">Open <span class="orange">&#8594;</span></a></div>';
+  }).join('');
+  Array.prototype.forEach.call(pc.querySelectorAll('.cbtn'), function (btn) {
+    btn.addEventListener('click', function () {
+      var s = samples.filter(function (x) { return x.id === btn.getAttribute('data-id'); })[0];
+      MC2.copy(s.text, btn, 'Copied');
+    });
+  });
+
+  /* ---- channel strip (real titles, honest: no dead links) ---- */
+  var vids = [
+    { t: 'The five prompts I use every day', d: '9 min' },
+    { t: 'Your first hour with an AI assistant', d: '10 min' },
+    { t: 'How I debug code I cannot read', d: '11 min' },
+    { t: 'Make AI sound like you', d: '11 min' }
+  ];
+  document.getElementById('vstrip').innerHTML = vids.map(function (v) {
+    return '<div class="vtile"><div class="thumb"><canvas data-dot="play" data-size="46" style="width:46px;height:46px;"></canvas><span class="dur">' + MC2.esc(v.d) + '</span></div>' +
+      '<div class="vmeta"><p class="vt">' + MC2.esc(v.t) + '</p></div></div>';
+  }).join('');
+
+  MC2.mountDevices(document);
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About · Michael's Corner</title>
+<meta name="description" content="I am Michael. I am not a developer. I build things with AI in the evenings, and I show the bill.">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preload" href="assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* ABOUT · magazine profile */
+  .profile{ display:grid; grid-template-columns:1fr 1.15fr; gap:clamp(28px,4vw,64px); align-items:start; padding-top:clamp(28px,3vw,44px); }
+  .profile-photo{ aspect-ratio:4/5; position:sticky; top:120px; }
+  .lead-in{ font-size:clamp(19px,1.7vw,23px); line-height:1.5; }
+  .prose{ max-width:66ch; }
+  .prose p{ font-size:17px; line-height:1.65; margin:0 0 18px; }
+  .pull{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(26px,3.4vw,40px); line-height:1.06; letter-spacing:-0.02em; margin:clamp(28px,3vw,44px) 0; text-wrap:balance; }
+  .pull .orange{ color:var(--orange); }
+  .honesty{ border:1px solid var(--ink); border-radius:2px; padding:clamp(22px,2.4vw,30px); margin-top:clamp(28px,3vw,40px); display:flex; flex-direction:column; gap:16px; }
+  .sidenote{ font-family:'Space Mono',monospace; font-size:13px; line-height:1.7; color:var(--grey); }
+  .sidenote h3{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink); margin:0 0 10px; font-weight:700; }
+  .sidenote .row2{ display:flex; justify-content:space-between; gap:12px; border-bottom:1px solid var(--line); padding:7px 0; }
+  .sidenote .row2 span:last-child{ color:var(--ink); }
+  .rail{ display:flex; flex-direction:column; gap:22px; }
+  .links-list{ display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+  .links-list a{ text-decoration:none; border-bottom:1px solid var(--ink); padding-bottom:2px; width:max-content; }
+  .links-list a:hover{ color:var(--orange); border-color:var(--orange); }
+  @media (max-width:820px){ .profile{ grid-template-columns:1fr; } .profile-photo{ position:static; max-width:360px; } }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="index.html" data-nav="home">Home</a>
+      <a href="start.html" data-nav="start">Start here</a>
+      <a href="library.html" data-nav="library">Library</a>
+      <a href="tools.html" data-nav="tools">Tools</a>
+      <a href="bill.html" data-nav="bill">The Real Bill</a>
+      <a href="channel.html" data-nav="channel">Channel</a>
+      <a href="about.html" data-nav="about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="wrap">
+    <div style="padding-top:clamp(32px,4vw,56px);">
+      <p class="eyebrow">About</p>
+      <h1 class="h-page" style="max-width:20ch;">Not a developer. I ship anyway.</h1>
+    </div>
+    <div class="profile">
+      <!-- portrait + sidenote rail -->
+      <div class="rail">
+        <div class="photo-frame profile-photo">
+          <img src="assets/portrait.jpg" alt="Michael Florian" />
+          <canvas class="halftone" data-photo data-src="assets/portrait.jpg" data-grid="128"></canvas>
+          <span class="pc tl"></span><span class="pc tr"></span><span class="pc bl"></span><span class="pc br"></span>
+        </div>
+        <div class="sidenote">
+          <h3>The receipts</h3>
+          <div class="row2"><span>Compass, finance app</span><span>2026</span></div>
+          <div class="row2"><span>FORGE, 3D training site</span><span>2026</span></div>
+          <div class="row2"><span>Italy trip planner</span><span>2026</span></div>
+          <div class="row2"><span>Tuck, Chrome extension</span><span>2026</span></div>
+          <div class="row2"><span>Spotify Vibes</span><span>2026</span></div>
+          <div class="row2"><span>This website</span><span>2026</span></div>
+        </div>
+        <div class="sidenote">
+          <h3>Where to find me</h3>
+          <div class="links-list">
+            <a href="mailto:mihael.florian@gmail.com">mihael.florian@gmail.com</a>
+            <a href="channel.html">The channel</a>
+            <a href="bill.html">The Real Bill</a>
+          </div>
+          <p style="margin-top:14px;">Prague, Czech Republic. Updated 07/2026.</p>
+        </div>
+      </div>
+
+      <!-- the story -->
+      <div class="prose">
+        <p class="lead-in">I am Michael. I am not a developer. I have a normal day job, and in the evenings I build things with AI.</p>
+        <p>So far that adds up to more than twenty shipped projects: a finance app that tracks my debts and my budget, a training site with a 3D wireframe figure I could never have coded myself, a road-trip planner with maps and expense splitting that four of us used on a real holiday in Italy, two Chrome extensions, a small tool that turns one sentence into a Spotify playlist, and this website.</p>
+        <p>None of that made me an engineer. What I got good at is different: describing what I want clearly, pushing back when the answer is wrong, and finishing the part AI cannot finish. There is always that part. The first version arrives fast and feels like magic, and then the real work starts, checking the numbers, fixing the design, dealing with the rule some platform will not bend. Nobody makes a Reel about that part of the job, so I decided to show it.</p>
+
+        <p class="pull">The first version feels like magic. Then the <span class="orange">real work</span> starts.</p>
+
+        <p>That is what this site is: the prompts I keep reusing, the tools I built along the way, and a receipt for every project with the hours and the koruna filled in, even when the honest verdict is that AI was not worth it.</p>
+        <p>After two years of this, two sentences have stayed true the whole time. AI did not take my job. It made me faster. And the last 20% is where the money is, so that is the part I show you here. Take whatever helps, and let me know how it goes.</p>
+
+        <div class="honesty">
+          <p class="eyebrow" style="margin:0;">What AI can't do</p>
+          <p style="margin:0; font-size:16px; line-height:1.6; color:var(--ink-soft);">It cannot check its own facts, it cannot make a taste decision you would be proud of, and it cannot deal with the platform rule that simply will not bend. It gets you most of the way, quickly. The rest is judgment, and judgment is the part worth learning.</p>
+          <div class="honest-bar orange" style="margin-top:6px;"><span class="fill" style="width:76%"></span><span class="rest"></span></div>
+          <div style="display:flex; justify-content:space-between; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey);"><span>AI gets you here</span><span>the rest is on you</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="library.html">Prompt library</a>
+      <a href="tools.html">Tools</a>
+      <a href="bill.html">The Real Bill</a>
+    </div>
+    <div class="foot-col">
+      <a href="start.html">Start here</a>
+      <a href="kit.html">The Starter Kit</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="foot-meta mono">
+      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Updated 07/2026 · Prague</span>
+    </div>
+  </div>
+</footer>
+
+<script src="icons.js"></script>
+<script src="signature.js"></script>
+<script src="photo.js"></script>
+<script src="shared.js"></script>
+</body>
+</html>

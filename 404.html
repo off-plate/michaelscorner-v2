@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 · Michael's Corner</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* 404 · the terminal. Minimal chrome only. */
+  body{ justify-content:center; }
+  .term{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:22px; padding:40px 20px; }
+  .term canvas{ display:block; }
+  .term .line{ font-family:'Space Mono',monospace; font-size:clamp(14px,1.8vw,17px); letter-spacing:0.04em; color:var(--ink); }
+  .term .line .cur{ color:var(--orange); animation:mc-blink 1s steps(1) infinite; }
+  @keyframes mc-blink{ 0%,49%{opacity:1} 50%,100%{opacity:0} }
+  .term .sub{ font-size:15px; color:var(--grey); max-width:44ch; margin:0; }
+  .term .home{ font-family:'Space Mono',monospace; font-size:13px; color:var(--ink); text-decoration:none; border:1px solid var(--ink); border-radius:2px; padding:11px 18px; }
+  .term .home:hover{ color:var(--orange); border-color:var(--orange); }
+  .term .brand{ position:fixed; top:20px; left:clamp(20px,4vw,56px); font-family:'Clash Display',sans-serif; font-weight:700; font-size:18px; color:var(--ink); text-decoration:none; }
+  .term .brand span{ color:var(--orange); }
+  @media (prefers-reduced-motion: reduce){ .term .line .cur{ animation:none; } }
+</style>
+</head>
+<body>
+<a class="brand" href="index.html">Michael&#8217;s <span>Corner</span></a>
+<div class="term">
+  <canvas id="render" width="460" height="460" aria-hidden="true"></canvas>
+  <p class="line mono">404 · this corner does not exist<span class="cur">_</span></p>
+  <p class="sub">There is no page at this address. Probably a dead link or my typo.</p>
+  <a class="home" href="index.html">&#8592; Back to the corner</a>
+</div>
+
+<script>
+(function () {
+  var canvas = document.getElementById('render');
+  var ctx = canvas.getContext('2d');
+  var COLS = 88, ROWS = 88;
+  var zbuf = new Float32Array(COLS * ROWS), bri = new Float32Array(COLS * ROWS);
+  var K2 = 5, K1 = COLS * 1.9, tilt = 0.42, spin = 0, size = 460, dpr = 1;
+  var Lx = -0.45, Ly = 0.55, Lz = -0.70;
+  var Lm = Math.sqrt(Lx * Lx + Ly * Ly + Lz * Lz); Lx /= Lm; Ly /= Lm; Lz /= Lm;
+  function isLand(x, y, z) {
+    var n = Math.sin(x * 2.3 + 1.0) + Math.cos(y * 3.1 - 0.5) + Math.sin(z * 2.7 + 2.0)
+      + 0.6 * Math.sin(x * 5.1 + y * 3.0 - 1.2) + 0.6 * Math.cos(z * 4.3 - x * 2.0)
+      + 0.5 * Math.sin((x + y + z) * 3.7 + 0.3);
+    return n > 0.85 ? 1 : 0;
+  }
+  var bxA = [], byA = [], bzA = [], landA = [];
+  (function buildGlobe() {
+    for (var v = 0.0; v < 3.1416; v += 0.02) {
+      var sv = Math.sin(v), cv = Math.cos(v);
+      for (var u = 0.0; u < 6.2832; u += 0.02) {
+        var bx = sv * Math.cos(u), by = cv, bz = sv * Math.sin(u);
+        bxA.push(bx); byA.push(by); bzA.push(bz); landA.push(isLand(bx, by, bz));
+      }
+    }
+  })();
+  var N = bxA.length;
+  function resize() {
+    var css = Math.min(window.innerWidth * 0.86, window.innerHeight * 0.5, 400);
+    size = css; dpr = window.devicePixelRatio || 1;
+    canvas.width = Math.round(css * dpr); canvas.height = Math.round(css * dpr);
+    canvas.style.width = css + 'px'; canvas.style.height = css + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function compute() {
+    zbuf.fill(-Infinity); bri.fill(0);
+    var cosS = Math.cos(spin), sinS = Math.sin(spin), cosT = Math.cos(tilt), sinT = Math.sin(tilt);
+    for (var k = 0; k < N; k++) {
+      var bx = bxA[k], by = byA[k], bz = bzA[k];
+      var x2 = bx * cosS + bz * sinS, z1 = bz * cosS - bx * sinS;
+      var y2 = by * cosT - z1 * sinT, z2 = by * sinT + z1 * cosT;
+      var lam = x2 * Lx + y2 * Ly + z2 * Lz; if (lam < 0) lam = 0;
+      var shade = 0.20 + 0.80 * lam, b = landA[k] ? shade : shade * 0.45;
+      var z = z2 + K2, ooz = 1 / z;
+      var xp = (COLS / 2 + K1 * ooz * x2) | 0, yp = (ROWS / 2 - K1 * ooz * y2) | 0;
+      if (xp < 0 || xp >= COLS || yp < 0 || yp >= ROWS) continue;
+      var idx = xp + yp * COLS;
+      if (ooz > zbuf[idx]) { zbuf[idx] = ooz; bri[idx] = b; }
+    }
+  }
+  function draw() {
+    ctx.clearRect(0, 0, size, size);
+    var spacing = size / COLS; ctx.fillStyle = '#15130F';
+    for (var j = 0; j < ROWS; j++) for (var i = 0; i < COLS; i++) {
+      var b = bri[i + j * COLS]; if (b <= 0.03) continue; if (b > 1) b = 1;
+      var r = spacing * (0.12 + b * 0.46);
+      ctx.beginPath(); ctx.arc((i + 0.5) * spacing, (j + 0.5) * spacing, r, 0, 6.2832); ctx.fill();
+    }
+  }
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function loop() { compute(); draw(); spin += 0.011; requestAnimationFrame(loop); }
+  window.addEventListener('resize', resize); resize();
+  if (reduce) { compute(); draw(); } else loop();
+})();
+</script>
+</body>
+</html>

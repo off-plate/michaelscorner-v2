@@ -207,6 +207,13 @@ input[type=range]{ accent-color:var(--orange); }
 .pc.tr{ top:9px; right:9px; border-left:none; border-bottom:none; }
 .pc.bl{ bottom:9px; left:9px; border-right:none; border-top:none; }
 .pc.br{ bottom:9px; right:9px; border-left:none; border-top:none; }
+/* signature moment #3: the halftone dissolve + lens tighten (Home and About only) */
+.photo-frame .halftone{ position:absolute; inset:0; width:100%; height:100%; background:var(--cream); opacity:0; transition:opacity 340ms var(--ease); pointer-events:none; z-index:1; }
+.photo-frame:hover .halftone{ opacity:1; }
+.photo-frame:hover .pc.tl{ transform:translate(5px,5px); }
+.photo-frame:hover .pc.tr{ transform:translate(-5px,5px); }
+.photo-frame:hover .pc.bl{ transform:translate(5px,-5px); }
+.photo-frame:hover .pc.br{ transform:translate(-5px,-5px); }
 
 /* ---------- cards (baseline; pages restyle via their own css) ---------- */
 .card{
