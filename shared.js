@@ -130,10 +130,9 @@ window.MC2 = window.MC2 || {};
 
   /* ---------- active nav (by pathname) ---------- */
   function activeNav() {
-    var path = location.pathname.replace(/\/+$/, '');
-    var file = path.split('/').pop() || 'index.html';
-    var root = file.replace('.html', '');
-    if (root === 'index' || root === '') root = 'home';
+    var path = location.pathname;
+    var file = path.substring(path.lastIndexOf('/') + 1); /* '' for a directory index, else 'about.html' */
+    var root = (!file || file === 'index.html') ? 'home' : file.replace('.html', '');
     /* generated subpages live under packs/ and prompts/: both belong to the library */
     if (/\/(packs|prompts)\//.test(location.pathname)) root = 'library';
     if (/\/tools\//.test(location.pathname)) root = 'tools';
