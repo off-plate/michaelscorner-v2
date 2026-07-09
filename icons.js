@@ -1,4 +1,4 @@
-/* Michaels Corner — dot-matrix icon engine.
+/* Michaels Corner, dot-matrix icon engine.
    Halftone ink dots on cream, one muscle-car-orange accent (#F2541B).
    Every icon is a function cell(px,py,S) -> [brightness 0..1, orangeMix 0..1]
    sampled over a square grid. Same aesthetic as the site's 404 globe. */

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Content creators · Michael's Corner</title>
+<meta name="description" content="Make more from what you already record. Repurpose, script, and publish faster.">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+/* ---- Pack page: the opened dossier. Folder-tab header, then a ruled ledger of prompts. ---- */
+.dossier{ max-width:900px; padding:clamp(28px,4vw,48px) 0 0; }
+.d-back{ margin-bottom:clamp(20px,2.4vw,28px); }
+.folder{ border:1px solid var(--ink); border-radius:2px; }
+.folder-tab{
+  display:inline-flex; align-items:center; gap:10px; background:var(--ink); color:var(--cream);
+  font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+  padding:8px 16px; border-radius:2px 2px 0 0; margin:0; position:relative; top:1px;
+}
+.folder-body{ padding:clamp(22px,3vw,34px); }
+.folder-body .h-page{ margin:0 0 6px; }
+.folder-meta{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--grey); margin:0 0 18px; }
+.folder-intro{ font-size:16.5px; line-height:1.6; color:var(--ink-soft); max-width:64ch; margin:0 0 20px; }
+.cover-note{ font-family:'Space Mono',ui-monospace,monospace; font-size:12.5px; letter-spacing:0.02em; color:var(--grey); margin:12px 0 8px; }
+.cover-note .on{ color:var(--ink); }
+.cover-note .rest{ color:var(--grey-2); }
+
+/* the ledger of prompts */
+.ledger-list{ margin-top:clamp(28px,3.5vw,40px); border-top:1px solid var(--ink); }
+.lrow{
+  display:grid; grid-template-columns:auto 1fr auto; gap:4px 20px; align-items:baseline;
+  border-bottom:1px solid var(--line); padding:clamp(16px,2vw,22px) clamp(4px,1vw,10px);
+  text-decoration:none; color:var(--ink); transition:background 150ms ease;
+}
+.lrow:hover, .lrow:focus-visible{ background:var(--cream-2); outline:none; }
+.lrow .fno{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,30px); color:var(--orange); line-height:1; letter-spacing:-0.02em; }
+.lrow .lt{ }
+.lrow .lt h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(18px,1.8vw,21px); line-height:1.15; letter-spacing:-0.01em; margin:0 0 4px; }
+.lrow .lt p{ margin:0; font-size:14.5px; line-height:1.5; color:var(--grey); max-width:60ch; }
+.lrow .open{ font-family:'Space Mono',monospace; font-size:20px; color:var(--ink); align-self:center; transition:color 150ms ease, transform 180ms var(--ease); }
+.lrow:hover .open, .lrow:focus-visible .open{ color:var(--orange); transform:translateX(3px); }
+@media (max-width:560px){ .lrow{ grid-template-columns:auto 1fr; } .lrow .open{ display:none; } }
+@media (prefers-reduced-motion: reduce){ .lrow:hover .open, .lrow:focus-visible .open{ transform:none; } }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="../index.html"><img src="../assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="../kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="../index.html" data-nav="home">Home</a>
+      <a href="../start.html" data-nav="start">Start here</a>
+      <a href="../library.html" data-nav="library">Library</a>
+      <a href="../tools.html" data-nav="tools">Tools</a>
+      <a href="../bill.html" data-nav="bill">The Real Bill</a>
+      <a href="../channel.html" data-nav="channel">Channel</a>
+      <a href="../about.html" data-nav="about">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<div class="wrap dossier">
+  <a class="backlink d-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
+
+  <div class="folder">
+    <p class="folder-tab">PACK/07 &middot; Creators</p>
+    <div class="folder-body">
+      <h1 class="h-page">Content creators</h1>
+      <p class="folder-meta">8 prompts &middot; updated 07/2026</p>
+      <p class="folder-intro">Make more from what you already record. Repurpose, script, and publish faster. Without your feed starting to sound generated, because that is the fastest way to lose people.</p>
+
+      <p class="cover-note">What this pack does, honestly:</p>
+      <div class="honest-bar" style="max-width:340px;" aria-hidden="true"><span class="fill" style="width:80%"></span><span class="rest"></span></div>
+      <p class="cover-note"><span class="on">It repurposes and scripts from your own material.</span> <span class="rest">It cannot fake your taste. The judgement stays yours.</span></p>
+    </div>
+  </div>
+
+  <div class="ledger-list">
+    
+    <a class="lrow" href="../prompts/video-to-posts.html">
+      <span class="fno">01</span>
+      <span class="lt">
+        <h3>One video into a week</h3>
+        <p>Use this when you recorded one good video and want a week of posts out of it.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/thirty-second-script.html">
+      <span class="fno">02</span>
+      <span class="lt">
+        <h3>Script a thirty second video</h3>
+        <p>Use this when you know the point you want to make and need it shaped for a short video.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/honest-hooks.html">
+      <span class="fno">03</span>
+      <span class="lt">
+        <h3>Write hooks without clickbait</h3>
+        <p>Use this when you need a strong first line that the rest of the content can actually keep.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/transcript-to-article.html">
+      <span class="fno">04</span>
+      <span class="lt">
+        <h3>Clean my transcript into an article</h3>
+        <p>Use this when the video exists and the written version should too, without sounding like a robot transcribed it.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/caption-voice.html">
+      <span class="fno">05</span>
+      <span class="lt">
+        <h3>Captions in my voice</h3>
+        <p>Use this when the clip is ready and the caption is the only thing between you and posting.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/idea-mining.html">
+      <span class="fno">06</span>
+      <span class="lt">
+        <h3>Mine real questions for ideas</h3>
+        <p>Use this when the content calendar is empty and you want ideas grounded in what your audience already asks.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/content-week.html">
+      <span class="fno">07</span>
+      <span class="lt">
+        <h3>Plan a week from one idea</h3>
+        <p>Use this when one strong idea should become a week of connected content instead of one lonely post.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/stats-truth.html">
+      <span class="fno">08</span>
+      <span class="lt">
+        <h3>Read my stats honestly</h3>
+        <p>Use this when the analytics are open and you want the truth about what worked, without vanity comfort.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+  </div>
+</div>
+
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="../library.html">Prompt library</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../bill.html">The Real Bill</a>
+    </div>
+    <div class="foot-col">
+      <a href="../start.html">Start here</a>
+      <a href="../kit.html">The Starter Kit</a>
+      <a href="../about.html">About</a>
+    </div>
+    <div class="foot-meta mono">
+      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Updated 07/2026 &middot; Prague</span>
+    </div>
+  </div>
+</footer>
+<script src="../icons.js"></script>
+<script src="../signature.js"></script>
+<script src="../data/prompts-index.js"></script>
+<script src="../shared.js"></script>
+</body>
+</html>

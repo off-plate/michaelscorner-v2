@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompt library · Michael's Corner</title>
+<meta name="description" content="Eight folders of free, copy-ready prompts for ChatGPT, Claude, and Gemini.">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preload" href="assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="styles.css">
+<style>.sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }</style>
+<style>
+/* ---- Library: the card-catalog file system. Full-width drawer rows in a cabinet rail. ---- */
+.lib-top{ padding:clamp(28px,4vw,48px) 0 0; }
+.lib-mark{ display:block; margin:0 0 18px; }
+.lib-lead{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+.lib-lead .lede{ margin:14px 0 0; }
+.lib-count{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.1em; color:var(--grey); white-space:nowrap; }
+
+/* toolbar: search + role filters, one hairline strip */
+.lib-bar{ margin-top:clamp(24px,3vw,36px); border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); padding:14px 0; display:flex; align-items:center; justify-content:space-between; gap:16px 24px; flex-wrap:wrap; }
+.lib-search{ display:flex; align-items:center; gap:10px; flex:1; min-width:240px; }
+.lib-search label{ display:inline-flex; align-items:center; }
+.lib-search canvas{ display:block; flex:none; }
+.lib-search input{ flex:1; border:none; background:none; padding:8px 4px; font-size:16px; border-radius:0; }
+.lib-search input:focus{ outline:none; }
+.lib-search input:focus-visible{ outline:none; }
+.lib-filters{ display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+.lib-filters .rl{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--grey); margin-right:4px; }
+.rolebtn{ background:none; border:none; font-family:'General Sans',sans-serif; font-size:14px; color:var(--grey); cursor:pointer; padding:4px 6px; border-bottom:2px solid transparent; transition:color 150ms ease, border-color 150ms ease; }
+.rolebtn:hover{ color:var(--ink); }
+.rolebtn.active{ color:var(--ink); border-bottom-color:var(--orange); }
+
+/* the cabinet */
+.cabinet{ border-top:1px solid var(--ink); }
+.drawer{
+  display:grid; grid-template-columns:1fr auto; gap:8px 24px; align-items:start;
+  border-bottom:1px solid var(--ink); padding:clamp(22px,2.6vw,30px) clamp(4px,1vw,12px);
+  text-decoration:none; color:var(--ink); position:relative;
+  transition:transform 200ms var(--ease), background 150ms ease;
+}
+.drawer:hover, .drawer:focus-visible{ transform:translateY(-4px); background:var(--cream-2); outline:none; }
+.drawer .tab{
+  grid-column:1 / -1; display:inline-flex; align-items:center; width:max-content; gap:0;
+  font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--grey); border-bottom:2px solid transparent; padding-bottom:4px; margin-bottom:10px;
+  transition:color 150ms ease, border-color 150ms ease;
+}
+.drawer:hover .tab, .drawer:focus-visible .tab{ color:var(--ink); border-bottom-color:var(--orange); }
+.drawer .d-body{ grid-column:1; grid-row:2; }
+.drawer .d-name{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(22px,2.6vw,30px); line-height:1.02; letter-spacing:-0.02em; margin:0 0 8px; }
+.drawer .d-blurb{ margin:0; font-size:15.5px; line-height:1.55; color:var(--ink-soft); max-width:66ch; }
+.drawer .d-blurb span{ display:block; }
+.drawer .stamp{ grid-column:2; grid-row:2; font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--grey-2); text-align:right; white-space:nowrap; padding-top:4px; transition:color 150ms ease; }
+.drawer:hover .stamp, .drawer:focus-visible .stamp{ color:var(--ink); }
+.drawer .arrow{ color:var(--orange); font-family:'Space Mono',monospace; }
+.lib-empty{ padding:40px 8px; color:var(--grey); font-size:16px; display:none; }
+@media (max-width:640px){
+  .drawer{ grid-template-columns:1fr; }
+  .drawer .d-body{ grid-column:1; grid-row:auto; }
+  .drawer .stamp{ grid-column:1; grid-row:auto; text-align:left; }
+}
+@media (prefers-reduced-motion: reduce){ .drawer:hover, .drawer:focus-visible{ transform:none; } }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="index.html" data-nav="home">Home</a>
+      <a href="start.html" data-nav="start">Start here</a>
+      <a href="library.html" data-nav="library">Library</a>
+      <a href="tools.html" data-nav="tools">Tools</a>
+      <a href="bill.html" data-nav="bill">The Real Bill</a>
+      <a href="channel.html" data-nav="channel">Channel</a>
+      <a href="about.html" data-nav="about">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<div class="wrap lib-top">
+  <canvas class="lib-mark" data-dot="prompt" data-size="52" style="width:52px;height:52px;"></canvas>
+  <p class="eyebrow">The prompt library</p>
+  <div class="lib-lead">
+    <div>
+      <h1 class="h-page">Steal these prompts</h1>
+      <p class="lede">Eight folders, 64 prompts, all free. Copy one, fill the brackets, paste it into ChatGPT, Claude, or Gemini. Every one is written to be used, not admired.</p>
+    </div>
+    <span class="lib-count">8 packs &middot; 64 prompts &middot; updated 07/2026</span>
+  </div>
+
+  <div class="lib-bar">
+    <div class="lib-search">
+      <label for="lib-q"><canvas data-dot="search" data-size="20" style="width:20px;height:20px;"></canvas><span class="sr-only">Search prompts</span></label>
+      <input type="search" id="lib-q" placeholder="Search prompts" autocomplete="off" aria-label="Search prompts">
+    </div>
+    <div class="lib-filters" role="group" aria-label="Filter by role">
+      <span class="rl">Filter</span>
+      <button type="button" class="rolebtn" data-filter="beginners">Beginners</button>
+        <button type="button" class="rolebtn" data-filter="writing">Writing</button>
+        <button type="button" class="rolebtn" data-filter="building">Building</button>
+        <button type="button" class="rolebtn" data-filter="founders">Founders</button>
+        <button type="button" class="rolebtn" data-filter="freelancers">Freelancers</button>
+        <button type="button" class="rolebtn" data-filter="office">Office work</button>
+        <button type="button" class="rolebtn" data-filter="creators">Creators</button>
+        <button type="button" class="rolebtn" data-filter="students">Students</button>
+    </div>
+  </div>
+</div>
+
+<nav class="wrap cabinet" aria-label="Prompt packs">
+  
+    <a class="drawer" href="packs/beginners.html" data-role="beginners" data-search="best prompts for beginners beginners start here. simple prompts that work on your first day with chatgpt or claude. copy one, fill in the brackets, paste it in, and see for yourself what these tools can do.">
+      <span class="tab">PACK/01 &middot; Beginners</span>
+      <div class="d-body">
+        <h2 class="d-name">Best prompts for beginners</h2>
+        <p class="d-blurb"><span>Start here. Simple prompts that work on your first day with ChatGPT or Claude.</span><span>Copy one, fill in the brackets, paste it in, and see for yourself what these tools can do.</span></p>
+      </div>
+      <span class="stamp">8 prompts &middot; updated 07/2026 <span class="arrow">&#8594;</span></span>
+    </a>
+    <a class="drawer" href="packs/writing.html" data-role="writing" data-search="best prompts for writing writing draft faster and still sound like yourself. these keep your voice and cut the filler. they also stop your text from reading like a machine wrote it, because readers can tell.">
+      <span class="tab">PACK/02 &middot; Writing</span>
+      <div class="d-body">
+        <h2 class="d-name">Best prompts for writing</h2>
+        <p class="d-blurb"><span>Draft faster and still sound like yourself. These keep your voice and cut the filler.</span><span>They also stop your text from reading like a machine wrote it, because readers can tell.</span></p>
+      </div>
+      <span class="stamp">8 prompts &middot; updated 07/2026 <span class="arrow">&#8594;</span></span>
+    </a>
+    <a class="drawer" href="packs/building.html" data-role="building" data-search="building software with ai building go from a rough idea to working software, even if you do not code. plan small, brief the ai properly, and get unstuck when it breaks. it will break.">
+      <span class="tab">PACK/03 &middot; Building</span>
+      <div class="d-body">
+        <h2 class="d-name">Building software with AI</h2>
+        <p class="d-blurb"><span>Go from a rough idea to working software, even if you do not code.</span><span>Plan small, brief the AI properly, and get unstuck when it breaks. It will break.</span></p>
+      </div>
+      <span class="stamp">8 prompts &middot; updated 07/2026 <span class="arrow">&#8594;</span></span>
+    </a>
+    <a class="drawer" href="packs/founders.html" data-role="founders" data-search="founders and small business owners founders for people running a small business. customers, reviews, numbers, suppliers. plus the messages you keep putting off, drafted so you can send them today.">
+      <span class="tab">PACK/04 &middot; Founders</span>
+      <div class="d-body">
+        <h2 class="d-name">Founders and small business owners</h2>
+        <p class="d-blurb"><span>For people running a small business. Customers, reviews, numbers, suppliers.</span><span>Plus the messages you keep putting off, drafted so you can send them today.</span></p>
+      </div>
+      <span class="stamp">8 prompts &middot; updated 07/2026 <span class="arrow">&#8594;</span></span>
+    </a>
+    <a class="drawer" href="packs/freelancers.html" data-role="freelancers" data-search="freelancers and solo operators freelancers your business is you. briefs, proposals, feedback rounds, unpaid invoices. these push the admin down so more of your week goes to the actual work.">
+      <span class="tab">PACK/05 &middot; Freelancers</span>
+      <div class="d-body">
+        <h2 class="d-name">Freelancers and solo operators</h2>
+        <p class="d-blurb"><span>Your business is you. Briefs, proposals, feedback rounds, unpaid invoices.</span><span>These push the admin down so more of your week goes to the actual work.</span></p>
+      </div>
+      <span class="stamp">8 prompts &middot; updated 07/2026 <span class="arrow">&#8594;</span></span>
+    </a>
+    <a class="drawer" href="packs/office.html" data-role="office" data-search="office and operations work office work inbox, meetings, reports, spreadsheets. small routines for the everyday grind. nothing fancy, just the stuff that quietly gives you back an hour most days.">
+      <span class="tab">PACK/06 &middot; Office work</span>
+      <div class="d-body">
+        <h2 class="d-name">Office and operations work</h2>
+        <p class="d-blurb"><span>Inbox, meetings, reports, spreadsheets. Small routines for the everyday grind.</span><span>Nothing fancy, just the stuff that quietly gives you back an hour most days.</span></p>
+      </div>
+      <span class="stamp">8 prompts &middot; updated 07/2026 <span class="arrow">&#8594;</span></span>
+    </a>
+    <a class="drawer" href="packs/creators.html" data-role="creators" data-search="content creators creators make more from what you already record. repurpose, script, and publish faster. without your feed starting to sound generated, because that is the fastest way to lose people.">
+      <span class="tab">PACK/07 &middot; Creators</span>
+      <div class="d-body">
+        <h2 class="d-name">Content creators</h2>
+        <p class="d-blurb"><span>Make more from what you already record. Repurpose, script, and publish faster.</span><span>Without your feed starting to sound generated, because that is the fastest way to lose people.</span></p>
+      </div>
+      <span class="stamp">8 prompts &middot; updated 07/2026 <span class="arrow">&#8594;</span></span>
+    </a>
+    <a class="drawer" href="packs/students.html" data-role="students" data-search="students and learning students learn faster and remember more. these make ai quiz you and question you. the thinking stays yours, which is the part that passes exams.">
+      <span class="tab">PACK/08 &middot; Students</span>
+      <div class="d-body">
+        <h2 class="d-name">Students and learning</h2>
+        <p class="d-blurb"><span>Learn faster and remember more. These make AI quiz you and question you.</span><span>The thinking stays yours, which is the part that passes exams.</span></p>
+      </div>
+      <span class="stamp">8 prompts &middot; updated 07/2026 <span class="arrow">&#8594;</span></span>
+    </a>
+  <p class="lib-empty" id="lib-empty">No prompts match that. Try a shorter word or another folder.</p>
+</nav>
+
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="library.html">Prompt library</a>
+      <a href="tools.html">Tools</a>
+      <a href="bill.html">The Real Bill</a>
+    </div>
+    <div class="foot-col">
+      <a href="start.html">Start here</a>
+      <a href="kit.html">The Starter Kit</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="foot-meta mono">
+      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Updated 07/2026 &middot; Prague</span>
+    </div>
+  </div>
+</footer>
+<script src="icons.js"></script>
+<script src="signature.js"></script>
+<script src="data/prompts-index.js"></script>
+<script src="shared.js"></script>
+<script>
+(function(){
+  var input = document.getElementById('lib-q');
+  var drawers = Array.prototype.slice.call(document.querySelectorAll('.drawer'));
+  var empty = document.getElementById('lib-empty');
+  var roleBtns = Array.prototype.slice.call(document.querySelectorAll('.rolebtn'));
+  var role = 'all';
+  function apply(){
+    var q = (input.value || '').trim().toLowerCase();
+    var shown = 0;
+    drawers.forEach(function(d){
+      var okRole = role === 'all' || d.getAttribute('data-role') === role;
+      var okText = !q || d.getAttribute('data-search').indexOf(q) !== -1;
+      // also search individual prompt titles via the shared index
+      if (okRole && !okText && q && window.MC2DATA && MC2DATA.promptIndex){
+        okText = MC2DATA.promptIndex.some(function(it){
+          return it.pack === d.getAttribute('data-role') && (it.title.toLowerCase().indexOf(q) !== -1 || it.when.toLowerCase().indexOf(q) !== -1);
+        });
+      }
+      var on = okRole && okText;
+      d.style.display = on ? '' : 'none';
+      if (on) shown++;
+    });
+    empty.style.display = shown ? 'none' : 'block';
+  }
+  if (input) input.addEventListener('input', apply);
+  roleBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var f = b.getAttribute('data-filter');
+      if (role === f){ role = 'all'; b.classList.remove('active'); }
+      else { role = f; roleBtns.forEach(function(x){ x.classList.remove('active'); }); b.classList.add('active'); }
+      apply();
+    });
+  });
+})();
+</script>
+</body>
+</html>

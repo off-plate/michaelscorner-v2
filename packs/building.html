@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building software with AI · Michael's Corner</title>
+<meta name="description" content="Go from a rough idea to working software, even if you do not code.">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+/* ---- Pack page: the opened dossier. Folder-tab header, then a ruled ledger of prompts. ---- */
+.dossier{ max-width:900px; padding:clamp(28px,4vw,48px) 0 0; }
+.d-back{ margin-bottom:clamp(20px,2.4vw,28px); }
+.folder{ border:1px solid var(--ink); border-radius:2px; }
+.folder-tab{
+  display:inline-flex; align-items:center; gap:10px; background:var(--ink); color:var(--cream);
+  font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+  padding:8px 16px; border-radius:2px 2px 0 0; margin:0; position:relative; top:1px;
+}
+.folder-body{ padding:clamp(22px,3vw,34px); }
+.folder-body .h-page{ margin:0 0 6px; }
+.folder-meta{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--grey); margin:0 0 18px; }
+.folder-intro{ font-size:16.5px; line-height:1.6; color:var(--ink-soft); max-width:64ch; margin:0 0 20px; }
+.cover-note{ font-family:'Space Mono',ui-monospace,monospace; font-size:12.5px; letter-spacing:0.02em; color:var(--grey); margin:12px 0 8px; }
+.cover-note .on{ color:var(--ink); }
+.cover-note .rest{ color:var(--grey-2); }
+
+/* the ledger of prompts */
+.ledger-list{ margin-top:clamp(28px,3.5vw,40px); border-top:1px solid var(--ink); }
+.lrow{
+  display:grid; grid-template-columns:auto 1fr auto; gap:4px 20px; align-items:baseline;
+  border-bottom:1px solid var(--line); padding:clamp(16px,2vw,22px) clamp(4px,1vw,10px);
+  text-decoration:none; color:var(--ink); transition:background 150ms ease;
+}
+.lrow:hover, .lrow:focus-visible{ background:var(--cream-2); outline:none; }
+.lrow .fno{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,30px); color:var(--orange); line-height:1; letter-spacing:-0.02em; }
+.lrow .lt{ }
+.lrow .lt h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(18px,1.8vw,21px); line-height:1.15; letter-spacing:-0.01em; margin:0 0 4px; }
+.lrow .lt p{ margin:0; font-size:14.5px; line-height:1.5; color:var(--grey); max-width:60ch; }
+.lrow .open{ font-family:'Space Mono',monospace; font-size:20px; color:var(--ink); align-self:center; transition:color 150ms ease, transform 180ms var(--ease); }
+.lrow:hover .open, .lrow:focus-visible .open{ color:var(--orange); transform:translateX(3px); }
+@media (max-width:560px){ .lrow{ grid-template-columns:auto 1fr; } .lrow .open{ display:none; } }
+@media (prefers-reduced-motion: reduce){ .lrow:hover .open, .lrow:focus-visible .open{ transform:none; } }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="../index.html"><img src="../assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="../kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="../index.html" data-nav="home">Home</a>
+      <a href="../start.html" data-nav="start">Start here</a>
+      <a href="../library.html" data-nav="library">Library</a>
+      <a href="../tools.html" data-nav="tools">Tools</a>
+      <a href="../bill.html" data-nav="bill">The Real Bill</a>
+      <a href="../channel.html" data-nav="channel">Channel</a>
+      <a href="../about.html" data-nav="about">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<div class="wrap dossier">
+  <a class="backlink d-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
+
+  <div class="folder">
+    <p class="folder-tab">PACK/03 &middot; Building</p>
+    <div class="folder-body">
+      <h1 class="h-page">Building software with AI</h1>
+      <p class="folder-meta">8 prompts &middot; updated 07/2026</p>
+      <p class="folder-intro">Go from a rough idea to working software, even if you do not code. Plan small, brief the AI properly, and get unstuck when it breaks. It will break.</p>
+
+      <p class="cover-note">What this pack does, honestly:</p>
+      <div class="honest-bar" style="max-width:340px;" aria-hidden="true"><span class="fill" style="width:80%"></span><span class="rest"></span></div>
+      <p class="cover-note"><span class="on">It plans, briefs, and unblocks the build.</span> <span class="rest">It does not test your product with real users. You do.</span></p>
+    </div>
+  </div>
+
+  <div class="ledger-list">
+    
+    <a class="lrow" href="../prompts/idea-to-spec.html">
+      <span class="fno">01</span>
+      <span class="lt">
+        <h3>Rough idea into a build spec</h3>
+        <p>Use this when you have an idea in your head and need a plan before you let any tool write code.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/smallest-version.html">
+      <span class="fno">02</span>
+      <span class="lt">
+        <h3>Plan the smallest version worth shipping</h3>
+        <p>Use this when your idea keeps growing and you need to ship something small first.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/builder-brief.html">
+      <span class="fno">03</span>
+      <span class="lt">
+        <h3>Brief an AI coding tool</h3>
+        <p>Use this when the spec is ready and you want the first message to Claude Code, Cursor, or a similar tool to start the build right.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/fix-error-plain.html">
+      <span class="fno">04</span>
+      <span class="lt">
+        <h3>Explain and fix this error</h3>
+        <p>Use this when you hit an error and you are not sure what the code even does.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/loop-breaker.html">
+      <span class="fno">05</span>
+      <span class="lt">
+        <h3>Get out of the fix loop</h3>
+        <p>Use this when the AI keeps confidently fixing the same bug and the bug keeps not being fixed.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/explain-code.html">
+      <span class="fno">06</span>
+      <span class="lt">
+        <h3>Tell me what this code does</h3>
+        <p>Use this when you are about to use code you did not write and want to know what it really does first.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/pick-tools.html">
+      <span class="fno">07</span>
+      <span class="lt">
+        <h3>Pick tools without the hype</h3>
+        <p>Use this when every tool claims to be the answer and you just need one that fits your case.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/ship-checklist.html">
+      <span class="fno">08</span>
+      <span class="lt">
+        <h3>Test it before anyone sees it</h3>
+        <p>Use this when the build looks done and you want to find the embarrassing bugs before your first user does.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+  </div>
+</div>
+
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="../library.html">Prompt library</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../bill.html">The Real Bill</a>
+    </div>
+    <div class="foot-col">
+      <a href="../start.html">Start here</a>
+      <a href="../kit.html">The Starter Kit</a>
+      <a href="../about.html">About</a>
+    </div>
+    <div class="foot-meta mono">
+      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Updated 07/2026 &middot; Prague</span>
+    </div>
+  </div>
+</footer>
+<script src="../icons.js"></script>
+<script src="../signature.js"></script>
+<script src="../data/prompts-index.js"></script>
+<script src="../shared.js"></script>
+</body>
+</html>

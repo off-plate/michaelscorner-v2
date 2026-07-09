@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pick tools without the hype · Michael's Corner</title>
+<meta name="description" content="Use this when every tool claims to be the answer and you just need one that fits your case.">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+/* ---- Prompt page: the spec sheet. Mono header, ink terminal specimen, one Copy button. ---- */
+.spec{ max-width:820px; padding:clamp(28px,4vw,48px) 0 0; }
+.spec-back{ margin-bottom:clamp(20px,2.4vw,28px); }
+.spec-meta{ display:flex; gap:8px 20px; flex-wrap:wrap; font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--grey); border-bottom:1px solid var(--ink); padding-bottom:12px; margin-bottom:clamp(18px,2.2vw,26px); }
+.spec-meta .id{ color:var(--ink); font-weight:700; }
+.spec h1{ margin:0 0 8px; }
+.spec-when{ font-size:16.5px; line-height:1.6; color:var(--ink-soft); max-width:60ch; margin:0 0 clamp(22px,3vw,32px); }
+
+/* the terminal specimen */
+.term{ background:var(--ink); color:var(--ink-text); border:1px solid var(--ink); border-radius:2px; overflow:hidden; }
+.term-bar{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 16px; border-bottom:1px solid #34302a; font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#b9b2a4; }
+.term-bar .dot{ display:inline-flex; align-items:center; gap:8px; }
+.term-body{ padding:clamp(16px,2.4vw,24px); font-family:'Space Mono',ui-monospace,Menlo,monospace; font-size:13.5px; line-height:1.7; white-space:pre-wrap; word-break:break-word; margin:0; color:var(--ink-text); }
+.term-body .cur{ display:inline-block; width:0.62em; height:1.05em; background:var(--orange); vertical-align:-0.16em; margin-left:2px; animation:mc-cur 1s steps(1) infinite; }
+@keyframes mc-cur{ 0%,49%{opacity:1} 50%,100%{opacity:0} }
+.spec-body.selected .term-body{ background:transparent; }
+.spec-body.selected .term-body .selwrap{ background:var(--orange); color:var(--cream); }
+
+/* copy control */
+.copyrow{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:16px; }
+.copy-btn{ display:inline-flex; align-items:center; gap:10px; }
+.copy-btn canvas{ display:block; }
+.copy-stamp{ font-family:'Space Mono',ui-monospace,monospace; font-size:12.5px; color:var(--grey); min-height:1.2em; }
+.copy-stamp .on{ color:var(--ink); }
+
+/* spec fields */
+.fields{ margin-top:clamp(30px,4vw,44px); border-top:1px solid var(--ink); }
+.field{ border-bottom:1px solid var(--line); padding:clamp(16px,2vw,22px) 0; display:grid; grid-template-columns:180px 1fr; gap:8px 28px; align-items:start; }
+.field .fl{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--grey); padding-top:3px; }
+.field .fv{ font-size:15.5px; line-height:1.6; color:var(--ink); }
+.tokens{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+.tokens li{ font-family:'Space Mono',ui-monospace,monospace; font-size:13.5px; color:var(--ink); }
+.tokens .tk{ color:var(--orange); }
+.tokens .none{ color:var(--grey); font-family:'General Sans',sans-serif; }
+.works{ display:inline-flex; gap:8px; flex-wrap:wrap; font-family:'Space Mono',monospace; font-size:13.5px; }
+@media (max-width:560px){ .field{ grid-template-columns:1fr; gap:6px; } }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="../index.html"><img src="../assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="../kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="../index.html" data-nav="home">Home</a>
+      <a href="../start.html" data-nav="start">Start here</a>
+      <a href="../library.html" data-nav="library">Library</a>
+      <a href="../tools.html" data-nav="tools">Tools</a>
+      <a href="../bill.html" data-nav="bill">The Real Bill</a>
+      <a href="../channel.html" data-nav="channel">Channel</a>
+      <a href="../about.html" data-nav="about">About</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<div class="wrap spec">
+  <a class="backlink spec-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
+
+  <div class="spec-meta">
+    <span><a href="../packs/building.html" style="text-decoration:none;color:inherit;">Building</a></span>
+    <span class="id">PROMPT/03.07</span>
+    <span>updated 07/2026</span>
+  </div>
+
+  <h1 class="h-page">Pick tools without the hype</h1>
+  <p class="spec-when">Use this when every tool claims to be the answer and you just need one that fits your case.</p>
+
+  <div class="spec-body" id="spec-body">
+    <div class="term">
+      <div class="term-bar">
+        <span class="dot"><canvas data-dot="prompt" data-size="16" style="width:16px;height:16px;"></canvas> The prompt</span>
+        <span>copy target</span>
+      </div>
+      <pre class="term-body" id="specimen"><span class="selwrap">You are a tool advisor with no affiliate links and no favorites. Help me choose the right tool for my project, sized to my reality.
+
+What I am building or doing:
+[one or two lines]
+
+My constraints:
+- Budget: [amount per month, can be zero]
+- Technical comfort: [none, some, high]
+- Deal breakers: [for example &quot;must work in my language&quot;, &quot;data stays in the EU&quot;, &quot;no subscriptions&quot;]
+
+Do this:
+1. Give me three realistic options: the simplest thing that works, the balanced pick, and the heavy one I probably do not need yet.
+2. For each: what it costs in practice including the paid tier I would actually hit, the setup effort in hours, and the main limitation nobody mentions in reviews.
+3. Say which one you would pick in my situation and why, in two sentences.
+4. Name what I do not need to buy today, and when that changes.
+
+Rules:
+- Pricing and features may have changed since your training data. Say so, and tell me which numbers to verify.
+- No feature lists copied from marketing pages. Practical differences only.
+
+End with a three row comparison table: option, monthly cost, setup effort, biggest limitation.</span><span class="cur" aria-hidden="true"></span></pre>
+    </div>
+
+    <div class="copyrow">
+      <button type="button" class="btn copy-btn" id="copy-btn">
+        <canvas data-dot="copy" data-size="18" style="width:18px;height:18px;"></canvas>
+        <span class="lbl">Copy prompt</span>
+      </button>
+      <span class="copy-stamp" id="copy-stamp" role="status" aria-live="polite"></span>
+    </div>
+  </div>
+
+  <div class="fields">
+    <div class="field">
+      <span class="fl">What to fill in</span>
+      <div class="fv"><ul class="tokens"><li><span class="tk">[</span>one or two lines<span class="tk">]</span></li><li><span class="tk">[</span>amount per month, can be zero<span class="tk">]</span></li><li><span class="tk">[</span>none, some, high<span class="tk">]</span></li><li><span class="tk">[</span>for example &quot;must work in my language&quot;, &quot;data stays in the EU&quot;, &quot;no subscriptions&quot;<span class="tk">]</span></li></ul></div>
+    </div>
+    <div class="field">
+      <span class="fl">When I use it</span>
+      <div class="fv">Use this when every tool claims to be the answer and you just need one that fits your case.</div>
+    </div>
+    <div class="field">
+      <span class="fl">The tip</span>
+      <div class="fv">Ask it separately what happens to your data if you quit each tool. Exit cost is the spec nobody prints.</div>
+    </div>
+    <div class="field">
+      <span class="fl">Works in</span>
+      <div class="fv"><span class="works">ChatGPT / Claude / Gemini</span></div>
+    </div>
+  </div>
+</div>
+
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="../library.html">Prompt library</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../bill.html">The Real Bill</a>
+    </div>
+    <div class="foot-col">
+      <a href="../start.html">Start here</a>
+      <a href="../kit.html">The Starter Kit</a>
+      <a href="../about.html">About</a>
+    </div>
+    <div class="foot-meta mono">
+      <span style="display:inline-flex;align-items:center;gap:8px;"><canvas data-dot="pulse" data-size="18" style="width:18px;height:18px;"></canvas> Updated 07/2026 &middot; Prague</span>
+    </div>
+  </div>
+</footer>
+<script src="../icons.js"></script>
+<script src="../signature.js"></script>
+<script src="../data/prompts-index.js"></script>
+<script src="../shared.js"></script>
+<script>
+(function(){
+  var RAW = "You are a tool advisor with no affiliate links and no favorites. Help me choose the right tool for my project, sized to my reality.\n\nWhat I am building or doing:\n[one or two lines]\n\nMy constraints:\n- Budget: [amount per month, can be zero]\n- Technical comfort: [none, some, high]\n- Deal breakers: [for example \"must work in my language\", \"data stays in the EU\", \"no subscriptions\"]\n\nDo this:\n1. Give me three realistic options: the simplest thing that works, the balanced pick, and the heavy one I probably do not need yet.\n2. For each: what it costs in practice including the paid tier I would actually hit, the setup effort in hours, and the main limitation nobody mentions in reviews.\n3. Say which one you would pick in my situation and why, in two sentences.\n4. Name what I do not need to buy today, and when that changes.\n\nRules:\n- Pricing and features may have changed since your training data. Say so, and tell me which numbers to verify.\n- No feature lists copied from marketing pages. Practical differences only.\n\nEnd with a three row comparison table: option, monthly cost, setup effort, biggest limitation.";
+  var btn = document.getElementById('copy-btn');
+  var lbl = btn.querySelector('.lbl');
+  var stamp = document.getElementById('copy-stamp');
+  var specBody = document.getElementById('spec-body');
+  var reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function pad(n){ return (n<10?'0':'')+n; }
+  function fallback(){
+    try{ var ta=document.createElement('textarea'); ta.value=RAW; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.focus(); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); return true;
+    }catch(e){ return false; }
+  }
+  btn.addEventListener('click', function(){
+    var ok = false;
+    try{ if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(RAW).catch(fallback); ok = true; } }catch(e){}
+    if(!ok) ok = fallback();
+    if(!ok){ lbl.textContent = 'Select and copy manually'; return; }
+    // signature moment 2: the prompt selects itself
+    specBody.classList.add('selected');
+    if(reduce){ setTimeout(function(){ specBody.classList.remove('selected'); }, 700); }
+    else { setTimeout(function(){ specBody.classList.remove('selected'); }, 700); }
+    lbl.textContent = 'Copied';
+    if(window.MC2 && MC2.mountDevices){ /* icon morph handled by copy dot-icon click state if present */ }
+    var d = new Date();
+    stamp.innerHTML = '<span class="on">copied ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + '</span> &middot; works in ChatGPT / Claude / Gemini';
+    setTimeout(function(){ lbl.textContent = 'Copy prompt'; }, 1800);
+  });
+})();
+</script>
+</body>
+</html>

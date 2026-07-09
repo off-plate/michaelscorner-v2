@@ -1,4 +1,4 @@
-/* Michael's Corner v2 — shared runtime for every page.
+/* Michael's Corner v2, shared runtime for every page.
    Multi-page static site: no router, no loader. This file mounts the brand devices
    (dot icons, signature wave, corner-bracket focus), marks the active nav item,
    and provides the helpers pages share. Load order: icons.js, signature.js, shared.js. */

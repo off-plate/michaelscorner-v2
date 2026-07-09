@@ -1,4 +1,4 @@
-/* Michael's Corner — the signature wave.
+/* Michael's Corner, the signature wave.
    A muscle-orange ASCII waveform that flows while something is thinking / loading / generating.
    Portable: MCSignature.mount(el, { chars, speed, phase, color }). */
 (function () {
