@@ -47,6 +47,12 @@ function head(title, desc, prefix) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)} · Michael's Corner</title>
 <meta name="description" content="${esc(desc)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Michael's Corner">
+<meta property="og:title" content="${esc(title)} · Michael's Corner">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:image" content="https://off-plate.github.io/michaelscorner-v2/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="${prefix}assets/favicon.svg">
 <link rel="preload" href="${prefix}assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${prefix}assets/fonts/fonts.css">
