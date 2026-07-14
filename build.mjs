@@ -45,11 +45,11 @@ function head(title, desc, prefix) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(title)} · Michael's Corner</title>
+<title>${esc(title)} / Michael's Corner</title>
 <meta name="description" content="${esc(desc)}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Michael's Corner">
-<meta property="og:title" content="${esc(title)} · Michael's Corner">
+<meta property="og:title" content="${esc(title)} / Michael's Corner">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:image" content="https://off-plate.github.io/michaelscorner-v2/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -395,10 +395,10 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
 .copy-stamp{ font-family:'Space Mono',ui-monospace,monospace; font-size:12.5px; color:var(--grey); min-height:1.2em; }
 .copy-stamp .on{ color:var(--ink); }
 
-/* spec fields: a full-width row under the terminal (no floating rail) */
+/* spec fields: a prominent panel under the terminal (no floating rail) */
 .spec-body{ max-width:960px; }
-.specfields{ margin-top:clamp(30px,4vw,44px); border-top:1px solid var(--ink); padding-top:clamp(22px,3vw,32px);
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:clamp(20px,2.6vw,40px); }
+.specfields{ margin-top:clamp(24px,3vw,36px); background:var(--cream-2); border:1px solid var(--ink); border-radius:2px;
+  padding:clamp(22px,2.6vw,32px); display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:clamp(20px,2.6vw,36px); }
 .sf h3{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--green); margin:0 0 10px; font-weight:700; }
 .sf p{ margin:0; font-size:15px; line-height:1.6; color:var(--ink); }
 .tokens{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
@@ -443,7 +443,6 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
 
     <div class="copyrow">
       <button type="button" class="btn-orange copy-btn" id="copy-btn">
-        <canvas data-dot="copy" data-size="18" data-tone="light" style="width:18px;height:18px;"></canvas>
         <span class="lbl">Copy prompt</span>
       </button>
       <span class="copy-stamp" id="copy-stamp" role="status" aria-live="polite"></span>
@@ -488,7 +487,7 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
     lbl.textContent = 'Copied';
     if(window.MC2 && MC2.mountDevices){ /* icon morph handled by copy dot-icon click state if present */ }
     var d = new Date();
-    stamp.innerHTML = '<span class="on">copied ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + '</span> &middot; works in ChatGPT / Claude / Gemini';
+    stamp.innerHTML = '<span class="on">copied ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + '</span> / works in ChatGPT / Claude / Gemini';
     setTimeout(function(){ lbl.textContent = 'Copy prompt'; }, 1800);
   });
 })();

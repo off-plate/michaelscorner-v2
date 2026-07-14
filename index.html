@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
 <style>
-  /* HOME · broadsheet front page. Every band a different column ratio. */
+  /* HOME / broadsheet front page. Every band a different column ratio. */
   .hero{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:clamp(28px,4vw,64px); align-items:center;
     padding-block:clamp(36px,4vw,60px) clamp(30px,3vw,48px); }
   .hero-photo{ aspect-ratio:4/5; }
@@ -55,18 +55,18 @@
   .vcard .vb h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:17px; line-height:1.14; margin:0 0 6px; }
   .vcard .vb p{ font-size:13.5px; line-height:1.45; color:var(--ink-soft); margin:0; }
 
-  /* honest note with a brand visual on the right so it does not sit half-empty */
+  /* honest note: a real deep-green section with a continuously animating signature wave */
   .note-grid{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:clamp(28px,4vw,64px); align-items:center; }
-  .note-visual{ display:flex; align-items:center; justify-content:center; min-height:240px; }
-  .note-visual canvas{ width:min(300px,90%); height:auto; }
+  .note-visual{ display:flex; align-items:center; justify-content:center; min-height:200px; }
+  .wave-anim{ font-family:'Space Mono',ui-monospace,monospace; font-size:clamp(30px,4.4vw,60px); letter-spacing:6px; color:var(--soft); white-space:pre; line-height:1; }
 
-  .kitbar{ border:1px solid var(--ink); border-radius:2px; background:var(--cream-2); padding:clamp(28px,3.4vw,44px); display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center; }
+  /* starter-kit closing band */
+  .kitband{ display:grid; grid-template-columns:1fr auto; gap:clamp(24px,3vw,48px); align-items:center; }
 
   @media (max-width:820px){
-    .hero, .lead, .note-grid{ grid-template-columns:1fr; }
-    .kitbar{ grid-template-columns:1fr; }
+    .hero, .lead, .note-grid, .kitband{ grid-template-columns:1fr; }
     .hero-photo{ max-width:420px; }
-    .note-visual{ min-height:160px; order:-1; }
+    .note-visual{ min-height:130px; order:-1; }
   }
 </style>
 </head>
@@ -155,15 +155,15 @@
     <div class="scroller" id="pcards" data-scroller></div>
   </section>
 
-  <!-- ===== one honest note ===== -->
-  <section class="band">
+  <!-- ===== one honest note, on the deep-green band ===== -->
+  <section class="band band--green">
     <div class="wrap">
       <div class="note-grid">
         <div>
           <h2 class="h-sec">What using it is really like</h2>
           <p class="lede" style="margin-top:14px;">The first rough version usually comes together in a few minutes, and that part feels like magic. Then the slower work starts, the checking, the fixing, and the small calls that are yours to make, and that is where most of the real time goes. The shortcuts here are for the fast part. I try to stay honest about the part that does not get faster.</p>
         </div>
-        <div class="note-visual"><canvas data-dot="corner" data-size="240" style="width:240px;height:240px;"></canvas></div>
+        <div class="note-visual"><div class="wave-anim" id="note-wave" aria-hidden="true"></div></div>
       </div>
     </div>
   </section>
@@ -180,14 +180,16 @@
     <div class="scroller" id="vstrip" data-scroller></div>
   </section>
 
-  <!-- ===== starter kit bar ===== -->
-  <section class="wrap sec">
-    <div class="kitbar">
-      <div>
-        <h2 class="h-sec" style="margin-bottom:10px;">Everything I would hand a friend starting out</h2>
-        <p class="small" style="max-width:52ch;">Six things, listed in full before you give an email. The 10 prompts I reuse, the model guide, the first-hour walkthrough, the cost cheat sheet, and more.</p>
+  <!-- ===== starter kit, deep-green closing band ===== -->
+  <section class="band band--green">
+    <div class="wrap">
+      <div class="kitband">
+        <div>
+          <h2 class="h-sec" style="margin-bottom:10px;">Everything I would hand a friend starting out</h2>
+          <p class="lede" style="max-width:52ch;">Six things, listed in full before you give an email. The 10 prompts I reuse, the model guide, the first-hour walkthrough, the cost cheat sheet, and more.</p>
+        </div>
+        <a class="btn-ghost" href="kit.html" style="white-space:nowrap;">See what is inside <span>&#8594;</span></a>
       </div>
-      <a class="btn-orange" href="kit.html" style="white-space:nowrap;">See what is inside <span>&#8594;</span></a>
     </div>
   </section>
 </main>
@@ -266,6 +268,13 @@
     return '<div class="vcard"><div class="vthumb"><span class="play"></span><span class="dur">' + MC2.esc(v.d) + '</span></div>' +
       '<div class="vb"><h3>' + MC2.esc(v.t) + '</h3><p>' + MC2.esc(v.w) + '</p></div></div>';
   }).join('');
+
+  /* ---- honest-note signature wave: runs continuously (static frame under reduced motion) ---- */
+  var nw = document.getElementById('note-wave');
+  if (nw) {
+    if (MC2.reducedMotion) { nw.textContent = MC2.wave(15, 0.4, 5.5, 0.55); }
+    else { var wt0 = performance.now(); (function wtick(now){ nw.textContent = MC2.wave(15, (now - wt0) / 1000, 5.5, 0.55); requestAnimationFrame(wtick); })(wt0); }
+  }
 
   MC2.mountDevices(document);
 })();
