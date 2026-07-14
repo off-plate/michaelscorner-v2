@@ -5,7 +5,7 @@
 (function () {
   "use strict";
 
-  var INK = [21, 19, 15], ORANGE = [242, 84, 27];
+  var INK = [21, 19, 15], ORANGE = [242, 84, 27], CREAM = [250, 247, 242];
   var GRID = 15;          // dots per side
   var EDGE = 0.12;        // edge softness in p-units
 
@@ -294,6 +294,8 @@
     this.ctx = canvas.getContext("2d");
     this.def = def;
     this.size = +canvas.getAttribute("data-size") || 120;
+    /* data-tone="light" renders dots in cream for dark/green surfaces (e.g. the Real Bill band) */
+    this.base = canvas.getAttribute("data-tone") === "light" ? CREAM : INK;
     this.S = { t: 0, hv: 0, hvTarget: 0, snap: 1, playing: false, morph: 0, clickT: -10 };
     this.dirty = true;
     var self = this;
@@ -363,7 +365,7 @@
         if (def.hoverAccent) o = Math.max(o, b * S.hv);   // whole-icon orange on hover
         if (b <= 0.04) continue;
         if (b > 1) b = 1;
-        ctx.fillStyle = mixc(INK, ORANGE, o);
+        ctx.fillStyle = mixc(this.base, ORANGE, o);
         var rad = sp * (0.12 + b * 0.42);
         ctx.beginPath();
         ctx.arc((i + 0.5) * sp, (j + 0.5) * sp, rad, 0, 6.2832);

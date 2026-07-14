@@ -7,6 +7,15 @@
   --ink:#15130F; --ink-2:#211D18; --ink-text:#F3EDE2; --ink-soft:#3f3a31;
   --orange:#F2541B; --grey:#5B564D; --grey-2:#8a847a;
   --line:#E3DCCE; --line-ink:#2b2820;
+  /* Brand Canvas V2 palette. One law: orange acts, green speaks, brick is the hover.
+     - orange  = commit-actions only: primary CTA, active/selected, money, logo, brand marks.
+     - green   = voice + surface: eyebrows, secondary/ghost controls, pullquotes, the two
+                 green surfaces (footer + Real Bill band). Green is NEVER a hover.
+     - brick   = the single hover colour for every text link and nav item, everywhere.
+     - soft    = the accent on dark/green surfaces only. */
+  --green:#1E5244; --green-2:#17463A; --deep-green:#183A32;
+  --sage:#EFE5C8; --sage-line:#DED2AF;
+  --soft:#F08A4B; --brick:#B23708; --green-soft:#a9c0b6;
   --ease:cubic-bezier(0.22,0.61,0.36,1);
   --wrap:1440px; --pad:clamp(20px,4vw,56px);
 }
@@ -38,7 +47,7 @@ main{ flex:1; outline:none; }
 .mono{ font-family:'Space Mono',ui-monospace,Menlo,monospace; }
 .eyebrow{
   font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.14em;
-  text-transform:uppercase; color:var(--orange); font-weight:400; margin:0 0 16px;
+  text-transform:uppercase; color:var(--green); font-weight:400; margin:0 0 16px;
 }
 .h-display{
   font-family:'Clash Display',sans-serif; font-weight:700;
@@ -81,7 +90,7 @@ main{ flex:1; outline:none; }
   display:inline-flex; align-items:center; gap:6px; border-bottom:1px solid var(--ink);
   padding-bottom:2px; white-space:nowrap; transition:color 150ms ease, border-color 150ms ease;
 }
-.head-cta:hover{ color:var(--orange); border-color:var(--orange); }
+.head-cta:hover{ color:var(--brick); border-color:var(--brick); }
 .head-cta .oa{ color:var(--orange); }
 .head-nav{
   border-top:1px solid var(--ink); display:flex; justify-content:space-between;
@@ -91,7 +100,8 @@ main{ flex:1; outline:none; }
   font-size:clamp(14px,1.4vw,16px); color:var(--ink); text-decoration:none; padding:8px 12px;
   border-radius:2px; transition:color 150ms ease;
 }
-.head-nav a:hover{ color:var(--orange); }
+/* one clean hover: brick text, no shadow, no green. Active = orange (orange owns selected). */
+.head-nav a:hover{ color:var(--brick); }
 .head-nav a.active{ color:var(--orange); font-weight:600; }
 /* hamburger button (injected by shared.js), desktop-hidden */
 .nav-toggle{ display:none; }
@@ -125,47 +135,56 @@ main{ flex:1; outline:none; }
   .nav-extra a .oa{ color:var(--orange); }
 }
 
-/* ---------- footer ---------- */
-.site-foot{ border-top:1px solid var(--ink); background:var(--ink); color:var(--ink-text); margin-top:clamp(48px,6vw,96px); }
+/* ---------- footer (the recurring deep-green surface, on every page) ---------- */
+.site-foot{ border-top:1px solid var(--ink); background:var(--deep-green); color:var(--cream); margin-top:clamp(48px,6vw,96px); }
 .foot-grid{
   display:grid; grid-template-columns:2fr 1fr 1fr auto; gap:clamp(24px,4vw,64px);
   padding-top:clamp(32px,4vw,56px); padding-bottom:clamp(32px,4vw,56px); align-items:start;
 }
-.foot-word{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:22px; color:var(--orange); margin:0 0 8px; }
-.foot-line{ margin:0; font-size:15px; color:#b9b2a4; max-width:32ch; }
+.foot-word{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:22px; color:var(--soft); margin:0 0 8px; }
+.foot-line{ margin:0; font-size:15px; color:var(--green-soft); max-width:32ch; }
 .foot-col{ display:flex; flex-direction:column; gap:10px; }
-.foot-col a{ color:#d9d2c5; text-decoration:none; font-size:15px; transition:color 150ms ease; }
-.foot-col a:hover{ color:var(--orange); }
-.foot-meta{ display:flex; flex-direction:column; gap:8px; font-size:12px; color:#8a847a; }
+.foot-col a{ color:#d9e4dd; text-decoration:none; font-size:15px; transition:color 150ms ease; }
+.foot-col a:hover{ color:var(--soft); }
+.foot-meta{ display:flex; flex-direction:column; gap:8px; font-size:12px; color:var(--green-soft); }
 @media (max-width:820px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
 
-/* ---------- buttons + chips ---------- */
+/* ---------- buttons + chips ----------
+   One consistent grammar:
+   - a FILLED button darkens on hover (never swaps colour).
+   - an OUTLINE button fills on hover.
+   - orange is the primary commit CTA; green is the secondary control (green speaks). */
 .btn{
   background:var(--ink); color:var(--cream); border:none; padding:15px 24px;
   font-size:15px; font-weight:500; cursor:pointer; display:inline-flex; align-items:center; gap:10px;
-  text-decoration:none; border-radius:2px;
+  text-decoration:none; border-radius:2px; transition:background 150ms ease;
 }
 .btn:hover{ background:var(--ink-2); }
 .btn .oa{ color:var(--orange); }
+/* secondary control = green outline that fills green on hover (green may own the secondary control). */
 .btn-ghost{
-  background:none; border:1px solid var(--ink); color:var(--ink); padding:15px 24px;
+  background:none; border:1px solid var(--green); color:var(--green); padding:15px 24px;
   font-size:15px; cursor:pointer; display:inline-flex; align-items:center; gap:10px;
-  text-decoration:none; border-radius:2px; transition:background 150ms ease;
+  text-decoration:none; border-radius:2px; transition:background 150ms ease, color 150ms ease, border-color 150ms ease;
 }
-.btn-ghost:hover{ background:var(--cream-2); }
-.btn-orange{ background:var(--orange); color:var(--cream); border:none; padding:15px 24px; font-size:15px; font-weight:500; cursor:pointer; display:inline-flex; align-items:center; gap:10px; text-decoration:none; border-radius:2px; }
-.btn-orange:hover{ filter:brightness(0.95); }
+.btn-ghost:hover{ background:var(--green); color:var(--cream); border-color:var(--green); }
+.btn-ghost .oa{ color:var(--soft); }
+/* primary CTA = orange fill, darkens to brick on hover (orange's darker sibling). */
+.btn-orange{ background:var(--orange); color:var(--cream); border:none; padding:15px 24px; font-size:15px; font-weight:500; cursor:pointer; display:inline-flex; align-items:center; gap:10px; text-decoration:none; border-radius:2px; transition:background 150ms ease; }
+.btn-orange:hover{ background:var(--brick); }
+/* inactive chip = green outline; selected chip = orange (orange owns selected). */
 .chip{
-  border:1px solid var(--ink); background:none; color:var(--ink); padding:8px 15px;
-  font-size:14px; cursor:pointer; border-radius:2px; white-space:nowrap; transition:border-color 150ms ease;
+  border:1px solid var(--green); background:none; color:var(--green); padding:8px 15px;
+  font-size:14px; cursor:pointer; border-radius:2px; white-space:nowrap; transition:border-color 150ms ease, background 150ms ease, color 150ms ease;
 }
-.chip:hover{ border-color:var(--orange); }
-.chip.active{ background:var(--ink); color:var(--cream); }
+.chip:hover{ background:var(--sage); border-color:var(--green-2); }
+.chip.active{ background:var(--orange); color:var(--cream); border-color:var(--orange); }
+.chip.active:hover{ background:var(--orange); }
 .backlink{
   background:none; border:none; color:var(--grey); font-size:14px; cursor:pointer; padding:0;
   display:inline-flex; align-items:center; gap:8px; text-decoration:none; transition:color 150ms ease;
 }
-.backlink:hover{ color:var(--orange); }
+.backlink:hover{ color:var(--brick); }
 
 /* ---------- inputs ---------- */
 input[type=text], input[type=search], input[type=email], input[type=number], textarea, select{
@@ -224,7 +243,7 @@ input[type=range]{ accent-color:var(--orange); }
 .fx{ position:relative; }
 .fx::before, .fx::after{
   content:''; position:absolute; width:9px; height:9px; box-sizing:border-box;
-  border:2px solid var(--orange); opacity:0; pointer-events:none;
+  border:2px solid var(--brick); opacity:0; pointer-events:none;
   transition:opacity 150ms ease, transform 180ms var(--ease);
 }
 .fx::before{ top:-5px; left:-5px; border-right:0; border-bottom:0; transform:translate(-3px,-3px); }
@@ -261,6 +280,28 @@ input[type=range]{ accent-color:var(--orange); }
 /* ---------- page enter (one rise on the page root, once) ---------- */
 @keyframes mc-enter{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
 body.mc-enter main{ animation:mc-enter 240ms var(--ease) both; }
+
+/* ---------- green surfaces (the "room" green builds) ----------
+   band-green: the signature deep-green editorial band (the Real Bill header lives here).
+   sage-panel: a warm sage editorial object. One per viewport, never stacked with a green band.
+   pullquote: green commentary voice, never interactive, never money.
+   On these surfaces the eyebrow and any accent turn soft-orange; money stays soft, never green. */
+.band-green{ background:var(--deep-green); color:var(--cream); border-radius:2px; }
+.band-green .h-display, .band-green .h-page, .band-green .h-sec, .band-green .h-item,
+.band-green h1, .band-green h2, .band-green h3{ color:var(--cream); }
+.band-green .eyebrow{ color:var(--soft); }
+.band-green .lede, .band-green p{ color:var(--green-soft); }
+.band-green .oa, .band-green .orange, .band-green .money{ color:var(--soft); }
+.band-green a{ color:#d9e4dd; }
+.band-green a:hover{ color:var(--soft); }
+.sage-panel{ background:var(--sage); border:1px solid var(--ink); border-radius:2px; }
+.pullquote{
+  border-left:4px solid var(--green); padding-left:clamp(20px,2vw,28px); margin:0;
+  font-family:'Clash Display',sans-serif; font-weight:600; color:var(--green);
+  font-size:clamp(20px,2.2vw,27px); line-height:1.25; letter-spacing:-0.01em;
+}
+.pullquote cite{ display:block; margin-top:14px; font-family:'Space Mono',ui-monospace,monospace;
+  font-style:normal; font-size:13px; letter-spacing:0.06em; color:var(--green); }
 
 /* ---------- utilities ---------- */
 .grid-2{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(330px,100%),1fr)); gap:clamp(24px,3vw,48px); }

@@ -154,7 +154,7 @@ function buildLibrary() {
 .pack-card p{ margin:0; font-size:14.5px; line-height:1.5; color:var(--ink-soft); flex:1; }
 .pc-open{ font-family:'Space Mono',ui-monospace,monospace; font-size:13px; color:var(--ink); display:inline-flex; align-items:center; gap:8px; margin-top:4px; }
 .pc-open .oa{ color:var(--orange); }
-.pack-card:hover .pc-open, .pack-card:focus-visible .pc-open{ color:var(--orange); }
+.pack-card:hover .pc-open, .pack-card:focus-visible .pc-open{ color:var(--brick); }
 .lib-empty{ padding:34px 8px; color:var(--grey); font-size:16px; }
 .lib-empty[hidden]{ display:none; }
 </style>`;
@@ -270,7 +270,7 @@ function buildPack(pack, i) {
 .lrow .lt h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(18px,1.8vw,21px); line-height:1.15; letter-spacing:-0.01em; margin:0 0 4px; }
 .lrow .lt p{ margin:0; font-size:14.5px; line-height:1.5; color:var(--grey); max-width:60ch; }
 .lrow .open{ font-family:'Space Mono',monospace; font-size:20px; color:var(--ink); align-self:center; transition:color 150ms ease, transform 180ms var(--ease); }
-.lrow:hover .open, .lrow:focus-visible .open{ color:var(--orange); transform:translateX(3px); }
+.lrow:hover .open, .lrow:focus-visible .open{ color:var(--brick); transform:translateX(3px); }
 @media (max-width:560px){ .lrow{ grid-template-columns:auto 1fr; } .lrow .open{ display:none; } }
 @media (prefers-reduced-motion: reduce){ .lrow:hover .open, .lrow:focus-visible .open{ transform:none; } }
 </style>`;
