@@ -119,12 +119,9 @@ window.MC2 = window.MC2 || {};
     try { MCSignature.mountAll(root); } catch (e) {}
   }
   function tagFx(root) {
-    var els = root.querySelectorAll('button, a[href], summary');
-    for (var i = 0; i < els.length; i++) {
-      var e = els[i];
-      if (e.classList.contains('head-word') || e.classList.contains('no-fx')) continue;
-      if (!e.classList.contains('fx')) e.classList.add('fx');
-    }
+    /* The corner-bracket focus used to be auto-applied to EVERY link and button. It
+       clipped inside horizontal scrollers and mis-aligned on full-width footer links,
+       so it is no longer blanket-applied. Hovers are handled per component in CSS. */
   }
   MC2.mountDevices = function (root) { root = root || document; mountIcons(root); mountWaves(root); tagFx(root); };
 
@@ -182,7 +179,6 @@ window.MC2 = window.MC2 || {};
      views this session, so it never gets in the way. */
   function brandLoader() {
     if (RM) return;
-    try { if (sessionStorage.getItem('mc-seen')) return; sessionStorage.setItem('mc-seen', '1'); } catch (e) {}
     var l = document.createElement('div');
     l.className = 'mc-loader';
     l.setAttribute('aria-hidden', 'true');
@@ -197,10 +193,28 @@ window.MC2 = window.MC2 || {};
     }, 820);
   }
 
+  /* ---------- header: on desktop, the top row (handle + wordmark + kit) tucks away on
+     scroll-down so only the nav stays anchored; it slides back the moment you scroll up. ---------- */
+  function headerScroll() {
+    var head = document.querySelector('.site-head');
+    if (!head) return;
+    var last = window.pageYOffset || 0, ticking = false;
+    function update() {
+      var y = window.pageYOffset || 0;
+      if (y > 120 && y > last + 4) head.classList.add('head-min');
+      else if (y < last - 4 || y < 120) head.classList.remove('head-min');
+      last = y; ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+    }, { passive: true });
+  }
+
   /* ---------- boot ---------- */
   function boot() {
     activeNav();
     buildMobileMenu();
+    headerScroll();
     MC2.mountDevices(document);
     document.body.classList.add('mc-enter');
     brandLoader();

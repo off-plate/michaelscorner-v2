@@ -197,7 +197,7 @@ function buildLibrary() {
 <section class="band band--green" id="lib-band" style="margin-top:clamp(48px,6vw,88px);">
   <div class="wrap">
     <p class="eyebrow">Free, all of it</p>
-    <h2 class="h-sec">Take what helps<span class="orange">.</span></h2>
+    <h2 class="h-sec">Take what helps</h2>
     <p class="lede" style="margin-top:12px; max-width:58ch;">Copy anything here, change the words, make it yours. If one prompt saves you an hour this week, that is the whole point.</p>
   </div>
 </section>
