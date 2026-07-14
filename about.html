@@ -18,7 +18,7 @@
 <style>
   /* ABOUT · magazine profile */
   .profile{ display:grid; grid-template-columns:1fr 1.15fr; gap:clamp(28px,4vw,64px); align-items:start; padding-top:clamp(28px,3vw,44px); }
-  .profile-photo{ aspect-ratio:4/5; position:sticky; top:120px; }
+  .profile-photo{ aspect-ratio:4/5; }
   .lead-in{ font-size:clamp(19px,1.7vw,23px); line-height:1.5; }
   .prose{ max-width:66ch; }
   .prose p{ font-size:17px; line-height:1.65; margin:0 0 18px; }
@@ -58,11 +58,21 @@
 </header>
 
 <main>
-  <section class="wrap">
-    <div style="padding-top:clamp(32px,4vw,56px);">
-      <p class="eyebrow">About</p>
-      <h1 class="h-page" style="max-width:20ch;">Not a developer. I ship anyway.</h1>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">About</p>
+          <h1 class="h-page">Not a developer. I ship anyway.</h1>
+        </div>
+        <div>
+          <p class="hero-intro">I am Michael. I have a normal day job, and in the evenings I build things with AI. More than twenty shipped projects so far, and an honest receipt for each.</p>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <section class="wrap section">
     <div class="profile">
       <!-- portrait + sidenote rail -->
       <div class="rail">

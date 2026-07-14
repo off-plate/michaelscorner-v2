@@ -22,7 +22,7 @@
 
 /* the search box: bordered, obvious, searches all prompts */
 .lib-searchbox{ display:flex; align-items:center; gap:12px; border:1px solid var(--ink); border-radius:2px;
-  padding:13px 16px; margin-top:clamp(24px,3vw,34px); max-width:600px; background:var(--cream); transition:border-color 150ms ease; }
+  padding:13px 16px; margin-top:0; max-width:600px; background:var(--cream); transition:border-color 150ms ease; }
 .lib-searchbox:focus-within{ border-color:var(--orange); }
 .lib-searchbox canvas{ display:block; flex:none; }
 .lib-searchbox input{ flex:1; border:none; background:none; font-size:16px; padding:2px 0; color:var(--ink); }
@@ -82,27 +82,36 @@
 </header>
 <main>
 
-<div class="wrap lib-top">
-  <p class="eyebrow">The prompt library</p>
-  <h1 class="h-page">Steal these prompts</h1>
-  <p class="lede">Eight packs, 64 prompts, all free. Copy one, fill in the brackets, and paste it into ChatGPT, Claude, or Gemini. These are the ones I keep going back to, so take whatever helps.</p>
+<section class="page-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">The prompt library</p>
+        <h1 class="h-page">Steal these prompts</h1>
+      </div>
+      <div>
+        <p class="hero-intro">64 prompts in eight packs, all free. Copy one, fill in the brackets, and paste it into ChatGPT, Claude, or Gemini. These are the ones I keep going back to.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<div class="wrap section">
   <div class="lib-searchbox">
     <canvas data-dot="search" data-size="20" style="width:20px;height:20px;"></canvas>
     <input type="search" id="lib-q" placeholder="Search all 64 prompts by name" autocomplete="off" aria-label="Search all prompts">
   </div>
-</div>
 
-<div class="wrap lib-results" id="lib-results" hidden aria-live="polite">
-  <p class="results-count" id="results-count"></p>
-  <ul class="result-list" id="result-list"></ul>
-  <p class="lib-empty" id="lib-empty" hidden>No prompt matches that. Try a shorter or different word.</p>
-</div>
+  <div class="lib-results" id="lib-results" hidden aria-live="polite">
+    <p class="results-count" id="results-count"></p>
+    <ul class="result-list" id="result-list"></ul>
+    <p class="lib-empty" id="lib-empty" hidden>No prompt matches that. Try a shorter or different word.</p>
+  </div>
 
-<div class="wrap lib-packs" id="lib-packs">
-  <p class="ph">8 packs, sorted by who they are for</p>
-  <div class="pack-grid">
-    
+  <div class="lib-packs" id="lib-packs">
+    <p class="ph">8 packs, sorted by who they are for</p>
+    <div class="pack-grid">
+      
       <a class="pack-card" href="packs/beginners.html">
         <div class="pc-top"><span class="pc-tag">Beginners</span><span class="pc-n">8 prompts</span></div>
         <h2>Best prompts for beginners</h2>
@@ -151,10 +160,11 @@
         <p>Learn faster and remember more. These make AI quiz you and question you. The thinking stays yours, which is the part that passes exams.</p>
         <span class="pc-open">Open pack <span class="oa">&#8594;</span></span>
       </a>
+    </div>
   </div>
 </div>
 
-<section class="band band--green" id="lib-band" style="margin-top:clamp(48px,6vw,88px);">
+<section class="band band--green" id="lib-band">
   <div class="wrap">
     <p class="eyebrow">Free, all of it</p>
     <h2 class="h-sec">Take what helps</h2>

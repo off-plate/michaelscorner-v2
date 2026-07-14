@@ -120,7 +120,7 @@ function buildLibrary() {
 
 /* the search box: bordered, obvious, searches all prompts */
 .lib-searchbox{ display:flex; align-items:center; gap:12px; border:1px solid var(--ink); border-radius:2px;
-  padding:13px 16px; margin-top:clamp(24px,3vw,34px); max-width:600px; background:var(--cream); transition:border-color 150ms ease; }
+  padding:13px 16px; margin-top:0; max-width:600px; background:var(--cream); transition:border-color 150ms ease; }
 .lib-searchbox:focus-within{ border-color:var(--orange); }
 .lib-searchbox canvas{ display:block; flex:none; }
 .lib-searchbox input{ flex:1; border:none; background:none; font-size:16px; padding:2px 0; color:var(--ink); }
@@ -170,31 +170,41 @@ function buildLibrary() {
       </a>`).join("");
 
   const body = `
-<div class="wrap lib-top">
-  <p class="eyebrow">The prompt library</p>
-  <h1 class="h-page">Steal these prompts</h1>
-  <p class="lede">Eight packs, ${total} prompts, all free. Copy one, fill in the brackets, and paste it into ChatGPT, Claude, or Gemini. These are the ones I keep going back to, so take whatever helps.</p>
+<section class="page-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">The prompt library</p>
+        <h1 class="h-page">Steal these prompts</h1>
+      </div>
+      <div>
+        <p class="hero-intro">${total} prompts in eight packs, all free. Copy one, fill in the brackets, and paste it into ChatGPT, Claude, or Gemini. These are the ones I keep going back to.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<div class="wrap section">
   <div class="lib-searchbox">
     <canvas data-dot="search" data-size="20" style="width:20px;height:20px;"></canvas>
     <input type="search" id="lib-q" placeholder="Search all ${total} prompts by name" autocomplete="off" aria-label="Search all prompts">
   </div>
-</div>
 
-<div class="wrap lib-results" id="lib-results" hidden aria-live="polite">
-  <p class="results-count" id="results-count"></p>
-  <ul class="result-list" id="result-list"></ul>
-  <p class="lib-empty" id="lib-empty" hidden>No prompt matches that. Try a shorter or different word.</p>
-</div>
+  <div class="lib-results" id="lib-results" hidden aria-live="polite">
+    <p class="results-count" id="results-count"></p>
+    <ul class="result-list" id="result-list"></ul>
+    <p class="lib-empty" id="lib-empty" hidden>No prompt matches that. Try a shorter or different word.</p>
+  </div>
 
-<div class="wrap lib-packs" id="lib-packs">
-  <p class="ph">${PACKS.length} packs, sorted by who they are for</p>
-  <div class="pack-grid">
-    ${cards}
+  <div class="lib-packs" id="lib-packs">
+    <p class="ph">${PACKS.length} packs, sorted by who they are for</p>
+    <div class="pack-grid">
+      ${cards}
+    </div>
   </div>
 </div>
 
-<section class="band band--green" id="lib-band" style="margin-top:clamp(48px,6vw,88px);">
+<section class="band band--green" id="lib-band">
   <div class="wrap">
     <p class="eyebrow">Free, all of it</p>
     <h2 class="h-sec">Take what helps</h2>
@@ -251,7 +261,12 @@ function buildPack(pack, i) {
 /* ---- Pack page: the opened dossier. Folder-tab header + ruled ledger, with an all-packs rail. ---- */
 .dossier{ padding-block:clamp(28px,4vw,44px) 0; }
 .d-back{ margin-bottom:clamp(20px,2.4vw,28px); }
-.reading__rail .rail-here{ color:var(--orange); font-weight:600; }
+/* all-packs cross-nav: a full-width row under the ledger, not a floating rail */
+.pack-nav{ margin-top:clamp(36px,4.5vw,60px); border-top:1px solid var(--ink); padding-top:22px; display:flex; flex-wrap:wrap; gap:12px 22px; align-items:baseline; }
+.pack-nav .pn-label{ width:100%; font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--grey); margin-bottom:6px; }
+.pack-nav a{ color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px; transition:color 150ms ease, border-color 150ms ease; }
+.pack-nav a:hover{ color:var(--brick); border-color:var(--brick); }
+.pack-nav .pn-here{ color:var(--orange); font-weight:600; border-bottom:1px solid var(--orange); padding-bottom:2px; }
 .folder{ border:1px solid var(--ink); border-radius:2px; }
 .folder-tab{
   display:inline-flex; align-items:center; gap:10px; background:var(--ink); color:var(--cream);
@@ -267,7 +282,7 @@ function buildPack(pack, i) {
 .cover-note .rest{ color:var(--grey-2); }
 
 /* the ledger of prompts */
-.ledger-list{ margin-top:clamp(28px,3.5vw,40px); border-top:1px solid var(--ink); }
+.ledger-list{ border-top:1px solid var(--ink); }
 .lrow{
   display:grid; grid-template-columns:auto 1fr auto; gap:4px 20px; align-items:baseline;
   border-bottom:1px solid var(--line); padding:clamp(16px,2vw,22px) clamp(4px,1vw,10px);
@@ -310,36 +325,34 @@ function buildPack(pack, i) {
   });
 
   const packsNav = PACKS.map((p2, k) => k === i
-    ? `<span class="rail-here">${esc(p2.name)}</span>`
+    ? `<span class="pn-here">${esc(p2.name)}</span>`
     : `<a href="${esc(p2.id)}.html">${esc(p2.name)}</a>`).join("");
 
   const body = `
-<div class="wrap dossier">
-  <a class="backlink d-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
-
-  <div class="reading">
-    <div class="reading__body">
-      <div class="folder">
-        <p class="folder-tab">PACK/${packNo(i)} &middot; ${esc(pack.chip)}</p>
-        <div class="folder-body">
-          <h1 class="h-page">${esc(pack.name)}</h1>
-          <p class="folder-meta">${pack.prompts.length} prompts</p>
-          <p class="folder-intro">${esc(pack.blurb[0])} ${esc(pack.blurb[1])}</p>
-        </div>
+<section class="page-hero">
+  <div class="wrap">
+    <a class="backlink hero-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">${esc(pack.chip)}</p>
+        <h1 class="h-page">${esc(pack.name)}</h1>
       </div>
-
-      <div class="ledger-list">
-        ${rows}
+      <div>
+        <p class="hero-intro">${esc(pack.blurb[0])} ${esc(pack.blurb[1])} ${pack.prompts.length} prompts, all free to copy.</p>
       </div>
     </div>
-
-    <aside class="reading__rail" aria-label="All packs">
-      <div class="rail-block">
-        <h3>All packs</h3>
-        ${packsNav}
-      </div>
-    </aside>
   </div>
+</section>
+
+<div class="wrap section">
+  <div class="ledger-list">
+    ${rows}
+  </div>
+
+  <nav class="pack-nav" aria-label="All packs">
+    <span class="pn-label">More packs</span>
+    ${packsNav}
+  </nav>
 </div>
 `;
 
@@ -382,17 +395,16 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
 .copy-stamp{ font-family:'Space Mono',ui-monospace,monospace; font-size:12.5px; color:var(--grey); min-height:1.2em; }
 .copy-stamp .on{ color:var(--ink); }
 
-/* spec fields */
-.fields{ margin-top:clamp(30px,4vw,44px); border-top:1px solid var(--ink); }
-.field{ border-bottom:1px solid var(--line); padding-block:clamp(16px,2vw,22px); display:grid; grid-template-columns:180px 1fr; gap:8px 28px; align-items:start; }
-.field .fl{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--grey); padding-top:3px; }
-.field .fv{ font-size:15.5px; line-height:1.6; color:var(--ink); }
+/* spec fields: a full-width row under the terminal (no floating rail) */
+.spec-body{ max-width:960px; }
+.specfields{ margin-top:clamp(30px,4vw,44px); border-top:1px solid var(--ink); padding-top:clamp(22px,3vw,32px);
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:clamp(20px,2.6vw,40px); }
+.sf h3{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--green); margin:0 0 10px; font-weight:700; }
+.sf p{ margin:0; font-size:15px; line-height:1.6; color:var(--ink); }
 .tokens{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
 .tokens li{ font-family:'Space Mono',ui-monospace,monospace; font-size:13.5px; color:var(--ink); }
-.tokens .tk{ color:var(--orange); }
+.tokens .tk{ color:var(--green); }
 .tokens .none{ color:var(--grey); font-family:'General Sans',sans-serif; }
-.works{ display:inline-flex; gap:8px; flex-wrap:wrap; font-family:'Space Mono',monospace; font-size:13.5px; }
-@media (max-width:560px){ .field{ grid-template-columns:1fr; gap:6px; } }
 </style>`;
 
   const tokens = fillTokens(pr.prompt);
@@ -404,56 +416,45 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
     : `<span class="tokens none">Nothing to fill in. Copy and go.</span>`;
 
   const body = `
-<div class="wrap spec">
-  <a class="backlink spec-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
-
-  <div class="reading">
-    <div class="reading__body">
-      <div class="spec-meta">
-        <span><a class="link" href="../packs/${esc(pack.id)}.html">${esc(pack.chip)}</a></span>
-        <span class="id">PROMPT/${packNo(packIndex)}.${promptNo(promptIndex)}</span>
+<section class="page-hero">
+  <div class="wrap">
+    <a class="backlink hero-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">${esc(pack.chip)}</p>
+        <h1 class="h-page">${esc(pr.title)}</h1>
       </div>
-
-      <h1 class="h-page">${esc(pr.title)}</h1>
-      <p class="spec-when">${esc(pr.when)}</p>
-
-      <div class="spec-body" id="spec-body">
-        <div class="term">
-          <div class="term-bar">
-            <span class="dot"><canvas data-dot="prompt" data-size="16" style="width:16px;height:16px;"></canvas> The prompt</span>
-            <span>copy target</span>
-          </div>
-          <pre class="term-body" id="specimen">${specimenHTML}</pre>
-        </div>
-
-        <div class="copyrow">
-          <button type="button" class="btn-orange copy-btn" id="copy-btn">
-            <canvas data-dot="copy" data-size="18" data-tone="light" style="width:18px;height:18px;"></canvas>
-            <span class="lbl">Copy prompt</span>
-          </button>
-          <span class="copy-stamp" id="copy-stamp" role="status" aria-live="polite"></span>
-        </div>
+      <div>
+        <p class="hero-intro">${esc(pr.when)}</p>
       </div>
     </div>
+  </div>
+</section>
 
-    <aside class="reading__rail" aria-label="Prompt details">
-      <div class="rail-block">
-        <h3>What to fill in</h3>
-        ${tokenList}
+<div class="wrap section spec">
+  <div class="spec-body" id="spec-body">
+    <div class="term">
+      <div class="term-bar">
+        <span class="dot"><canvas data-dot="prompt" data-size="16" style="width:16px;height:16px;"></canvas> The prompt</span>
+        <span>copy target</span>
       </div>
-      <div class="rail-block">
-        <h3>The tip</h3>
-        <p style="margin:0;">${esc(pr.tip)}</p>
-      </div>
-      <div class="rail-block">
-        <h3>Works in</h3>
-        <p style="margin:0;">ChatGPT / Claude / Gemini</p>
-      </div>
-      <div class="rail-block">
-        <h3>This pack</h3>
-        <a href="../packs/${esc(pack.id)}.html">${esc(pack.chip)}</a>
-      </div>
-    </aside>
+      <pre class="term-body" id="specimen">${specimenHTML}</pre>
+    </div>
+
+    <div class="copyrow">
+      <button type="button" class="btn-orange copy-btn" id="copy-btn">
+        <canvas data-dot="copy" data-size="18" data-tone="light" style="width:18px;height:18px;"></canvas>
+        <span class="lbl">Copy prompt</span>
+      </button>
+      <span class="copy-stamp" id="copy-stamp" role="status" aria-live="polite"></span>
+    </div>
+  </div>
+
+  <div class="specfields">
+    <div class="sf"><h3>What to fill in</h3>${tokenList}</div>
+    <div class="sf"><h3>The tip</h3><p>${esc(pr.tip)}</p></div>
+    <div class="sf"><h3>Works in</h3><p>ChatGPT / Claude / Gemini</p></div>
+    <div class="sf"><h3>This pack</h3><a class="link" href="../packs/${esc(pack.id)}.html">${esc(pack.chip)}</a></div>
   </div>
 </div>
 `;

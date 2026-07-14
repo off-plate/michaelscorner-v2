@@ -41,17 +41,16 @@
 .copy-stamp{ font-family:'Space Mono',ui-monospace,monospace; font-size:12.5px; color:var(--grey); min-height:1.2em; }
 .copy-stamp .on{ color:var(--ink); }
 
-/* spec fields */
-.fields{ margin-top:clamp(30px,4vw,44px); border-top:1px solid var(--ink); }
-.field{ border-bottom:1px solid var(--line); padding-block:clamp(16px,2vw,22px); display:grid; grid-template-columns:180px 1fr; gap:8px 28px; align-items:start; }
-.field .fl{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--grey); padding-top:3px; }
-.field .fv{ font-size:15.5px; line-height:1.6; color:var(--ink); }
+/* spec fields: a full-width row under the terminal (no floating rail) */
+.spec-body{ max-width:960px; }
+.specfields{ margin-top:clamp(30px,4vw,44px); border-top:1px solid var(--ink); padding-top:clamp(22px,3vw,32px);
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:clamp(20px,2.6vw,40px); }
+.sf h3{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--green); margin:0 0 10px; font-weight:700; }
+.sf p{ margin:0; font-size:15px; line-height:1.6; color:var(--ink); }
 .tokens{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
 .tokens li{ font-family:'Space Mono',ui-monospace,monospace; font-size:13.5px; color:var(--ink); }
-.tokens .tk{ color:var(--orange); }
+.tokens .tk{ color:var(--green); }
 .tokens .none{ color:var(--grey); font-family:'General Sans',sans-serif; }
-.works{ display:inline-flex; gap:8px; flex-wrap:wrap; font-family:'Space Mono',monospace; font-size:13.5px; }
-@media (max-width:560px){ .field{ grid-template-columns:1fr; gap:6px; } }
 </style>
 </head>
 <body>
@@ -75,26 +74,29 @@
 </header>
 <main>
 
-<div class="wrap spec">
-  <a class="backlink spec-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
-
-  <div class="reading">
-    <div class="reading__body">
-      <div class="spec-meta">
-        <span><a class="link" href="../packs/building.html">Building</a></span>
-        <span class="id">PROMPT/03.06</span>
+<section class="page-hero">
+  <div class="wrap">
+    <a class="backlink hero-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Building</p>
+        <h1 class="h-page">Tell me what this code does</h1>
       </div>
+      <div>
+        <p class="hero-intro">Use this when you are about to use code you did not write and want to know what it really does first.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <h1 class="h-page">Tell me what this code does</h1>
-      <p class="spec-when">Use this when you are about to use code you did not write and want to know what it really does first.</p>
-
-      <div class="spec-body" id="spec-body">
-        <div class="term">
-          <div class="term-bar">
-            <span class="dot"><canvas data-dot="prompt" data-size="16" style="width:16px;height:16px;"></canvas> The prompt</span>
-            <span>copy target</span>
-          </div>
-          <pre class="term-body" id="specimen"><span class="selwrap">You are explaining code to a careful non-programmer who is about to run it. Tell me what it actually does, including what could go wrong.
+<div class="wrap section spec">
+  <div class="spec-body" id="spec-body">
+    <div class="term">
+      <div class="term-bar">
+        <span class="dot"><canvas data-dot="prompt" data-size="16" style="width:16px;height:16px;"></canvas> The prompt</span>
+        <span>copy target</span>
+      </div>
+      <pre class="term-body" id="specimen"><span class="selwrap">You are explaining code to a careful non-programmer who is about to run it. Tell me what it actually does, including what could go wrong.
 
 The code:
 [paste the code, script, or snippet here]
@@ -113,36 +115,22 @@ Rules:
 - If a part is genuinely unclear or depends on my setup, say so instead of guessing.
 
 End with a verdict on one line: safe to run, run with these changes, or do not run this. Then name the single biggest risk.</span><span class="cur" aria-hidden="true"></span></pre>
-        </div>
-
-        <div class="copyrow">
-          <button type="button" class="btn-orange copy-btn" id="copy-btn">
-            <canvas data-dot="copy" data-size="18" data-tone="light" style="width:18px;height:18px;"></canvas>
-            <span class="lbl">Copy prompt</span>
-          </button>
-          <span class="copy-stamp" id="copy-stamp" role="status" aria-live="polite"></span>
-        </div>
-      </div>
     </div>
 
-    <aside class="reading__rail" aria-label="Prompt details">
-      <div class="rail-block">
-        <h3>What to fill in</h3>
-        <ul class="tokens"><li><span class="tk">[</span>paste the code, script, or snippet here<span class="tk">]</span></li><li><span class="tk">[</span>one line, for example &quot;a forum post that says it cleans old files&quot;<span class="tk">]</span></li></ul>
-      </div>
-      <div class="rail-block">
-        <h3>The tip</h3>
-        <p style="margin:0;">The &quot;what if it runs twice&quot; question has saved me more than once. Ask it about every script that deletes anything.</p>
-      </div>
-      <div class="rail-block">
-        <h3>Works in</h3>
-        <p style="margin:0;">ChatGPT / Claude / Gemini</p>
-      </div>
-      <div class="rail-block">
-        <h3>This pack</h3>
-        <a href="../packs/building.html">Building</a>
-      </div>
-    </aside>
+    <div class="copyrow">
+      <button type="button" class="btn-orange copy-btn" id="copy-btn">
+        <canvas data-dot="copy" data-size="18" data-tone="light" style="width:18px;height:18px;"></canvas>
+        <span class="lbl">Copy prompt</span>
+      </button>
+      <span class="copy-stamp" id="copy-stamp" role="status" aria-live="polite"></span>
+    </div>
+  </div>
+
+  <div class="specfields">
+    <div class="sf"><h3>What to fill in</h3><ul class="tokens"><li><span class="tk">[</span>paste the code, script, or snippet here<span class="tk">]</span></li><li><span class="tk">[</span>one line, for example &quot;a forum post that says it cleans old files&quot;<span class="tk">]</span></li></ul></div>
+    <div class="sf"><h3>The tip</h3><p>The &quot;what if it runs twice&quot; question has saved me more than once. Ask it about every script that deletes anything.</p></div>
+    <div class="sf"><h3>Works in</h3><p>ChatGPT / Claude / Gemini</p></div>
+    <div class="sf"><h3>This pack</h3><a class="link" href="../packs/building.html">Building</a></div>
   </div>
 </div>
 

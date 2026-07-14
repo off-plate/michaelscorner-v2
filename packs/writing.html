@@ -19,7 +19,12 @@
 /* ---- Pack page: the opened dossier. Folder-tab header + ruled ledger, with an all-packs rail. ---- */
 .dossier{ padding-block:clamp(28px,4vw,44px) 0; }
 .d-back{ margin-bottom:clamp(20px,2.4vw,28px); }
-.reading__rail .rail-here{ color:var(--orange); font-weight:600; }
+/* all-packs cross-nav: a full-width row under the ledger, not a floating rail */
+.pack-nav{ margin-top:clamp(36px,4.5vw,60px); border-top:1px solid var(--ink); padding-top:22px; display:flex; flex-wrap:wrap; gap:12px 22px; align-items:baseline; }
+.pack-nav .pn-label{ width:100%; font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--grey); margin-bottom:6px; }
+.pack-nav a{ color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px; transition:color 150ms ease, border-color 150ms ease; }
+.pack-nav a:hover{ color:var(--brick); border-color:var(--brick); }
+.pack-nav .pn-here{ color:var(--orange); font-weight:600; border-bottom:1px solid var(--orange); padding-bottom:2px; }
 .folder{ border:1px solid var(--ink); border-radius:2px; }
 .folder-tab{
   display:inline-flex; align-items:center; gap:10px; background:var(--ink); color:var(--cream);
@@ -35,7 +40,7 @@
 .cover-note .rest{ color:var(--grey-2); }
 
 /* the ledger of prompts */
-.ledger-list{ margin-top:clamp(28px,3.5vw,40px); border-top:1px solid var(--ink); }
+.ledger-list{ border-top:1px solid var(--ink); }
 .lrow{
   display:grid; grid-template-columns:auto 1fr auto; gap:4px 20px; align-items:baseline;
   border-bottom:1px solid var(--line); padding:clamp(16px,2vw,22px) clamp(4px,1vw,10px);
@@ -73,22 +78,24 @@
 </header>
 <main>
 
-<div class="wrap dossier">
-  <a class="backlink d-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
-
-  <div class="reading">
-    <div class="reading__body">
-      <div class="folder">
-        <p class="folder-tab">PACK/02 &middot; Writing</p>
-        <div class="folder-body">
-          <h1 class="h-page">Best prompts for writing</h1>
-          <p class="folder-meta">8 prompts</p>
-          <p class="folder-intro">Draft faster and still sound like yourself. These keep your voice and cut the filler. They also stop your text from reading like a machine wrote it, because readers can tell.</p>
-        </div>
+<section class="page-hero">
+  <div class="wrap">
+    <a class="backlink hero-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Writing</p>
+        <h1 class="h-page">Best prompts for writing</h1>
       </div>
+      <div>
+        <p class="hero-intro">Draft faster and still sound like yourself. These keep your voice and cut the filler. They also stop your text from reading like a machine wrote it, because readers can tell. 8 prompts, all free to copy.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="ledger-list">
-        
+<div class="wrap section">
+  <div class="ledger-list">
+    
     <a class="lrow" href="../prompts/sound-like-me.html">
       <span class="fno">01</span>
       <span class="lt">
@@ -153,16 +160,12 @@
       </span>
       <span class="open" aria-hidden="true">&#8594;</span>
     </a>
-      </div>
-    </div>
-
-    <aside class="reading__rail" aria-label="All packs">
-      <div class="rail-block">
-        <h3>All packs</h3>
-        <a href="beginners.html">Best prompts for beginners</a><span class="rail-here">Best prompts for writing</span><a href="building.html">Building software with AI</a><a href="founders.html">Founders and small business owners</a><a href="freelancers.html">Freelancers and solo operators</a><a href="office.html">Office and operations work</a><a href="creators.html">Content creators</a><a href="students.html">Students and learning</a>
-      </div>
-    </aside>
   </div>
+
+  <nav class="pack-nav" aria-label="All packs">
+    <span class="pn-label">More packs</span>
+    <a href="beginners.html">Best prompts for beginners</a><span class="pn-here">Best prompts for writing</span><a href="building.html">Building software with AI</a><a href="founders.html">Founders and small business owners</a><a href="freelancers.html">Freelancers and solo operators</a><a href="office.html">Office and operations work</a><a href="creators.html">Content creators</a><a href="students.html">Students and learning</a>
+  </nav>
 </div>
 
 </main>

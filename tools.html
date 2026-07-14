@@ -81,18 +81,21 @@
 </header>
 
 <main>
-  <section class="wrap sec">
-    <div class="th-head">
-      <div>
-        <p class="eyebrow"><canvas data-dot="tools" data-size="30" style="width:30px;height:30px;vertical-align:middle;margin-right:8px;"></canvas>Tools &amp; calculators</p>
-        <h1 class="h-page">Tools</h1>
-      </div>
-      <div>
-        <p class="th-desc">Seven small tools that actually run, with no signup and no email gate. Open any one and the number is real, computed on the spot. They are sorted by what they do, so swipe a row to see more.</p>
-        <p class="th-priv"><canvas data-dot="tools" data-size="16" style="width:16px;height:16px;"></canvas> Everything here runs in your browser. Nothing you type leaves this page.</p>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Tools &amp; calculators</p>
+          <h1 class="h-page">Tools</h1>
+        </div>
+        <div>
+          <p class="hero-intro">Seven small tools that actually run in your browser, no signup and no email gate. Open any one and the number is real, computed on the spot. Nothing you type ever leaves this page.</p>
+        </div>
       </div>
     </div>
+  </section>
 
+  <section class="wrap section">
     <div class="th-bar">
       <div class="chips" id="chips"></div>
       <input type="search" id="q" placeholder="Search tools" aria-label="Search tools">
@@ -201,7 +204,7 @@
         sc.scrollBy({ left: (+b.getAttribute('data-dir')) * step, behavior: MC2.reducedMotion ? 'auto' : 'smooth' });
       });
     });
-    MC2.mountDevices(rows);
+    MC2.mountDevices(document);
   }
   document.getElementById('q').addEventListener('input', function (e) { query = e.target.value; render(); });
   render();

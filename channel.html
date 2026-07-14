@@ -82,18 +82,22 @@
 </header>
 
 <main>
-  <section class="wrap sec">
-    <div class="ch-head">
-      <div>
-        <p class="eyebrow"><canvas data-dot="play" data-size="30" style="width:30px;height:30px;vertical-align:middle;margin-right:8px;"></canvas>On the channel</p>
-        <h1 class="h-page">Watch and learn</h1>
-      </div>
-      <div class="sub">
-        <p style="margin:0; color:var(--ink-soft); max-width:46ch;">Plain talk and no hype, so you can watch how it actually goes, dead ends included. Filter by topic or swipe a row to see more.</p>
-        <a class="btn-orange" href="https://youtube.com" target="_blank" rel="noopener">Subscribe on YouTube <span>&#8599;</span></a>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">On the channel</p>
+          <h1 class="h-page">Watch and learn</h1>
+        </div>
+        <div>
+          <p class="hero-intro">Plain talk and no hype, so you can watch how it actually goes, dead ends included. Filter by topic or swipe a row to see more.</p>
+          <p class="hero-cta"><a class="btn-ghost" href="https://youtube.com" target="_blank" rel="noopener">Subscribe on YouTube <span>&#8599;</span></a></p>
+        </div>
       </div>
     </div>
+  </section>
 
+  <section class="wrap section">
     <p class="notice"><span class="dot"></span> Filming now. Every card below becomes a real link the day its episode goes up.</p>
 
     <!-- featured -->
@@ -224,7 +228,7 @@
         sc.scrollBy({ left: (+b.getAttribute('data-dir')) * step, behavior: MC2.reducedMotion ? 'auto' : 'smooth' });
       });
     });
-    MC2.mountDevices(rows);
+    MC2.mountDevices(document);
   }
   document.getElementById('q').addEventListener('input', function (e) { query = e.target.value; render(); });
   render();

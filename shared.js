@@ -119,9 +119,14 @@ window.MC2 = window.MC2 || {};
     try { MCSignature.mountAll(root); } catch (e) {}
   }
   function tagFx(root) {
-    /* The corner-bracket focus used to be auto-applied to EVERY link and button. It
-       clipped inside horizontal scrollers and mis-aligned on full-width footer links,
-       so it is no longer blanket-applied. Hovers are handled per component in CSS. */
+    /* the signature corner-bracket hover, on every interactive control. Idempotent, so it
+       re-applies to JS-rendered cards/chips too (callers re-run mountDevices after render). */
+    var els = root.querySelectorAll('button, a[href], summary, .card, .pack-card, .tcard, .vcard, .lrow, .rlink');
+    for (var i = 0; i < els.length; i++) {
+      var e = els[i];
+      if (e.classList.contains('head-word') || e.classList.contains('no-fx') || e.closest('.term')) continue;
+      if (!e.classList.contains('fx')) e.classList.add('fx');
+    }
   }
   MC2.mountDevices = function (root) { root = root || document; mountIcons(root); mountWaves(root); tagFx(root); };
 

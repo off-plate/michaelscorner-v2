@@ -72,6 +72,25 @@ main{ flex:1; outline:none; }
 .band--green .btn-ghost{ border-color:var(--soft); color:var(--soft); }
 .band--green .btn-ghost:hover{ background:var(--soft); color:var(--deep-green); border-color:var(--soft); }
 
+/* ---------- consistent page hero (the compact deep-green masthead on EVERY subpage) ----------
+   Same green band, headline + intro spread across the full content width, about half the height
+   of a full section. Title left, intro right so the width is used and nothing floats half-empty. */
+.page-hero{ background:var(--deep-green); color:var(--cream); padding-block:clamp(26px,3.4vw,46px); border-bottom:1px solid var(--ink); }
+.page-hero .hero-grid{ display:grid; grid-template-columns:1.25fr 1fr; gap:clamp(18px,4vw,56px); align-items:end; }
+.page-hero .eyebrow{ color:var(--soft); margin:0 0 10px; }
+.page-hero h1, .page-hero .h-page{ color:var(--cream); margin:0; }
+.page-hero .hero-intro{ color:var(--green-soft); font-size:clamp(15px,1.15vw,17px); line-height:1.55; margin:0; max-width:54ch; }
+.page-hero .hero-intro a{ color:#d9e4dd; text-underline-offset:3px; }
+.page-hero .hero-intro a:hover{ color:var(--soft); }
+.page-hero .hero-cta{ margin-top:16px; }
+.page-hero .hero-back{ display:inline-block; margin-bottom:14px; color:#bcd0c7; }
+.page-hero .hero-back:hover{ color:var(--soft); }
+.page-hero .btn-ghost{ border-color:var(--soft); color:var(--soft); }
+.page-hero .btn-ghost:hover{ background:var(--soft); color:var(--deep-green); border-color:var(--soft); }
+@media (max-width:820px){ .page-hero .hero-grid{ grid-template-columns:1fr; align-items:start; gap:14px; } }
+/* the first content block after a hero shouldn't also carry a full section's top padding */
+.page-hero + .section, .page-hero + .wrap.section, .page-hero + .sec{ padding-top:clamp(28px,3.4vw,48px); }
+
 /* ---------- reading layout (article / receipt / prompt fills the shell with a meta rail,
    never a lonely centred column). Body locked to the reading measure; rail uses the rest. ---------- */
 .reading{ display:grid; grid-template-columns:minmax(0,1fr) minmax(210px,var(--rail));
@@ -200,8 +219,9 @@ main{ flex:1; outline:none; }
 }
 .foot-word{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:22px; color:var(--soft); margin:0 0 8px; }
 .foot-line{ margin:0; font-size:15px; color:var(--green-soft); max-width:32ch; }
-.foot-col{ display:flex; flex-direction:column; gap:10px; }
-.foot-col a{ color:#d9e4dd; text-decoration:none; font-size:15px; transition:color 150ms ease; }
+.foot-col{ display:flex; flex-direction:column; align-items:flex-start; gap:10px; }
+/* width:max-content so the corner-bracket hover hugs the word, not the whole column */
+.foot-col a{ color:#d9e4dd; text-decoration:none; font-size:15px; width:max-content; max-width:100%; transition:color 150ms ease; }
 .foot-col a:hover{ color:var(--soft); }
 .foot-meta{ display:flex; flex-direction:column; gap:8px; font-size:12px; color:var(--green-soft); }
 @media (max-width:820px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
@@ -387,10 +407,15 @@ body.mc-enter main{ animation:mc-enter 260ms var(--ease) both; }
 .hairline-ink{ border:none; border-top:1px solid var(--ink); margin:0; }
 .updated{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--grey-2); }
 .orange{ color:var(--orange); }
-.scroller{ display:flex; gap:18px; overflow-x:auto; scrollbar-width:thin; scrollbar-color:#c9c1b1 transparent; padding-bottom:8px; cursor:grab; }
-.scroller::-webkit-scrollbar{ height:8px; }
-.scroller::-webkit-scrollbar-thumb{ background:#c9c1b1; border-radius:4px; }
-.scroller > *{ flex:none; }
+/* full-bleed carousel: breaks out of the shell so cards run off the right edge of the screen
+   instead of being clipped inside a box. First card aligns to the content gutter. No scrollbar.
+   The padding-block gives the corner-bracket hover room so it never clips inside the scroller. */
+.scroller{ display:flex; gap:18px; overflow-x:auto;
+  width:100vw; margin-left:calc(50% - 50vw);
+  padding:14px clamp(40px,8vw,120px) 14px calc(50vw - 50%);
+  scrollbar-width:none; cursor:grab; scroll-snap-type:x proximity; }
+.scroller::-webkit-scrollbar{ display:none; }
+.scroller > *{ flex:none; scroll-snap-align:start; }
 
 @media (prefers-reduced-motion: reduce){
   body.mc-enter main{ animation:none; }

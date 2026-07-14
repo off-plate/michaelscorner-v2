@@ -23,7 +23,7 @@
 .sh-meta{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.08em; color:var(--grey); margin:22px 0 0; }
 .sh-body{ max-width:none; }
 
-.steps{ margin-top:clamp(36px,5vw,56px); border-top:1px solid var(--ink); }
+.steps{ margin-top:0; border-top:1px solid var(--ink); }
 .step{
   display:grid; grid-template-columns:96px 1fr; gap:clamp(16px,3vw,40px);
   border-bottom:1px solid var(--line); padding-block:clamp(28px,4vw,48px);
@@ -67,16 +67,21 @@
 </header>
 <main>
 
-<div class="wrap section">
-  <div class="reading">
-    <div class="reading__body sh-body">
-
-      <div class="sh-top">
+<section class="page-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
         <p class="eyebrow">Start here</p>
         <h1 class="h-page">Your first hour with AI</h1>
-        <p class="sh-lead">This is the exact first hour I would walk a friend through, five steps and no theory.</p>
       </div>
+      <div>
+        <p class="hero-intro">The exact first hour I would walk a friend through. Five steps, one real task, no theory. Do it once and you will know what these tools are actually for.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<div class="wrap section">
       <div class="steps">
 
         <section class="step" id="step-1">
@@ -125,24 +130,6 @@
         <p>That is the hour. When you want prompts already written this way, the library is next door.</p>
         <a class="btn-orange cta" href="library.html">Open the prompt library <span>&#8594;</span></a>
       </div>
-
-    </div>
-
-    <aside class="reading__rail" aria-label="The five steps">
-      <div class="rail-block">
-        <h3>The five steps</h3>
-        <a href="#step-1">1 &middot; Pick one tool</a>
-        <a href="#step-2">2 &middot; Bring a real task</a>
-        <a href="#step-3">3 &middot; The whole picture</a>
-        <a href="#step-4">4 &middot; Push back</a>
-        <a href="#step-5">5 &middot; Keep what worked</a>
-      </div>
-      <div class="rail-block">
-        <h3>Next</h3>
-        <a href="library.html">The prompt library</a>
-      </div>
-    </aside>
-  </div>
 </div>
 
 </main>

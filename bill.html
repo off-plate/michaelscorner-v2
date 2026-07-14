@@ -47,8 +47,8 @@ main{ background:var(--cream-2); }
 .ledger td a:hover{ color:var(--brick); }
 .ledger-note{ margin:10px 0 0; }
 
-/* ---- the paper ---- */
-.paper{ margin-top:clamp(36px,5vw,56px); }
+/* ---- the paper (the receipt roll, a centred printed document under the full-width ledger) ---- */
+.paper{ margin-top:clamp(36px,5vw,56px); max-width:660px; margin-inline:auto; }
 .p-top{
   background:var(--cream); border:1px solid var(--ink); border-bottom:1px dashed var(--ink);
   text-align:center; padding:20px 18px 16px; display:flex; flex-direction:column; gap:5px;
@@ -141,19 +141,21 @@ main{ background:var(--cream-2); }
   </div>
 </header>
 <main>
-  <section class="band band--green bill-band">
-    <div class="wrap bill-head">
-      <canvas data-dot="receipt" data-size="56" data-tone="light" style="width:56px;height:56px;"></canvas>
-      <p class="eyebrow">Receipts</p>
-      <h1 class="h-page">The Real Bill</h1>
-      <p class="bill-intro">Every project I ship gets an entry here: what I asked AI to do, what it got right, where it failed or I had to take over, and what the whole thing cost in hours and koruna. The failures stay in on purpose, including the projects where AI was honestly not worth it, because a page of only wins would not teach you much. Each receipt is honest about what actually took the time, so you can plan your own before you start.</p>
-      <p class="count-note mono"><span class="oa">&#8226;</span> The hours and the koruna are still being counted. They land on these receipts soon, and nothing here gets a made-up number in the meantime.</p>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Receipts</p>
+          <h1 class="h-page">The Real Bill</h1>
+        </div>
+        <div>
+          <p class="hero-intro">Every project I ship gets an entry: what I asked AI to do, what it nailed, where it failed or I took over, and what it cost in hours and koruna. The failures stay in on purpose. The hours and koruna are still being counted and land on each receipt soon, with no made-up numbers in the meantime.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <div class="wrap section">
-    <div class="reading">
-      <div class="reading__body">
 
       <section class="ledger-sec" aria-label="The ledger">
         <div class="ledger-head mono"><span>The ledger &#183; 6 cases</span></div>
@@ -348,32 +350,6 @@ main{ background:var(--cream-2); }
         <div class="p-end" aria-hidden="true"></div>
       </section>
 
-      </div><!-- /reading__body -->
-
-      <aside class="reading__rail bill-rail" aria-label="Summary">
-        <div class="rail-block">
-          <h3>Summary</h3>
-          <div class="rail-row"><span>Cases</span><span>6</span></div>
-          <div class="rail-row"><span>Worth it</span><span class="verdict-w">4</span></div>
-          <div class="rail-row"><span>Mixed</span><span class="verdict-m">2</span></div>
-          <div class="rail-row"><span>Not worth it</span><span>0</span></div>
-        </div>
-        <div class="rail-block">
-          <h3>Jump to a case</h3>
-          <a href="#case-01">01 &middot; Compass</a>
-          <a href="#case-02">02 &middot; FORGE</a>
-          <a href="#case-03">03 &middot; Italy trip</a>
-          <a href="#case-04">04 &middot; Tuck</a>
-          <a href="#case-05">05 &middot; Spotify Vibes</a>
-          <a href="#case-06">06 &middot; This website</a>
-        </div>
-        <div class="rail-block">
-          <h3>On the numbers</h3>
-          <p style="margin:0;">Hours and koruna are counted by hand and land on each receipt soon. Nothing here gets a made-up figure in the meantime.</p>
-        </div>
-      </aside>
-
-    </div><!-- /reading -->
   </div>
 </main>
 <footer class="site-foot">
