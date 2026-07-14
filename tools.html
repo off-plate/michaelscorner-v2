@@ -19,7 +19,7 @@
   /* TOOLS · the tool shed (V1 layout, V2 tools + copy) */
   .th-head{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,3vw,48px); align-items:end; margin-bottom:clamp(20px,2.5vw,32px); }
   .th-desc{ margin:0; font-size:16px; line-height:1.55; color:var(--ink-soft); max-width:48ch; }
-  .th-priv{ font-family:'Space Mono',monospace; font-size:12.5px; color:var(--orange); margin:12px 0 0; display:inline-flex; align-items:center; gap:8px; }
+  .th-priv{ font-family:'Space Mono',monospace; font-size:12.5px; color:var(--green); margin:12px 0 0; display:inline-flex; align-items:center; gap:8px; }
 
   .th-bar{ display:flex; flex-wrap:wrap; gap:14px 16px; align-items:center; justify-content:space-between;
     border-top:2px solid var(--ink); padding-top:18px; margin-bottom:clamp(26px,3vw,36px); }
@@ -39,12 +39,12 @@
   .tcard:hover{ background:var(--cream-2); }
   .tcard .top{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
   .tcard .tag{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); }
-  .tcard .desig{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; color:var(--orange); }
+  .tcard .desig{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; color:var(--green); }
   .tcard h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:21px; line-height:1.08; letter-spacing:-0.01em; margin:0; }
   .tcard .td{ font-size:14px; line-height:1.5; color:var(--ink-soft); margin:0; flex:1; }
   .tcard .foot{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:10px; }
   .tcard .phint{ font-family:'Space Mono',monospace; font-size:11px; color:var(--grey-2); }
-  .tcard .cta{ font-size:14px; color:var(--orange); font-weight:500; white-space:nowrap; }
+  .tcard .cta{ font-size:14px; color:var(--green); font-weight:500; white-space:nowrap; }
 
   /* considered, not shipped (V2 honesty, kept) */
   .bench{ border-top:1px solid var(--ink); padding-top:clamp(28px,3.5vw,44px); margin-top:clamp(8px,1vw,16px); }
@@ -110,6 +110,14 @@
         <li class="bench-item"><span class="bn">CUT/03</span><span class="bt"><b>Model picker quiz.</b> Model names change monthly. A stale pick kills trust faster than no tool. The cost calculator teaches the same judgment without naming a model.</span></li>
       </ul>
     </section>
+  </section>
+
+  <section class="band band--green" style="margin-top:clamp(40px,5vw,72px);">
+    <div class="wrap">
+      <p class="eyebrow">Runs on your machine</p>
+      <h2 class="h-sec">Nothing you type leaves this page<span class="orange">.</span></h2>
+      <p class="lede" style="margin-top:12px; max-width:56ch;">Every tool here runs in your browser. No signup, no email gate, no server behind it. Close the tab and it is gone.</p>
+    </div>
   </section>
 </main>
 

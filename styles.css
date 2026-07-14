@@ -78,7 +78,7 @@ main{ flex:1; outline:none; }
   gap:clamp(32px,6vw,84px); align-items:start; }
 .reading__body{ max-width:var(--measure); min-width:0; }
 .reading__rail{ position:sticky; top:104px; display:flex; flex-direction:column; gap:26px;
-  font-family:'Space Mono',ui-monospace,monospace; font-size:13px; line-height:1.7; color:var(--grey); }
+  font-family:'General Sans',system-ui,sans-serif; font-size:14px; line-height:1.6; color:var(--grey); }
 .reading__rail .rail-block{ display:flex; flex-direction:column; align-items:flex-start; gap:9px; }
 .reading__rail .rail-block h3{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px;
   letter-spacing:0.12em; text-transform:uppercase; color:var(--ink); margin:0; font-weight:700; }
@@ -113,6 +113,11 @@ main{ flex:1; outline:none; }
   font-family:'Clash Display',sans-serif; font-weight:600;
   font-size:clamp(18px,1.8vw,22px); line-height:1.1; letter-spacing:-0.01em; margin:0;
 }
+/* Clash sets tight; add a touch of word-spacing so display words never visually merge */
+.h-display{ word-spacing:0.12em; }
+.h-page{ word-spacing:0.09em; }
+.h-sec{ word-spacing:0.07em; }
+.h-item{ word-spacing:0.04em; }
 .lede{ font-size:clamp(17px,1.4vw,20px); line-height:1.55; color:var(--ink-soft); max-width:62ch; }
 .body-max{ max-width:64ch; }
 .small{ font-size:14px; color:var(--grey); }
@@ -231,6 +236,7 @@ main{ flex:1; outline:none; }
   display:inline-flex; align-items:center; gap:8px; text-decoration:none; transition:color 150ms ease;
 }
 .backlink:hover{ color:var(--brick); }
+.backlink .orange{ color:inherit; }
 /* every rank: visible focus ring, press feedback, disabled — states are non-negotiable */
 .btn, .btn-orange, .btn-ghost{ transition:background 180ms ease, color 180ms ease, border-color 180ms ease, transform 120ms ease; }
 .btn:focus-visible, .btn-orange:focus-visible, .btn-ghost:focus-visible{ outline:2px solid var(--orange); outline-offset:2px; }

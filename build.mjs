@@ -137,7 +137,7 @@ function buildLibrary() {
 .rlink .rt{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:18px; line-height:1.15; letter-spacing:-0.01em; grid-column:1; }
 .rlink .rw{ grid-column:1; font-size:14px; line-height:1.45; color:var(--grey); margin-top:2px; }
 .rlink .rpack{ grid-column:2; grid-row:1 / span 2; font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); white-space:nowrap; align-self:center; }
-.rlink .rpack .oa{ color:var(--orange); margin-left:8px; }
+.rlink .rpack .oa{ color:var(--green); margin-left:8px; }
 
 /* the pack grid: clear, clickable cards */
 .lib-packs{ margin-top:clamp(30px,3.5vw,44px); }
@@ -149,11 +149,11 @@ function buildLibrary() {
 .pack-card:hover, .pack-card:focus-visible{ background:var(--cream-2); outline:none; }
 .pc-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
 .pc-tag{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); }
-.pc-n{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--orange); }
+.pc-n{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--green); }
 .pack-card h2{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(21px,2.2vw,25px); line-height:1.06; letter-spacing:-0.015em; margin:0; }
 .pack-card p{ margin:0; font-size:14.5px; line-height:1.5; color:var(--ink-soft); flex:1; }
 .pc-open{ font-family:'Space Mono',ui-monospace,monospace; font-size:13px; color:var(--ink); display:inline-flex; align-items:center; gap:8px; margin-top:4px; }
-.pc-open .oa{ color:var(--orange); }
+.pc-open .oa{ color:var(--green); }
 .pack-card:hover .pc-open, .pack-card:focus-visible .pc-open{ color:var(--brick); }
 .lib-empty{ padding:34px 8px; color:var(--grey); font-size:16px; }
 .lib-empty[hidden]{ display:none; }
@@ -193,6 +193,14 @@ function buildLibrary() {
     ${cards}
   </div>
 </div>
+
+<section class="band band--green" id="lib-band" style="margin-top:clamp(48px,6vw,88px);">
+  <div class="wrap">
+    <p class="eyebrow">Free, all of it</p>
+    <h2 class="h-sec">Take what helps<span class="orange">.</span></h2>
+    <p class="lede" style="margin-top:12px; max-width:58ch;">Copy anything here, change the words, make it yours. If one prompt saves you an hour this week, that is the whole point.</p>
+  </div>
+</section>
 `;
 
   const script = `
@@ -266,7 +274,7 @@ function buildPack(pack, i) {
   text-decoration:none; color:var(--ink); transition:background 150ms ease;
 }
 .lrow:hover, .lrow:focus-visible{ background:var(--cream-2); outline:none; }
-.lrow .fno{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,30px); color:var(--orange); line-height:1; letter-spacing:-0.02em; }
+.lrow .fno{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,30px); color:var(--ink); line-height:1; letter-spacing:-0.02em; }
 .lrow .lt{ }
 .lrow .lt h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(18px,1.8vw,21px); line-height:1.15; letter-spacing:-0.01em; margin:0 0 4px; }
 .lrow .lt p{ margin:0; font-size:14.5px; line-height:1.5; color:var(--grey); max-width:60ch; }
