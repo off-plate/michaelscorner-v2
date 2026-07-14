@@ -240,9 +240,10 @@ function buildPack(pack, i) {
   const prefix = "../";
   const css = `
 <style>
-/* ---- Pack page: the opened dossier. Folder-tab header, then a ruled ledger of prompts. ---- */
-.dossier{ max-width:900px; padding-block:clamp(28px,4vw,48px) 0; }
+/* ---- Pack page: the opened dossier. Folder-tab header + ruled ledger, with an all-packs rail. ---- */
+.dossier{ padding-block:clamp(28px,4vw,44px) 0; }
 .d-back{ margin-bottom:clamp(20px,2.4vw,28px); }
+.reading__rail .rail-here{ color:var(--orange); font-weight:600; }
 .folder{ border:1px solid var(--ink); border-radius:2px; }
 .folder-tab{
   display:inline-flex; align-items:center; gap:10px; background:var(--ink); color:var(--cream);
@@ -300,21 +301,36 @@ function buildPack(pack, i) {
     </a>`;
   });
 
+  const packsNav = PACKS.map((p2, k) => k === i
+    ? `<span class="rail-here">${esc(p2.name)}</span>`
+    : `<a href="${esc(p2.id)}.html">${esc(p2.name)}</a>`).join("");
+
   const body = `
 <div class="wrap dossier">
   <a class="backlink d-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
 
-  <div class="folder">
-    <p class="folder-tab">PACK/${packNo(i)} &middot; ${esc(pack.chip)}</p>
-    <div class="folder-body">
-      <h1 class="h-page">${esc(pack.name)}</h1>
-      <p class="folder-meta">${pack.prompts.length} prompts</p>
-      <p class="folder-intro">${esc(pack.blurb[0])} ${esc(pack.blurb[1])}</p>
-    </div>
-  </div>
+  <div class="reading">
+    <div class="reading__body">
+      <div class="folder">
+        <p class="folder-tab">PACK/${packNo(i)} &middot; ${esc(pack.chip)}</p>
+        <div class="folder-body">
+          <h1 class="h-page">${esc(pack.name)}</h1>
+          <p class="folder-meta">${pack.prompts.length} prompts</p>
+          <p class="folder-intro">${esc(pack.blurb[0])} ${esc(pack.blurb[1])}</p>
+        </div>
+      </div>
 
-  <div class="ledger-list">
-    ${rows}
+      <div class="ledger-list">
+        ${rows}
+      </div>
+    </div>
+
+    <aside class="reading__rail" aria-label="All packs">
+      <div class="rail-block">
+        <h3>All packs</h3>
+        ${packsNav}
+      </div>
+    </aside>
   </div>
 </div>
 `;
@@ -333,8 +349,8 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
   const prefix = "../";
   const css = `
 <style>
-/* ---- Prompt page: the spec sheet. Mono header, ink terminal specimen, one Copy button. ---- */
-.spec{ max-width:820px; padding-block:clamp(28px,4vw,48px) 0; }
+/* ---- Prompt page: the spec sheet. Terminal specimen + Copy in the body, spec fields in the rail. ---- */
+.spec{ padding-block:clamp(28px,4vw,44px) 0; }
 .spec-back{ margin-bottom:clamp(20px,2.4vw,28px); }
 .spec-meta{ display:flex; gap:8px 20px; flex-wrap:wrap; font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--grey); border-bottom:1px solid var(--ink); padding-bottom:12px; margin-bottom:clamp(18px,2.2vw,26px); }
 .spec-meta .id{ color:var(--ink); font-weight:700; }
@@ -383,49 +399,53 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
 <div class="wrap spec">
   <a class="backlink spec-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
 
-  <div class="spec-meta">
-    <span><a href="../packs/${esc(pack.id)}.html" style="text-decoration:none;color:inherit;">${esc(pack.chip)}</a></span>
-    <span class="id">PROMPT/${packNo(packIndex)}.${promptNo(promptIndex)}</span>
-  </div>
-
-  <h1 class="h-page">${esc(pr.title)}</h1>
-  <p class="spec-when">${esc(pr.when)}</p>
-
-  <div class="spec-body" id="spec-body">
-    <div class="term">
-      <div class="term-bar">
-        <span class="dot"><canvas data-dot="prompt" data-size="16" style="width:16px;height:16px;"></canvas> The prompt</span>
-        <span>copy target</span>
+  <div class="reading">
+    <div class="reading__body">
+      <div class="spec-meta">
+        <span><a class="link" href="../packs/${esc(pack.id)}.html">${esc(pack.chip)}</a></span>
+        <span class="id">PROMPT/${packNo(packIndex)}.${promptNo(promptIndex)}</span>
       </div>
-      <pre class="term-body" id="specimen">${specimenHTML}</pre>
+
+      <h1 class="h-page">${esc(pr.title)}</h1>
+      <p class="spec-when">${esc(pr.when)}</p>
+
+      <div class="spec-body" id="spec-body">
+        <div class="term">
+          <div class="term-bar">
+            <span class="dot"><canvas data-dot="prompt" data-size="16" style="width:16px;height:16px;"></canvas> The prompt</span>
+            <span>copy target</span>
+          </div>
+          <pre class="term-body" id="specimen">${specimenHTML}</pre>
+        </div>
+
+        <div class="copyrow">
+          <button type="button" class="btn-orange copy-btn" id="copy-btn">
+            <canvas data-dot="copy" data-size="18" data-tone="light" style="width:18px;height:18px;"></canvas>
+            <span class="lbl">Copy prompt</span>
+          </button>
+          <span class="copy-stamp" id="copy-stamp" role="status" aria-live="polite"></span>
+        </div>
+      </div>
     </div>
 
-    <div class="copyrow">
-      <button type="button" class="btn copy-btn" id="copy-btn">
-        <canvas data-dot="copy" data-size="18" style="width:18px;height:18px;"></canvas>
-        <span class="lbl">Copy prompt</span>
-      </button>
-      <span class="copy-stamp" id="copy-stamp" role="status" aria-live="polite"></span>
-    </div>
-  </div>
-
-  <div class="fields">
-    <div class="field">
-      <span class="fl">What to fill in</span>
-      <div class="fv">${tokenList}</div>
-    </div>
-    <div class="field">
-      <span class="fl">When I use it</span>
-      <div class="fv">${esc(pr.when)}</div>
-    </div>
-    <div class="field">
-      <span class="fl">The tip</span>
-      <div class="fv">${esc(pr.tip)}</div>
-    </div>
-    <div class="field">
-      <span class="fl">Works in</span>
-      <div class="fv"><span class="works">ChatGPT / Claude / Gemini</span></div>
-    </div>
+    <aside class="reading__rail" aria-label="Prompt details">
+      <div class="rail-block">
+        <h3>What to fill in</h3>
+        ${tokenList}
+      </div>
+      <div class="rail-block">
+        <h3>The tip</h3>
+        <p style="margin:0;">${esc(pr.tip)}</p>
+      </div>
+      <div class="rail-block">
+        <h3>Works in</h3>
+        <p style="margin:0;">ChatGPT / Claude / Gemini</p>
+      </div>
+      <div class="rail-block">
+        <h3>This pack</h3>
+        <a href="../packs/${esc(pack.id)}.html">${esc(pack.chip)}</a>
+      </div>
+    </aside>
   </div>
 </div>
 `;

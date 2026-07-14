@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="styles.css">
 <style>
   /* KIT · the packing slip */
-  .slip{ max-width:820px; margin:0 auto; }
+  .slip{ max-width:none; }
   .manifest{ border:1px solid var(--ink); border-radius:2px; margin-top:clamp(24px,3vw,36px); }
   .manifest-head{ display:flex; justify-content:space-between; padding:16px 22px; border-bottom:1px solid var(--ink); font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--grey); }
   .mrow{ display:grid; grid-template-columns:44px 1fr; gap:16px; padding:18px 22px; border-bottom:1px solid var(--line); align-items:start; }
@@ -57,7 +57,9 @@
 </header>
 
 <main>
-  <section class="wrap sec">
+  <section class="wrap section">
+    <div class="reading">
+    <div class="reading__body">
     <div class="slip">
       <p class="eyebrow"><canvas data-dot="subscribe" data-size="30" style="width:30px;height:30px;vertical-align:middle;margin-right:8px;"></canvas>Free kit</p>
       <h1 class="h-page">Michael&#8217;s AI Starter Kit</h1>
@@ -91,7 +93,23 @@
       </div>
 
       <p class="closing">The kit is free and stays free. There is no countdown and nothing expires, because that trick is exactly what this site stands against. You get the kit, and after that I write when I have something useful, which is not every day.</p>
-    </div>
+    </div><!-- /slip -->
+    </div><!-- /reading__body -->
+
+    <aside class="reading__rail" aria-label="The kit">
+      <div class="rail-block">
+        <h3>The kit</h3>
+        <div class="rail-row"><span>Items</span><span>6</span></div>
+        <div class="rail-row"><span>Price</span><span>Free</span></div>
+        <div class="rail-row"><span>Delivery</span><span>By email</span></div>
+      </div>
+      <div class="rail-block">
+        <h3>No catch</h3>
+        <p style="margin:0;">No countdown, nothing expires. I reply by hand, usually within a day.</p>
+      </div>
+    </aside>
+
+    </div><!-- /reading -->
   </section>
 </main>
 

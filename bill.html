@@ -16,18 +16,17 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
 <style>
-/* ---- The Real Bill: the printed receipt. Narrow 600px column on a faint cream-2 wash.
-       This page owns the perforation motif. Money is never green. ---- */
+/* ---- The Real Bill: a full-bleed deep-green header band, then the receipts column beside a
+       sticky summary rail so the page fills the shell. This page owns the perforation motif.
+       Money is never green. ---- */
 main{ background:var(--cream-2); }
 .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
 
-.bill-col{ max-width:600px; margin:0 auto; padding-block:clamp(36px,5vw,60px) clamp(40px,5vw,64px); }
-/* the header sits on the signature deep-green band (the surface Michael liked in v3) */
-.bill-head{ padding:clamp(26px,3.4vw,44px); margin-top:clamp(18px,2.5vw,28px); }
-.bill-head canvas{ display:block; margin:0 0 18px; }
-.bill-intro{ margin:18px 0 0; font-size:16px; line-height:1.6; color:var(--green-soft); }
-.count-note{ margin:16px 0 0; font-size:12.5px; line-height:1.6; color:var(--green-soft); }
+.bill-head canvas{ display:block; margin:0 0 16px; }
+.bill-intro{ margin:16px 0 0; font-size:clamp(15.5px,1.2vw,17px); line-height:1.62; color:var(--green-soft); max-width:64ch; }
+.count-note{ margin:16px 0 0; font-size:12.5px; line-height:1.6; color:var(--green-soft); max-width:64ch; }
 .count-note .oa{ color:var(--soft); }
+.bill-rail .verdict-w{ color:var(--green); } .bill-rail .verdict-m{ color:var(--grey); }
 
 /* ---- the ledger: a filing table, not cards ---- */
 .ledger-sec{ margin-top:clamp(32px,4vw,48px); }
@@ -142,16 +141,19 @@ main{ background:var(--cream-2); }
   </div>
 </header>
 <main>
-  <div class="wrap">
-    <div class="bill-col">
+  <section class="band band--green bill-band">
+    <div class="wrap bill-head">
+      <canvas data-dot="receipt" data-size="56" data-tone="light" style="width:56px;height:56px;"></canvas>
+      <p class="eyebrow">Receipts</p>
+      <h1 class="h-page">The Real Bill</h1>
+      <p class="bill-intro">Every project I ship gets an entry here: what I asked AI to do, what it got right, where it failed or I had to take over, and what the whole thing cost in hours and koruna. The failures stay in on purpose, including the projects where AI was honestly not worth it, because a page of only wins would not teach you much. Each receipt is honest about what actually took the time, so you can plan your own before you start.</p>
+      <p class="count-note mono"><span class="oa">&#8226;</span> The hours and the koruna are still being counted. They land on these receipts soon, and nothing here gets a made-up number in the meantime.</p>
+    </div>
+  </section>
 
-      <section class="bill-head band-green">
-        <canvas data-dot="receipt" data-size="56" data-tone="light" style="width:56px;height:56px;"></canvas>
-        <p class="eyebrow">Receipts</p>
-        <h1 class="h-page">The Real Bill</h1>
-        <p class="bill-intro">Every project I ship gets an entry here: what I asked AI to do, what it got right, where it failed or I had to take over, and what the whole thing cost in hours and koruna. The failures stay in on purpose, including the projects where AI was honestly not worth it, because a page of only wins would not teach you much. Each receipt is honest about what actually took the time, so you can plan your own before you start.</p>
-        <p class="count-note mono"><span class="oa">&#8226;</span> The hours and the koruna are still being counted. They land on these receipts soon, and nothing here gets a made-up number in the meantime.</p>
-      </section>
+  <div class="wrap section">
+    <div class="reading">
+      <div class="reading__body">
 
       <section class="ledger-sec" aria-label="The ledger">
         <div class="ledger-head mono"><span>The ledger &#183; 6 cases</span></div>
@@ -346,7 +348,32 @@ main{ background:var(--cream-2); }
         <div class="p-end" aria-hidden="true"></div>
       </section>
 
-    </div>
+      </div><!-- /reading__body -->
+
+      <aside class="reading__rail bill-rail" aria-label="Summary">
+        <div class="rail-block">
+          <h3>Summary</h3>
+          <div class="rail-row"><span>Cases</span><span>6</span></div>
+          <div class="rail-row"><span>Worth it</span><span class="verdict-w">4</span></div>
+          <div class="rail-row"><span>Mixed</span><span class="verdict-m">2</span></div>
+          <div class="rail-row"><span>Not worth it</span><span>0</span></div>
+        </div>
+        <div class="rail-block">
+          <h3>Jump to a case</h3>
+          <a href="#case-01">01 &middot; Compass</a>
+          <a href="#case-02">02 &middot; FORGE</a>
+          <a href="#case-03">03 &middot; Italy trip</a>
+          <a href="#case-04">04 &middot; Tuck</a>
+          <a href="#case-05">05 &middot; Spotify Vibes</a>
+          <a href="#case-06">06 &middot; This website</a>
+        </div>
+        <div class="rail-block">
+          <h3>On the numbers</h3>
+          <p style="margin:0;">Hours and koruna are counted by hand and land on each receipt soon. Nothing here gets a made-up figure in the meantime.</p>
+        </div>
+      </aside>
+
+    </div><!-- /reading -->
   </div>
 </main>
 <footer class="site-foot">

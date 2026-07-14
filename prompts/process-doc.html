@@ -16,8 +16,8 @@
 <link rel="stylesheet" href="../assets/fonts/fonts.css">
 <link rel="stylesheet" href="../styles.css">
 <style>
-/* ---- Prompt page: the spec sheet. Mono header, ink terminal specimen, one Copy button. ---- */
-.spec{ max-width:820px; padding-block:clamp(28px,4vw,48px) 0; }
+/* ---- Prompt page: the spec sheet. Terminal specimen + Copy in the body, spec fields in the rail. ---- */
+.spec{ padding-block:clamp(28px,4vw,44px) 0; }
 .spec-back{ margin-bottom:clamp(20px,2.4vw,28px); }
 .spec-meta{ display:flex; gap:8px 20px; flex-wrap:wrap; font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--grey); border-bottom:1px solid var(--ink); padding-bottom:12px; margin-bottom:clamp(18px,2.2vw,26px); }
 .spec-meta .id{ color:var(--ink); font-weight:700; }
@@ -78,21 +78,23 @@
 <div class="wrap spec">
   <a class="backlink spec-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
 
-  <div class="spec-meta">
-    <span><a href="../packs/office.html" style="text-decoration:none;color:inherit;">Office work</a></span>
-    <span class="id">PROMPT/06.07</span>
-  </div>
-
-  <h1 class="h-page">Document how I do it</h1>
-  <p class="spec-when">Use this when you are the only one who knows how something is done, and that keeps making it your job.</p>
-
-  <div class="spec-body" id="spec-body">
-    <div class="term">
-      <div class="term-bar">
-        <span class="dot"><canvas data-dot="prompt" data-size="16" style="width:16px;height:16px;"></canvas> The prompt</span>
-        <span>copy target</span>
+  <div class="reading">
+    <div class="reading__body">
+      <div class="spec-meta">
+        <span><a class="link" href="../packs/office.html">Office work</a></span>
+        <span class="id">PROMPT/06.07</span>
       </div>
-      <pre class="term-body" id="specimen"><span class="selwrap">You are helping me document a process I normally carry in my head, so a colleague can do it without me.
+
+      <h1 class="h-page">Document how I do it</h1>
+      <p class="spec-when">Use this when you are the only one who knows how something is done, and that keeps making it your job.</p>
+
+      <div class="spec-body" id="spec-body">
+        <div class="term">
+          <div class="term-bar">
+            <span class="dot"><canvas data-dot="prompt" data-size="16" style="width:16px;height:16px;"></canvas> The prompt</span>
+            <span>copy target</span>
+          </div>
+          <pre class="term-body" id="specimen"><span class="selwrap">You are helping me document a process I normally carry in my head, so a colleague can do it without me.
 
 The process: [name it, for example &quot;monthly invoicing&quot; or &quot;publishing a product update&quot;]
 Who will follow this document: [new colleague, my team, my cover when I am away]
@@ -112,34 +114,36 @@ Rules:
 - No step may contain two actions.
 
 End with the how-to, the checklist of prerequisites, then your questions for me.</span><span class="cur" aria-hidden="true"></span></pre>
+        </div>
+
+        <div class="copyrow">
+          <button type="button" class="btn-orange copy-btn" id="copy-btn">
+            <canvas data-dot="copy" data-size="18" data-tone="light" style="width:18px;height:18px;"></canvas>
+            <span class="lbl">Copy prompt</span>
+          </button>
+          <span class="copy-stamp" id="copy-stamp" role="status" aria-live="polite"></span>
+        </div>
+      </div>
     </div>
 
-    <div class="copyrow">
-      <button type="button" class="btn copy-btn" id="copy-btn">
-        <canvas data-dot="copy" data-size="18" style="width:18px;height:18px;"></canvas>
-        <span class="lbl">Copy prompt</span>
-      </button>
-      <span class="copy-stamp" id="copy-stamp" role="status" aria-live="polite"></span>
-    </div>
-  </div>
-
-  <div class="fields">
-    <div class="field">
-      <span class="fl">What to fill in</span>
-      <div class="fv"><ul class="tokens"><li><span class="tk">[</span>name it, for example &quot;monthly invoicing&quot; or &quot;publishing a product update&quot;<span class="tk">]</span></li><li><span class="tk">[</span>new colleague, my team, my cover when I am away<span class="tk">]</span></li><li><span class="tk">[</span>write it as it comes: steps, tools, logins involved, weird exceptions, things that go wrong<span class="tk">]</span></li></ul></div>
-    </div>
-    <div class="field">
-      <span class="fl">When I use it</span>
-      <div class="fv">Use this when you are the only one who knows how something is done, and that keeps making it your job.</div>
-    </div>
-    <div class="field">
-      <span class="fl">The tip</span>
-      <div class="fv">Have someone follow the document while you watch in silence. Where they stall, the document has a hole, not the person.</div>
-    </div>
-    <div class="field">
-      <span class="fl">Works in</span>
-      <div class="fv"><span class="works">ChatGPT / Claude / Gemini</span></div>
-    </div>
+    <aside class="reading__rail" aria-label="Prompt details">
+      <div class="rail-block">
+        <h3>What to fill in</h3>
+        <ul class="tokens"><li><span class="tk">[</span>name it, for example &quot;monthly invoicing&quot; or &quot;publishing a product update&quot;<span class="tk">]</span></li><li><span class="tk">[</span>new colleague, my team, my cover when I am away<span class="tk">]</span></li><li><span class="tk">[</span>write it as it comes: steps, tools, logins involved, weird exceptions, things that go wrong<span class="tk">]</span></li></ul>
+      </div>
+      <div class="rail-block">
+        <h3>The tip</h3>
+        <p style="margin:0;">Have someone follow the document while you watch in silence. Where they stall, the document has a hole, not the person.</p>
+      </div>
+      <div class="rail-block">
+        <h3>Works in</h3>
+        <p style="margin:0;">ChatGPT / Claude / Gemini</p>
+      </div>
+      <div class="rail-block">
+        <h3>This pack</h3>
+        <a href="../packs/office.html">Office work</a>
+      </div>
+    </aside>
   </div>
 </div>
 

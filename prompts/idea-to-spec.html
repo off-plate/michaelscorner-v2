@@ -16,8 +16,8 @@
 <link rel="stylesheet" href="../assets/fonts/fonts.css">
 <link rel="stylesheet" href="../styles.css">
 <style>
-/* ---- Prompt page: the spec sheet. Mono header, ink terminal specimen, one Copy button. ---- */
-.spec{ max-width:820px; padding-block:clamp(28px,4vw,48px) 0; }
+/* ---- Prompt page: the spec sheet. Terminal specimen + Copy in the body, spec fields in the rail. ---- */
+.spec{ padding-block:clamp(28px,4vw,44px) 0; }
 .spec-back{ margin-bottom:clamp(20px,2.4vw,28px); }
 .spec-meta{ display:flex; gap:8px 20px; flex-wrap:wrap; font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--grey); border-bottom:1px solid var(--ink); padding-bottom:12px; margin-bottom:clamp(18px,2.2vw,26px); }
 .spec-meta .id{ color:var(--ink); font-weight:700; }
@@ -78,21 +78,23 @@
 <div class="wrap spec">
   <a class="backlink spec-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
 
-  <div class="spec-meta">
-    <span><a href="../packs/building.html" style="text-decoration:none;color:inherit;">Building</a></span>
-    <span class="id">PROMPT/03.01</span>
-  </div>
-
-  <h1 class="h-page">Rough idea into a build spec</h1>
-  <p class="spec-when">Use this when you have an idea in your head and need a plan before you let any tool write code.</p>
-
-  <div class="spec-body" id="spec-body">
-    <div class="term">
-      <div class="term-bar">
-        <span class="dot"><canvas data-dot="prompt" data-size="16" style="width:16px;height:16px;"></canvas> The prompt</span>
-        <span>copy target</span>
+  <div class="reading">
+    <div class="reading__body">
+      <div class="spec-meta">
+        <span><a class="link" href="../packs/building.html">Building</a></span>
+        <span class="id">PROMPT/03.01</span>
       </div>
-      <pre class="term-body" id="specimen"><span class="selwrap">You are a pragmatic software planner working with a non-programmer. Turn my rough idea into a short build spec an AI coding tool can follow.
+
+      <h1 class="h-page">Rough idea into a build spec</h1>
+      <p class="spec-when">Use this when you have an idea in your head and need a plan before you let any tool write code.</p>
+
+      <div class="spec-body" id="spec-body">
+        <div class="term">
+          <div class="term-bar">
+            <span class="dot"><canvas data-dot="prompt" data-size="16" style="width:16px;height:16px;"></canvas> The prompt</span>
+            <span>copy target</span>
+          </div>
+          <pre class="term-body" id="specimen"><span class="selwrap">You are a pragmatic software planner working with a non-programmer. Turn my rough idea into a short build spec an AI coding tool can follow.
 
 My idea, in plain words:
 [describe it, even if it is messy: what it does, who uses it, why you want it]
@@ -110,34 +112,36 @@ Rules:
 - No technology names without a reason in plain words.
 
 Keep the whole spec readable in two minutes. End with the one risk most likely to kill this project, and how to dodge it.</span><span class="cur" aria-hidden="true"></span></pre>
+        </div>
+
+        <div class="copyrow">
+          <button type="button" class="btn-orange copy-btn" id="copy-btn">
+            <canvas data-dot="copy" data-size="18" data-tone="light" style="width:18px;height:18px;"></canvas>
+            <span class="lbl">Copy prompt</span>
+          </button>
+          <span class="copy-stamp" id="copy-stamp" role="status" aria-live="polite"></span>
+        </div>
+      </div>
     </div>
 
-    <div class="copyrow">
-      <button type="button" class="btn copy-btn" id="copy-btn">
-        <canvas data-dot="copy" data-size="18" style="width:18px;height:18px;"></canvas>
-        <span class="lbl">Copy prompt</span>
-      </button>
-      <span class="copy-stamp" id="copy-stamp" role="status" aria-live="polite"></span>
-    </div>
-  </div>
-
-  <div class="fields">
-    <div class="field">
-      <span class="fl">What to fill in</span>
-      <div class="fv"><ul class="tokens"><li><span class="tk">[</span>describe it, even if it is messy: what it does, who uses it, why you want it<span class="tk">]</span></li></ul></div>
-    </div>
-    <div class="field">
-      <span class="fl">When I use it</span>
-      <div class="fv">Use this when you have an idea in your head and need a plan before you let any tool write code.</div>
-    </div>
-    <div class="field">
-      <span class="fl">The tip</span>
-      <div class="fv">Do not skip step 5. Every decision you leave open now becomes a random guess the coding tool makes later.</div>
-    </div>
-    <div class="field">
-      <span class="fl">Works in</span>
-      <div class="fv"><span class="works">ChatGPT / Claude / Gemini</span></div>
-    </div>
+    <aside class="reading__rail" aria-label="Prompt details">
+      <div class="rail-block">
+        <h3>What to fill in</h3>
+        <ul class="tokens"><li><span class="tk">[</span>describe it, even if it is messy: what it does, who uses it, why you want it<span class="tk">]</span></li></ul>
+      </div>
+      <div class="rail-block">
+        <h3>The tip</h3>
+        <p style="margin:0;">Do not skip step 5. Every decision you leave open now becomes a random guess the coding tool makes later.</p>
+      </div>
+      <div class="rail-block">
+        <h3>Works in</h3>
+        <p style="margin:0;">ChatGPT / Claude / Gemini</p>
+      </div>
+      <div class="rail-block">
+        <h3>This pack</h3>
+        <a href="../packs/building.html">Building</a>
+      </div>
+    </aside>
   </div>
 </div>
 

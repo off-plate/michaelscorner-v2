@@ -176,12 +176,34 @@ window.MC2 = window.MC2 || {};
     (mq.addEventListener ? mq.addEventListener.bind(mq, 'change') : mq.addListener.bind(mq))(function () { setOpen(false); });
   }
 
+  /* ---------- brand loader (the signature wave, once per session) ----------
+     The wordmark holds while the wave flows, then the screen lifts to reveal the page
+     (which is already settling underneath). Skipped under reduced motion and on repeat
+     views this session, so it never gets in the way. */
+  function brandLoader() {
+    if (RM) return;
+    try { if (sessionStorage.getItem('mc-seen')) return; sessionStorage.setItem('mc-seen', '1'); } catch (e) {}
+    var l = document.createElement('div');
+    l.className = 'mc-loader';
+    l.setAttribute('aria-hidden', 'true');
+    l.innerHTML = '<div class="lm">Michael’s <span>Corner</span></div><div class="lw"></div>';
+    document.body.appendChild(l);
+    var w = l.querySelector('.lw'), t0 = performance.now(), raf = 0;
+    (function tick(now) { w.textContent = MC2.wave(13, (now - t0) / 1000, 6.5, 0.5); raf = requestAnimationFrame(tick); })(t0);
+    setTimeout(function () {
+      cancelAnimationFrame(raf);
+      l.classList.add('hide');
+      setTimeout(function () { if (l.parentNode) l.parentNode.removeChild(l); }, 460);
+    }, 820);
+  }
+
   /* ---------- boot ---------- */
   function boot() {
     activeNav();
     buildMobileMenu();
     MC2.mountDevices(document);
     document.body.classList.add('mc-enter');
+    brandLoader();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();

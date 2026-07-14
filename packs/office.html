@@ -16,9 +16,10 @@
 <link rel="stylesheet" href="../assets/fonts/fonts.css">
 <link rel="stylesheet" href="../styles.css">
 <style>
-/* ---- Pack page: the opened dossier. Folder-tab header, then a ruled ledger of prompts. ---- */
-.dossier{ max-width:900px; padding-block:clamp(28px,4vw,48px) 0; }
+/* ---- Pack page: the opened dossier. Folder-tab header + ruled ledger, with an all-packs rail. ---- */
+.dossier{ padding-block:clamp(28px,4vw,44px) 0; }
 .d-back{ margin-bottom:clamp(20px,2.4vw,28px); }
+.reading__rail .rail-here{ color:var(--orange); font-weight:600; }
 .folder{ border:1px solid var(--ink); border-radius:2px; }
 .folder-tab{
   display:inline-flex; align-items:center; gap:10px; background:var(--ink); color:var(--cream);
@@ -75,17 +76,19 @@
 <div class="wrap dossier">
   <a class="backlink d-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
 
-  <div class="folder">
-    <p class="folder-tab">PACK/06 &middot; Office work</p>
-    <div class="folder-body">
-      <h1 class="h-page">Office and operations work</h1>
-      <p class="folder-meta">8 prompts</p>
-      <p class="folder-intro">Inbox, meetings, reports, spreadsheets. Small routines for the everyday grind. Nothing fancy, just the stuff that quietly gives you back an hour most days.</p>
-    </div>
-  </div>
+  <div class="reading">
+    <div class="reading__body">
+      <div class="folder">
+        <p class="folder-tab">PACK/06 &middot; Office work</p>
+        <div class="folder-body">
+          <h1 class="h-page">Office and operations work</h1>
+          <p class="folder-meta">8 prompts</p>
+          <p class="folder-intro">Inbox, meetings, reports, spreadsheets. Small routines for the everyday grind. Nothing fancy, just the stuff that quietly gives you back an hour most days.</p>
+        </div>
+      </div>
 
-  <div class="ledger-list">
-    
+      <div class="ledger-list">
+        
     <a class="lrow" href="../prompts/thread-summary.html">
       <span class="fno">01</span>
       <span class="lt">
@@ -150,6 +153,15 @@
       </span>
       <span class="open" aria-hidden="true">&#8594;</span>
     </a>
+      </div>
+    </div>
+
+    <aside class="reading__rail" aria-label="All packs">
+      <div class="rail-block">
+        <h3>All packs</h3>
+        <a href="beginners.html">Best prompts for beginners</a><a href="writing.html">Best prompts for writing</a><a href="building.html">Building software with AI</a><a href="founders.html">Founders and small business owners</a><a href="freelancers.html">Freelancers and solo operators</a><span class="rail-here">Office and operations work</span><a href="creators.html">Content creators</a><a href="students.html">Students and learning</a>
+      </div>
+    </aside>
   </div>
 </div>
 

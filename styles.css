@@ -17,7 +17,18 @@
   --sage:#EFE5C8; --sage-line:#DED2AF;
   --soft:#F08A4B; --brick:#B23708; --green-soft:#a9c0b6;
   --ease:cubic-bezier(0.22,0.61,0.36,1);
-  --wrap:1440px; --pad:clamp(20px,4vw,56px);
+
+  /* ---- one container system, site-wide (no page defines its own width) ----
+     --shell : the single outer content max-width, every page.
+     --measure: the reading line-length; a NESTED constraint on prose, never a page width.
+     --rail  : the meta/side-rail width on reading pages (fills the leftover space on purpose). */
+  --shell:1200px; --measure:68ch; --rail:290px;
+  --wrap:var(--shell); --pad:clamp(20px,4vw,56px); --gutter:var(--pad);
+
+  /* ---- one spacing scale (every vertical gap is a token, no ad-hoc pixels) ---- */
+  --space-2:8px; --space-3:12px; --space-4:16px; --space-6:24px; --space-8:32px;
+  --space-12:48px; --space-16:64px; --space-24:96px; --space-32:128px;
+  --section-pad:clamp(56px,7vw,112px);   /* section-to-section vertical rhythm, one value everywhere */
 }
 
 *{ box-sizing:border-box; }
@@ -42,6 +53,41 @@ a{ color:inherit; }
 
 .wrap{ max-width:var(--wrap); margin:0 auto; padding-left:var(--pad); padding-right:var(--pad); }
 main{ flex:1; outline:none; }
+
+/* ---------- section + band system (ONE rhythm, deliberate colour cadence) ----------
+   .section = vertical rhythm only. .band = a full-bleed coloured section (sage break or
+   the one deep-green punctuation); its content sits in an inner .wrap. See DESIGN-SYSTEM.md. */
+.section{ padding-block:var(--section-pad); }
+.band{ padding-block:var(--section-pad); }
+.band--sage{ background:var(--sage); border-top:1px solid var(--sage-line); border-bottom:1px solid var(--sage-line); }
+.band--green{ background:var(--deep-green); color:var(--cream); }
+.band--green .h-display,.band--green .h-page,.band--green .h-sec,.band--green .h-item,
+.band--green h1,.band--green h2,.band--green h3{ color:var(--cream); }
+.band--green .eyebrow{ color:var(--soft); }
+.band--green .lede,.band--green p{ color:var(--green-soft); }
+.band--green .orange,.band--green .oa,.band--green .money{ color:var(--soft); }
+.band--green a:not([class*="btn"]){ color:#d9e4dd; text-underline-offset:3px; }
+.band--green a:not([class*="btn"]):hover{ color:var(--soft); }
+/* secondary button on the deep-green band: soft-orange outline, fills soft on hover */
+.band--green .btn-ghost{ border-color:var(--soft); color:var(--soft); }
+.band--green .btn-ghost:hover{ background:var(--soft); color:var(--deep-green); border-color:var(--soft); }
+
+/* ---------- reading layout (article / receipt / prompt fills the shell with a meta rail,
+   never a lonely centred column). Body locked to the reading measure; rail uses the rest. ---------- */
+.reading{ display:grid; grid-template-columns:minmax(0,1fr) minmax(210px,var(--rail));
+  gap:clamp(32px,6vw,84px); align-items:start; }
+.reading__body{ max-width:var(--measure); min-width:0; }
+.reading__rail{ position:sticky; top:104px; display:flex; flex-direction:column; gap:26px;
+  font-family:'Space Mono',ui-monospace,monospace; font-size:13px; line-height:1.7; color:var(--grey); }
+.reading__rail .rail-block{ display:flex; flex-direction:column; align-items:flex-start; gap:9px; }
+.reading__rail .rail-block h3{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px;
+  letter-spacing:0.12em; text-transform:uppercase; color:var(--ink); margin:0; font-weight:700; }
+.reading__rail .rail-row{ display:flex; width:100%; justify-content:space-between; gap:12px; border-bottom:1px solid var(--line); padding-block:6px; }
+.reading__rail .rail-row span:last-child{ color:var(--ink); text-align:right; }
+.reading__rail a{ display:inline-block; color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px; max-width:100%; transition:color 150ms ease, border-color 150ms ease; }
+.reading__rail a:hover{ color:var(--brick); border-color:var(--brick); }
+.reading__rail p{ margin:0; }
+@media (max-width:900px){ .reading{ grid-template-columns:1fr; gap:clamp(28px,5vw,40px); } .reading__rail{ position:static; } }
 
 /* ---------- type ---------- */
 .mono{ font-family:'Space Mono',ui-monospace,Menlo,monospace; }
@@ -185,6 +231,15 @@ main{ flex:1; outline:none; }
   display:inline-flex; align-items:center; gap:8px; text-decoration:none; transition:color 150ms ease;
 }
 .backlink:hover{ color:var(--brick); }
+/* every rank: visible focus ring, press feedback, disabled — states are non-negotiable */
+.btn, .btn-orange, .btn-ghost{ transition:background 180ms ease, color 180ms ease, border-color 180ms ease, transform 120ms ease; }
+.btn:focus-visible, .btn-orange:focus-visible, .btn-ghost:focus-visible{ outline:2px solid var(--orange); outline-offset:2px; }
+.btn:active, .btn-orange:active, .btn-ghost:active{ transform:scale(0.97); }
+.btn[disabled], .btn-orange[disabled], .btn-ghost[disabled], .btn[aria-disabled="true"]{ opacity:0.4; cursor:not-allowed; transform:none; filter:none; }
+/* tertiary text-link: the only inline "leads somewhere" style. Underline + brick shift. */
+.link{ color:var(--ink); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; cursor:pointer; transition:color 150ms ease; }
+.link:hover{ color:var(--brick); }
+.link .oa{ color:var(--orange); }
 
 /* ---------- inputs ---------- */
 input[type=text], input[type=search], input[type=email], input[type=number], textarea, select{
@@ -195,7 +250,7 @@ input::placeholder, textarea::placeholder{ color:#a39a89; }
 input[type=range]{ accent-color:var(--orange); }
 
 /* ---------- section head pattern ---------- */
-.sec{ padding-block:clamp(36px,4.5vw,64px); }
+.sec{ padding-block:var(--section-pad); }
 .sec + .sec{ border-top:1px solid var(--ink); }
 .sec-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:clamp(20px,2.5vw,32px); }
 
@@ -277,9 +332,17 @@ input[type=range]{ accent-color:var(--orange); }
 .card.on-ink{ background:var(--ink); color:var(--ink-text); border-color:var(--ink); }
 .card.on-ink:hover{ background:var(--ink-2); }
 
-/* ---------- page enter (one rise on the page root, once) ---------- */
-@keyframes mc-enter{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
-body.mc-enter main{ animation:mc-enter 240ms var(--ease) both; }
+/* ---------- brand loader (signature wave, once per session) + page enter ---------- */
+.mc-loader{ position:fixed; inset:0; z-index:1000; background:var(--cream);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px;
+  transition:opacity 420ms var(--ease); }
+.mc-loader.hide{ opacity:0; pointer-events:none; }
+.mc-loader .lm{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(20px,2.4vw,26px); letter-spacing:-0.01em; color:var(--ink); }
+.mc-loader .lm span{ color:var(--orange); }
+.mc-loader .lw{ font-family:'Space Mono',ui-monospace,monospace; font-size:clamp(20px,2.6vw,28px); letter-spacing:2px; color:var(--orange); white-space:pre; line-height:1; }
+@keyframes mc-enter{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
+body.mc-enter main{ animation:mc-enter 260ms var(--ease) both; }
+@media (prefers-reduced-motion: reduce){ .mc-loader{ display:none; } }
 
 /* ---------- green surfaces (the "room" green builds) ----------
    band-green: the signature deep-green editorial band (the Real Bill header lives here).
