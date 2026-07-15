@@ -219,7 +219,6 @@ window.MC2 = window.MC2 || {};
   function boot() {
     activeNav();
     buildMobileMenu();
-    headerScroll();
     MC2.mountDevices(document);
     document.body.classList.add('mc-enter');
     brandLoader();

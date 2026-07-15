@@ -41,9 +41,8 @@
 .copy-stamp{ font-family:'Space Mono',ui-monospace,monospace; font-size:12.5px; color:var(--grey); min-height:1.2em; }
 .copy-stamp .on{ color:var(--ink); }
 
-/* spec fields: a prominent panel under the terminal (no floating rail) */
-.spec-body{ max-width:960px; }
-.specfields{ margin-top:clamp(24px,3vw,36px); background:var(--cream-2); border:1px solid var(--ink); border-radius:2px;
+/* spec fields: a prominent panel ABOVE the prompt so you know how to use it before you copy */
+.specfields{ margin-bottom:clamp(24px,3vw,36px); background:var(--cream-2); border:1px solid var(--ink); border-radius:2px;
   padding:clamp(22px,2.6vw,32px); display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:clamp(20px,2.6vw,36px); }
 .sf h3{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--green); margin:0 0 10px; font-weight:700; }
 .sf p{ margin:0; font-size:15px; line-height:1.6; color:var(--ink); }
@@ -66,7 +65,7 @@
       <a href="../start.html" data-nav="start">Start here</a>
       <a href="../library.html" data-nav="library">Library</a>
       <a href="../tools.html" data-nav="tools">Tools</a>
-      <a href="../bill.html" data-nav="bill">The Real Bill</a>
+      <a href="../bill.html" data-nav="bill">Projects</a>
       <a href="../channel.html" data-nav="channel">Channel</a>
       <a href="../about.html" data-nav="about">About</a>
     </nav>
@@ -90,6 +89,13 @@
 </section>
 
 <div class="wrap section spec">
+  <div class="specfields">
+    <div class="sf"><h3>What to fill in</h3><ul class="tokens"><li><span class="tk">[</span>paste their request<span class="tk">]</span></li><li><span class="tk">[</span>paste or summarise the relevant part of the proposal or contract<span class="tk">]</span></li><li><span class="tk">[</span>one or two lines, for example &quot;third extra ask this month, first two I did free&quot;<span class="tk">]</span></li><li><span class="tk">[</span>charge for it, trade it against something, decline it, or &quot;help me decide&quot;<span class="tk">]</span></li></ul></div>
+    <div class="sf"><h3>The tip</h3><p>The first free &quot;small thing&quot; sets the exchange rate for the whole relationship. It is easier to be clear on request two than on request nine.</p></div>
+    <div class="sf"><h3>Works in</h3><p>ChatGPT / Claude / Gemini</p></div>
+    <div class="sf"><h3>This pack</h3><a class="link" href="../packs/freelancers.html">Freelancers</a></div>
+  </div>
+
   <div class="spec-body" id="spec-body">
     <div class="term">
       <div class="term-bar">
@@ -129,13 +135,6 @@ End with the reply, plus one line on what to log so this stays documented.</span
       <span class="copy-stamp" id="copy-stamp" role="status" aria-live="polite"></span>
     </div>
   </div>
-
-  <div class="specfields">
-    <div class="sf"><h3>What to fill in</h3><ul class="tokens"><li><span class="tk">[</span>paste their request<span class="tk">]</span></li><li><span class="tk">[</span>paste or summarise the relevant part of the proposal or contract<span class="tk">]</span></li><li><span class="tk">[</span>one or two lines, for example &quot;third extra ask this month, first two I did free&quot;<span class="tk">]</span></li><li><span class="tk">[</span>charge for it, trade it against something, decline it, or &quot;help me decide&quot;<span class="tk">]</span></li></ul></div>
-    <div class="sf"><h3>The tip</h3><p>The first free &quot;small thing&quot; sets the exchange rate for the whole relationship. It is easier to be clear on request two than on request nine.</p></div>
-    <div class="sf"><h3>Works in</h3><p>ChatGPT / Claude / Gemini</p></div>
-    <div class="sf"><h3>This pack</h3><a class="link" href="../packs/freelancers.html">Freelancers</a></div>
-  </div>
 </div>
 
 </main>
@@ -148,7 +147,7 @@ End with the reply, plus one line on what to log so this stays documented.</span
     <div class="foot-col">
       <a href="../library.html">Prompt library</a>
       <a href="../tools.html">Tools</a>
-      <a href="../bill.html">The Real Bill</a>
+      <a href="../bill.html">Projects</a>
     </div>
     <div class="foot-col">
       <a href="../start.html">Start here</a>

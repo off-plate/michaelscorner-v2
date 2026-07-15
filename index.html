@@ -36,7 +36,14 @@
   .hcard .hc-tag{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--green); }
   .hcard h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:21px; line-height:1.08; letter-spacing:-0.01em; margin:0; }
   .hcard p{ font-size:14px; line-height:1.5; color:var(--ink-soft); margin:0; flex:1; }
+  .hcard{ min-height:150px; justify-content:space-between; }
   .hcard .hc-open{ font-family:'Space Mono',monospace; font-size:13px; color:var(--green); margin-top:6px; }
+
+  /* section CTA + scroll arrows so the carousels read as scrollable */
+  .sec-cta{ display:flex; flex-direction:column; align-items:flex-end; gap:14px; }
+  .paddles{ display:flex; gap:8px; }
+  .paddle{ width:42px; height:42px; border:1px solid var(--ink); background:none; color:var(--ink); font-size:17px; cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:2px; transition:background 150ms ease, color 150ms ease; }
+  .paddle:hover{ background:var(--ink); color:var(--cream); }
 
   /* prompt cards carousel */
   .pcard{ flex:0 0 clamp(280px,82vw,340px); border:1px solid var(--ink); border-radius:2px; padding:22px; display:flex; flex-direction:column; gap:12px; }
@@ -84,7 +91,7 @@
       <a href="start.html" data-nav="start">Start here</a>
       <a href="library.html" data-nav="library">Library</a>
       <a href="tools.html" data-nav="tools">Tools</a>
-      <a href="bill.html" data-nav="bill">The Real Bill</a>
+      <a href="bill.html" data-nav="bill">Projects</a>
       <a href="channel.html" data-nav="channel">Channel</a>
       <a href="about.html" data-nav="about">About</a>
     </nav>
@@ -99,7 +106,7 @@
       <p class="sub lede">Every week a new model drops and Instagram Reels tell you that you are already behind. You are not. I use these tools most evenings and write down what actually works, free for you to take.</p>
       <div class="row">
         <a class="btn-orange" href="library.html">Browse the library <span>&#8594;</span></a>
-        <a class="btn-ghost" href="bill.html">Read the Real Bill</a>
+        <a class="btn-ghost" href="bill.html">See the projects</a>
       </div>
     </div>
     <div>
@@ -132,14 +139,17 @@
         <h2 class="h-sec">Small tools that do the math for you</h2>
         <p class="lede" style="margin-top:10px; max-width:54ch;">Free calculators and checkers that run in your browser: what a month of AI costs, whether your text fits, when a task is worth automating. No signup, nothing leaves the page.</p>
       </div>
-      <a class="btn-ghost" href="tools.html">All the tools <span>&#8594;</span></a>
+      <div class="sec-cta">
+        <a class="btn-ghost" href="tools.html">All the tools <span>&#8594;</span></a>
+        <div class="paddles"><button class="paddle no-fx" data-scroll="-1" aria-label="Scroll left">&#8592;</button><button class="paddle no-fx" data-scroll="1" aria-label="Scroll right">&#8594;</button></div>
+      </div>
     </div>
     <div class="scroller" data-scroller>
-      <a class="hcard" href="tools.html"><span class="hc-tag">Money &amp; size</span><h3>AI cost calculator</h3><p>What a month of AI actually costs, on rates you can edit.</p><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
-      <a class="hcard" href="tools.html"><span class="hc-tag">Money &amp; size</span><h3>Fits-in-context checker</h3><p>Whether your document fits a model's window or needs splitting.</p><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
-      <a class="hcard" href="tools.html"><span class="hc-tag">The decision</span><h3>Should you automate it?</h3><p>Six honest questions, one stamped verdict: automate, assist, or leave it.</p><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
-      <a class="hcard" href="tools.html"><span class="hc-tag">The words</span><h3>AI-slop detector</h3><p>Paste text and it counts the AI tells and stamps a slop score.</p><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
-      <a class="hcard" href="tools.html"><span class="hc-tag">The words</span><h3>Prompt tightener</h3><p>Strips the filler it can prove is filler and flags the vague asks.</p><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+      <a class="hcard" href="tools.html"><h3>AI cost calculator</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+      <a class="hcard" href="tools.html"><h3>Fits-in-context checker</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+      <a class="hcard" href="tools.html"><h3>Should you automate it?</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+      <a class="hcard" href="tools.html"><h3>AI-slop detector</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+      <a class="hcard" href="tools.html"><h3>Prompt tightener</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
     </div>
   </section>
 
@@ -150,7 +160,10 @@
         <h2 class="h-sec">Prompts you can steal right now</h2>
         <p class="lede" style="margin-top:10px; max-width:54ch;">Copy one, fill in the brackets, paste it into ChatGPT, Claude, or Gemini. These are three I reach for most. The full library has sixty-four.</p>
       </div>
-      <a class="btn-ghost" href="library.html">The whole library <span>&#8594;</span></a>
+      <div class="sec-cta">
+        <a class="btn-ghost" href="library.html">The whole library <span>&#8594;</span></a>
+        <div class="paddles"><button class="paddle no-fx" data-scroll="-1" aria-label="Scroll left">&#8592;</button><button class="paddle no-fx" data-scroll="1" aria-label="Scroll right">&#8594;</button></div>
+      </div>
     </div>
     <div class="scroller" id="pcards" data-scroller></div>
   </section>
@@ -175,7 +188,10 @@
         <h2 class="h-sec">Watch how it actually goes</h2>
         <p class="lede" style="margin-top:10px; max-width:54ch;">Short videos of real builds, the wins and the dead ends included. Filming now, so the cards fill in as episodes go up.</p>
       </div>
-      <a class="btn-ghost" href="channel.html">The channel <span>&#8594;</span></a>
+      <div class="sec-cta">
+        <a class="btn-ghost" href="channel.html">The channel <span>&#8594;</span></a>
+        <div class="paddles"><button class="paddle no-fx" data-scroll="-1" aria-label="Scroll left">&#8592;</button><button class="paddle no-fx" data-scroll="1" aria-label="Scroll right">&#8594;</button></div>
+      </div>
     </div>
     <div class="scroller" id="vstrip" data-scroller></div>
   </section>
@@ -203,7 +219,7 @@
     <div class="foot-col">
       <a href="library.html">Prompt library</a>
       <a href="tools.html">Tools</a>
-      <a href="bill.html">The Real Bill</a>
+      <a href="bill.html">Projects</a>
     </div>
     <div class="foot-col">
       <a href="start.html">Start here</a>
@@ -245,9 +261,8 @@
   var pc = document.getElementById('pcards');
   pc.innerHTML = samples.map(function (s) {
     return '<div class="pcard"><h3 class="h-item">' + MC2.esc(s.title) + '</h3>' +
-      '<p class="when">' + MC2.esc(s.when) + '</p>' +
       '<div class="pcard-actions"><button class="btn cbtn" data-id="' + s.id + '">Copy prompt</button>' +
-      '<a class="pcard-open" href="prompts/' + s.id + '.html">Open <span class="orange">&#8594;</span></a></div></div>';
+      '<a class="pcard-open" href="prompts/' + s.id + '.html">Open <span class="oa">&#8594;</span></a></div></div>';
   }).join('');
   Array.prototype.forEach.call(pc.querySelectorAll('.cbtn'), function (btn) {
     btn.addEventListener('click', function () {
@@ -275,6 +290,17 @@
     if (MC2.reducedMotion) { nw.textContent = MC2.wave(15, 0.4, 5.5, 0.55); }
     else { var wt0 = performance.now(); (function wtick(now){ nw.textContent = MC2.wave(15, (now - wt0) / 1000, 5.5, 0.55); requestAnimationFrame(wtick); })(wt0); }
   }
+
+  /* ---- carousel scroll arrows ---- */
+  Array.prototype.forEach.call(document.querySelectorAll('.paddle[data-scroll]'), function (b) {
+    b.addEventListener('click', function () {
+      var sec = b.closest('.sec'); var sc = sec && sec.querySelector('.scroller');
+      if (!sc) return;
+      var card = sc.firstElementChild;
+      var step = card ? card.getBoundingClientRect().width + 18 : 320;
+      sc.scrollBy({ left: (+b.getAttribute('data-scroll')) * step, behavior: MC2.reducedMotion ? 'auto' : 'smooth' });
+    });
+  });
 
   MC2.mountDevices(document);
 })();

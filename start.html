@@ -23,8 +23,7 @@
 .sh-meta{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.08em; color:var(--grey); margin:22px 0 0; }
 .sh-body{ max-width:none; }
 
-.steps{ margin-top:0; border-top:1px solid var(--ink); display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:clamp(32px,4vw,72px); }
-@media (max-width:820px){ .steps{ grid-template-columns:1fr; } }
+.steps{ margin-top:0; border-top:1px solid var(--ink); }
 .step{
   display:grid; grid-template-columns:96px 1fr; gap:clamp(16px,3vw,40px);
   border-bottom:1px solid var(--line); padding-block:clamp(28px,4vw,48px);
@@ -32,7 +31,7 @@
 .step .no{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(34px,4.4vw,56px); line-height:0.9; letter-spacing:-0.03em; color:var(--orange); }
 .step .no .k{ display:block; font-family:'Space Mono',monospace; font-size:11px; font-weight:400; letter-spacing:0.16em; text-transform:uppercase; color:var(--grey); margin-top:8px; }
 .step h2{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(22px,2.6vw,30px); line-height:1.05; letter-spacing:-0.02em; margin:0 0 12px; }
-.step p{ margin:0; font-size:16.5px; line-height:1.62; color:var(--ink); max-width:62ch; }
+.step p{ margin:0; font-size:16.5px; line-height:1.62; color:var(--ink); }
 .step p .lead-in{ font-weight:500; }
 @media (max-width:560px){
   .step{ grid-template-columns:1fr; gap:12px; }
@@ -60,7 +59,7 @@
       <a href="start.html" data-nav="start">Start here</a>
       <a href="library.html" data-nav="library">Library</a>
       <a href="tools.html" data-nav="tools">Tools</a>
-      <a href="bill.html" data-nav="bill">The Real Bill</a>
+      <a href="bill.html" data-nav="bill">Projects</a>
       <a href="channel.html" data-nav="channel">Channel</a>
       <a href="about.html" data-nav="about">About</a>
     </nav>
@@ -143,7 +142,7 @@
     <div class="foot-col">
       <a href="library.html">Prompt library</a>
       <a href="tools.html">Tools</a>
-      <a href="bill.html">The Real Bill</a>
+      <a href="bill.html">Projects</a>
     </div>
     <div class="foot-col">
       <a href="start.html">Start here</a>

@@ -72,7 +72,7 @@ function header(prefix) {
       <a href="${prefix}start.html" data-nav="start">Start here</a>
       <a href="${prefix}library.html" data-nav="library">Library</a>
       <a href="${prefix}tools.html" data-nav="tools">Tools</a>
-      <a href="${prefix}bill.html" data-nav="bill">The Real Bill</a>
+      <a href="${prefix}bill.html" data-nav="bill">Projects</a>
       <a href="${prefix}channel.html" data-nav="channel">Channel</a>
       <a href="${prefix}about.html" data-nav="about">About</a>
     </nav>
@@ -92,7 +92,7 @@ function footer(prefix) {
     <div class="foot-col">
       <a href="${prefix}library.html">Prompt library</a>
       <a href="${prefix}tools.html">Tools</a>
-      <a href="${prefix}bill.html">The Real Bill</a>
+      <a href="${prefix}bill.html">Projects</a>
     </div>
     <div class="foot-col">
       <a href="${prefix}start.html">Start here</a>
@@ -282,8 +282,7 @@ function buildPack(pack, i) {
 .cover-note .rest{ color:var(--grey-2); }
 
 /* the ledger of prompts */
-.ledger-list{ border-top:1px solid var(--ink); display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:clamp(28px,3vw,56px); }
-@media (max-width:820px){ .ledger-list{ grid-template-columns:1fr; } }
+.ledger-list{ border-top:1px solid var(--ink); }
 .lrow{
   display:grid; grid-template-columns:auto 1fr auto; gap:4px 20px; align-items:baseline;
   border-bottom:1px solid var(--line); padding:clamp(16px,2vw,22px) clamp(4px,1vw,10px);
@@ -293,7 +292,7 @@ function buildPack(pack, i) {
 .lrow .fno{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,30px); color:var(--ink); line-height:1; letter-spacing:-0.02em; }
 .lrow .lt{ }
 .lrow .lt h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(18px,1.8vw,21px); line-height:1.15; letter-spacing:-0.01em; margin:0 0 4px; }
-.lrow .lt p{ margin:0; font-size:14.5px; line-height:1.5; color:var(--grey); max-width:60ch; }
+.lrow .lt p{ margin:0; font-size:14.5px; line-height:1.5; color:var(--grey); }
 .lrow .open{ font-family:'Space Mono',monospace; font-size:20px; color:var(--ink); align-self:center; transition:color 150ms ease, transform 180ms var(--ease); }
 .lrow:hover .open, .lrow:focus-visible .open{ color:var(--brick); transform:translateX(3px); }
 @media (max-width:560px){ .lrow{ grid-template-columns:auto 1fr; } .lrow .open{ display:none; } }
@@ -396,9 +395,8 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
 .copy-stamp{ font-family:'Space Mono',ui-monospace,monospace; font-size:12.5px; color:var(--grey); min-height:1.2em; }
 .copy-stamp .on{ color:var(--ink); }
 
-/* spec fields: a prominent panel under the terminal (no floating rail) */
-.spec-body{ max-width:960px; }
-.specfields{ margin-top:clamp(24px,3vw,36px); background:var(--cream-2); border:1px solid var(--ink); border-radius:2px;
+/* spec fields: a prominent panel ABOVE the prompt so you know how to use it before you copy */
+.specfields{ margin-bottom:clamp(24px,3vw,36px); background:var(--cream-2); border:1px solid var(--ink); border-radius:2px;
   padding:clamp(22px,2.6vw,32px); display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:clamp(20px,2.6vw,36px); }
 .sf h3{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--green); margin:0 0 10px; font-weight:700; }
 .sf p{ margin:0; font-size:15px; line-height:1.6; color:var(--ink); }
@@ -433,6 +431,13 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
 </section>
 
 <div class="wrap section spec">
+  <div class="specfields">
+    <div class="sf"><h3>What to fill in</h3>${tokenList}</div>
+    <div class="sf"><h3>The tip</h3><p>${esc(pr.tip)}</p></div>
+    <div class="sf"><h3>Works in</h3><p>ChatGPT / Claude / Gemini</p></div>
+    <div class="sf"><h3>This pack</h3><a class="link" href="../packs/${esc(pack.id)}.html">${esc(pack.chip)}</a></div>
+  </div>
+
   <div class="spec-body" id="spec-body">
     <div class="term">
       <div class="term-bar">
@@ -448,13 +453,6 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
       </button>
       <span class="copy-stamp" id="copy-stamp" role="status" aria-live="polite"></span>
     </div>
-  </div>
-
-  <div class="specfields">
-    <div class="sf"><h3>What to fill in</h3>${tokenList}</div>
-    <div class="sf"><h3>The tip</h3><p>${esc(pr.tip)}</p></div>
-    <div class="sf"><h3>Works in</h3><p>ChatGPT / Claude / Gemini</p></div>
-    <div class="sf"><h3>This pack</h3><a class="link" href="../packs/${esc(pack.id)}.html">${esc(pack.chip)}</a></div>
   </div>
 </div>
 `;
