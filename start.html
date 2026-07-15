@@ -43,6 +43,23 @@
 .sh-next p{ margin:0; font-size:16.5px; line-height:1.6; color:var(--ink-soft); max-width:52ch; }
 .sh-next .cta{ display:inline-flex; align-items:center; gap:10px; }
 .sh-next .cta .oa{ color:var(--orange); }
+
+/* the two-part page: a tick-box checklist, then the fuller guide */
+.cl-eyebrow{ margin-bottom:14px; }
+.checklist-panel{ border:1px solid var(--ink); border-radius:2px; background:var(--cream-2); padding:clamp(22px,3vw,34px); }
+.cl-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:6px; }
+.cl-progress{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--green); }
+.checklist{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:0 clamp(28px,4vw,56px); }
+.checklist li{ border-top:1px solid var(--line); }
+.checklist label{ display:flex; align-items:flex-start; gap:14px; padding-block:16px; cursor:pointer; }
+.checklist input{ appearance:none; -webkit-appearance:none; flex:none; width:22px; height:22px; border:2px solid var(--ink); border-radius:2px; background:var(--cream); margin-top:1px; cursor:pointer; position:relative; transition:background 120ms ease, border-color 120ms ease; }
+.checklist input:checked{ background:var(--green); border-color:var(--green); }
+.checklist input:checked::after{ content:''; position:absolute; left:6px; top:2px; width:6px; height:11px; border:solid var(--cream); border-width:0 2.5px 2.5px 0; transform:rotate(45deg); }
+.checklist input:focus-visible{ outline:2px solid var(--orange); outline-offset:2px; }
+.checklist .cl-text{ font-size:16px; line-height:1.5; color:var(--ink); }
+.checklist input:checked + .cl-text{ color:var(--grey); text-decoration:line-through; }
+@media (max-width:640px){ .checklist{ grid-template-columns:1fr; } }
+.guide-head{ margin:0 0 clamp(18px,2.5vw,28px); }
 </style>
 </head>
 <body>
@@ -75,13 +92,34 @@
         <h1 class="h-page">Your first hour with AI</h1>
       </div>
       <div>
-        <p class="hero-intro">The exact first hour I would walk a friend through. Five steps, one real task, no theory. Do it once and you will know what these tools are actually for.</p>
+        <p class="hero-intro">A short checklist to tick off as you go, then the full guide underneath. The exact first hour I would walk a friend through, one real task and no theory.</p>
       </div>
     </div>
   </div>
 </section>
 
 <div class="wrap section">
+  <p class="eyebrow cl-eyebrow">Do these first</p>
+  <div class="checklist-panel">
+    <div class="cl-head">
+      <h2 class="h-sec">The checklist</h2>
+      <span class="cl-progress" id="cl-progress">0 of 7 done</span>
+    </div>
+    <ul class="checklist" id="checklist">
+      <li><label><input type="checkbox" data-cl="1"><span class="cl-text">Pick one tool (ChatGPT, Claude, or Gemini) and stay with it for a week</span></label></li>
+      <li><label><input type="checkbox" data-cl="2"><span class="cl-text">Start on the free version, it is enough to learn on</span></label></li>
+      <li><label><input type="checkbox" data-cl="3"><span class="cl-text">Bring one real task from today, not a test question</span></label></li>
+      <li><label><input type="checkbox" data-cl="4"><span class="cl-text">Give it full context, like briefing a colleague</span></label></li>
+      <li><label><input type="checkbox" data-cl="5"><span class="cl-text">Treat the first answer as a draft and push back</span></label></li>
+      <li><label><input type="checkbox" data-cl="6"><span class="cl-text">Check every fact and number before you use it</span></label></li>
+      <li><label><input type="checkbox" data-cl="7"><span class="cl-text">Save the prompts that work, so you can reuse them</span></label></li>
+    </ul>
+  </div>
+</div>
+
+<div class="wrap section" style="padding-top:0;">
+  <p class="eyebrow">The full guide</p>
+  <h2 class="h-sec guide-head">Your first hour, step by step</h2>
       <div class="steps">
 
         <section class="step" id="step-1">
@@ -155,5 +193,16 @@
 <script src="signature.js"></script>
 <script src="data/prompts-index.js"></script>
 <script src="shared.js"></script>
+<script>
+(function(){
+  var boxes=[].slice.call(document.querySelectorAll('.checklist input[data-cl]'));
+  var prog=document.getElementById('cl-progress'), KEY='mc-start-checklist', saved={};
+  try{ saved=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){}
+  function update(){ var d=boxes.filter(function(b){return b.checked;}).length; if(prog) prog.textContent=d+' of '+boxes.length+' done'; }
+  boxes.forEach(function(b){ var id=b.getAttribute('data-cl'); if(saved[id]) b.checked=true;
+    b.addEventListener('change',function(){ saved[id]=b.checked; try{ localStorage.setItem(KEY,JSON.stringify(saved)); }catch(e){} update(); }); });
+  update();
+})();
+</script>
 </body>
 </html>
