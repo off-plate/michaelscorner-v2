@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Should you automate it? · Michael's Corner</title>
+<title>Should you automate it? / Michael's Corner</title>
 <meta name="description" content="Six honest questions about the task, one stamped verdict: automate now, assist only, or leave it human.">
 <link rel="icon" href="../assets/favicon.svg">
 <link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
@@ -89,7 +89,7 @@
 
     <div class="readout" id="readout">
       <p class="figure-lab">Score</p>
-      <p class="figure" id="figure">&middot;</p>
+      <p class="figure" id="figure">/</p>
       <p class="figure-sub" id="figsub">answer all six, then score</p>
       <div class="rec-wrap" id="rec" role="status" aria-live="polite"></div>
       <p class="empty-note" id="empty">No verdict yet.</p>
@@ -211,7 +211,7 @@
 
     // rows
     var rows=QS.map(function(Q,i){
-      return { k:Q.short+' · '+Q.opts[ans[i]], v:Math.round(earned[i])+'/'+Q.w };
+      return { k:Q.short+' / '+Q.opts[ans[i]], v:Math.round(earned[i])+'/'+Q.w };
     });
     fired.forEach(function(f){ rows.push({ k:'OVERRIDE', v:f.name, orange:true }); });
     rows.push({ k:'SCORE', v:scoreN+'/100'+(overridden?', overridden':''), big:true });
@@ -221,7 +221,7 @@
     $('empty').hidden=true; $('acts').hidden=false;
 
     $('rec').innerHTML=MC2.receipt({
-      title:'should-you-automate', date:' · '+clock(),
+      title:'should-you-automate', date:'',
       rows:rows, verdict:{ stamp:band, text:reason, ink:ink }
     });
 

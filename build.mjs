@@ -282,7 +282,8 @@ function buildPack(pack, i) {
 .cover-note .rest{ color:var(--grey-2); }
 
 /* the ledger of prompts */
-.ledger-list{ border-top:1px solid var(--ink); }
+.ledger-list{ border-top:1px solid var(--ink); display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:clamp(28px,3vw,56px); }
+@media (max-width:820px){ .ledger-list{ grid-template-columns:1fr; } }
 .lrow{
   display:grid; grid-template-columns:auto 1fr auto; gap:4px 20px; align-items:baseline;
   border-bottom:1px solid var(--line); padding:clamp(16px,2vw,22px) clamp(4px,1vw,10px);

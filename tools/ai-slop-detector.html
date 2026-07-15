@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI-slop detector · Michael's Corner</title>
+<title>AI-slop detector / Michael's Corner</title>
 <meta name="description" content="Paste any text; a public list of pattern rules counts the AI tells and stamps a slop score, with every flagged line shown.">
 <link rel="icon" href="../assets/favicon.svg">
 <link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
@@ -229,17 +229,17 @@ textarea#paste{ width:100%; min-height:300px; resize:vertical; line-height:1.55;
     $('figsub').textContent=stamp;
 
     var cats=Object.keys(res.byCat);
-    var rows=cats.length? cats.map(function(c){ return { k:c+' ×'+res.byCat[c].count, v:res.byCat[c].pts+' pts' }; }) : [{k:'FINDINGS · none', v:''}];
+    var rows=cats.length? cats.map(function(c){ return { k:c+' ×'+res.byCat[c].count, v:res.byCat[c].pts+' pts' }; }) : [{k:'FINDINGS / none', v:''}];
     rows.push({ k:'SLOP SCORE', v:score+'/100', big:true });
 
-    $('rec').innerHTML=MC2.receipt({ title:'ai-slop-detector', date:' · '+clock(),
+    $('rec').innerHTML=MC2.receipt({ title:'ai-slop-detector', date:'',
       rows:rows, verdict:{ stamp:stamp, text:reason, ink:ink } });
 
     // findings list
     if(res.findings.length){
       var html='<p class="list-head">Flagged '+res.findings.length+(res.findings.length===1?' line':' lines')+'</p>';
       res.findings.forEach(function(f){
-        html+='<div class="find"><span class="meta">line '+f.line+' · '+f.cat+' · </span>'+esc(f.pre)+'<mark>'+esc(f.match)+'</mark>'+esc(f.post)+'</div>';
+        html+='<div class="find"><span class="meta">line '+f.line+' / '+f.cat+' / </span>'+esc(f.pre)+'<mark>'+esc(f.match)+'</mark>'+esc(f.post)+'</div>';
       });
       $('findings').innerHTML=html;
     } else $('findings').innerHTML= words? '<p class="list-head">No tells found</p>' : '';
@@ -270,7 +270,7 @@ textarea#paste{ width:100%; min-height:300px; resize:vertical; line-height:1.55;
     $('counter').textContent=(text.trim()? text.trim().split(/\s+/).length : 0)+' words';
     $('counter').classList.toggle('over',over);
     if(over){
-      $('figure').textContent='·'; $('figsub').textContent='over the 200k cap';
+      $('figure').textContent='/'; $('figsub').textContent='over the 200k cap';
       $('rec').innerHTML=''; $('findings').innerHTML='';
       $('fine').innerHTML=esc('That is more than 200 thousand characters. Split it before any tool sees it.');
       return;

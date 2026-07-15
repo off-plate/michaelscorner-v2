@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI cost calculator · Michael's Corner</title>
+<title>AI cost calculator / Michael's Corner</title>
 <meta name="description" content="Drag three sliders, see what a month of AI actually costs, on rates you can edit.">
 <link rel="icon" href="../assets/favicon.svg">
 <link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
@@ -266,11 +266,11 @@ input.assumef:focus-visible{ outline:none; border-bottom-color:var(--ink); }
       {k:'≈ Kč *', v:MC2.kc(kc)}
     ];
     els.rec.innerHTML=MC2.receipt({
-      title:'ai-cost-calculator', date:'Updated '+LAST_CHECKED+' · '+clock(),
+      title:'ai-cost-calculator', date:'',
       rows:rows, verdict:{ stamp:stamp, text:reason, ink:ink }
     });
 
-    var fp=['* assumptions you can edit', 'Rates last checked '+LAST_CHECKED+'.', 'Based on '+more.days+' days a month.'];
+    var fp=['* assumptions you can edit', +LAST_CHECKED+'.', 'Based on '+more.days+' days a month.'];
     if(rIn===0 && rOut===0) fp.push('You set the rates to zero.');
     if(badFields.length) fp.push('Blank rate treated as default: '+badFields.join(', ')+'.');
     fp.push('A guide, not a bill.','Computed on this page. Nothing was sent anywhere.');
@@ -282,7 +282,7 @@ input.assumef:focus-visible{ outline:none; border-bottom-color:var(--ink); }
 
   var lastText='';
   function serialize(rows,monthly,kc,stamp,reason,fp){
-    var out=["MICHAEL'S CORNER  ai-cost-calculator","Updated "+LAST_CHECKED+" "+clock(),"------------------------------"];
+    var out=["MICHAEL'S CORNER  ai-cost-calculator","------------------------------"];
     rows.forEach(function(r){ out.push(pad(r.k, r.v)); });
     out.push("------------------------------","VERDICT: "+stamp);
     if(reason) out.push(reason);

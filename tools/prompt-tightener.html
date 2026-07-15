@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prompt tightener · Michael's Corner</title>
+<title>Prompt tightener / Michael's Corner</title>
 <meta name="description" content="Paste a rambling prompt; it strips the filler it can prove is filler and flags the vague asks it cannot fix.">
 <link rel="icon" href="../assets/favicon.svg">
 <link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
@@ -262,7 +262,7 @@ textarea#input{ width:100%; min-height:280px; resize:vertical; line-height:1.55;
       {k:'Filler removed', v: removedTotal+(removedTotal===1?' phrase':' phrases')},
       {k:'Flags', v:String(r.flags.length)}
     ];
-    $('rec').innerHTML=MC2.receipt({ title:'prompt-tightener', date:' · '+clock(),
+    $('rec').innerHTML=MC2.receipt({ title:'prompt-tightener', date:'',
       rows:rows, verdict:{ stamp:stamp, text:reason, ink:ink } });
 
     // removed list

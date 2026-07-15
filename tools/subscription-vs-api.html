@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Subscription vs API breakeven · Michael's Corner</title>
+<title>Subscription vs API breakeven / Michael's Corner</title>
 <meta name="description" content="Your usage, both prices, one answer: which way is cheaper for you and where the lines cross.">
 <link rel="icon" href="../assets/favicon.svg">
 <link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
@@ -157,7 +157,7 @@ input.assumef:focus-visible{ outline:none; border-bottom-color:var(--ink); }
 
     <div class="readout" id="readout">
       <p class="figure-lab" id="figlab">The verdict</p>
-      <p class="figure" id="figure">&middot;</p>
+      <p class="figure" id="figure">/</p>
       <p class="figure-sub" id="figsub"></p>
       <div class="rec-wrap" id="rec" role="status" aria-live="polite"></div>
       <div class="fineprint" id="fine"></div>
@@ -273,7 +273,7 @@ input.assumef:focus-visible{ outline:none; border-bottom-color:var(--ink); }
 
     // breakeven
     if(sub>0){
-      if(perMsg===0){ rows.push({k:'Breakeven', v:'never · rate is $0'}); }
+      if(perMsg===0){ rows.push({k:'Breakeven', v:'never / rate is $0'}); }
       else {
         var be=sub/(more.days*perMsg);
         var beR=Math.round(be*10)/10;
@@ -286,14 +286,14 @@ input.assumef:focus-visible{ outline:none; border-bottom-color:var(--ink); }
     }
 
     els_rec.innerHTML=MC2.receipt({
-      title:'subscription-vs-api', date:'Updated '+LAST_CHECKED+' · '+clock(),
+      title:'subscription-vs-api', date:'',
       rows:rows, verdict:{ stamp:stamp, text:reason, ink:ink }
     });
 
     var fp=['* API cost uses your editable rates.',
             'Breakeven: messages a day where the two are equal.',
             'Plans bundle app features and rate limits; the API needs an app to live in.',
-            'Rates last checked '+LAST_CHECKED+'.',
+            +LAST_CHECKED+'.',
             'A guide, not a bill.'];
     els_fine.innerHTML=fp.map(function(l){ return MC2.esc(l); }).join('<br>');
 

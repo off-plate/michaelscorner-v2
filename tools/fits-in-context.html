@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fits-in-context checker · Michael's Corner</title>
+<title>Fits-in-context checker / Michael's Corner</title>
 <meta name="description" content="Paste your document, learn instantly whether it fits a model's context window or needs splitting.">
 <link rel="icon" href="../assets/favicon.svg">
 <link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
@@ -84,7 +84,7 @@ input.assumef.small{ width:70px; }
       <div class="ctl">
         <label for="paste">Paste your text</label>
         <textarea id="paste" placeholder="Paste the document, transcript, or listings you want to feed a model."></textarea>
-        <p class="counter" id="counter">0 characters &#183; &#8776; 0 words &#183; &#8776; 0 tokens</p>
+        <p class="counter" id="counter">0 characters / &#8776; 0 words / &#8776; 0 tokens</p>
       </div>
       <div class="ctl">
         <div class="row-lab"><label for="cpt">Chars per token</label><span class="echo" id="e-cpt">4.0</span></div>
@@ -185,7 +185,7 @@ input.assumef.small{ width:70px; }
     var words=text.trim()? text.trim().split(/\s+/).length : 0;
     var tokens=Math.ceil(chars/state.cpt);
 
-    els.counter.textContent=fmt(chars)+' characters · ≈ '+fmt(words)+' words · ≈ '+fmt(tokens)+' tokens';
+    els.counter.textContent=fmt(chars)+' characters / ≈ '+fmt(words)+' words / ≈ '+fmt(tokens)+' tokens';
     els.counter.classList.toggle('over',over);
 
     if(over){
@@ -207,7 +207,7 @@ input.assumef.small{ width:70px; }
     }
     els.empty.hidden=true; els.acts.hidden=false;
     els.figure.textContent='≈ '+fmt(tokens);
-    els.figsub.textContent=fmt(chars)+' characters · ≈ '+fmt(words)+' words';
+    els.figsub.textContent=fmt(chars)+' characters / ≈ '+fmt(words)+' words';
 
     var res=state.reserve;
     var wins=WINDOWS.slice();
@@ -222,7 +222,7 @@ input.assumef.small{ width:70px; }
     wins.forEach(function(win){
       var s=status(tokens,win.w,res); st[win.w]=s;
       var amt = s.label==='SPLIT' ? 'SPLIT ×'+s.parts : s.label;
-      rows.push({k:win.name+' · '+win.short, v:amt});
+      rows.push({k:win.name+' / '+win.short, v:amt});
     });
 
     // overall stamp
@@ -239,13 +239,13 @@ input.assumef.small{ width:70px; }
     }
 
     els.rec.innerHTML=MC2.receipt({
-      title:'fits-in-context', date:'Updated '+LAST_CHECKED+' · '+clock(),
+      title:'fits-in-context', date:'',
       rows:rows, verdict:{ stamp:stamp, text:reason, ink:ink }
     });
 
     var fp=['* ≈ '+state.cpt.toFixed(1)+' characters per token, editable.',
             'Reserve: '+res+'% kept for the answer.',
-            'Windows last checked '+LAST_CHECKED+'.'];
+            ''];
     if(chars<200) fp.push('Short text, everything fits, nothing to worry about.');
     fp.push('Your text never left this page.');
     els.fine.innerHTML=fp.map(function(l){ return MC2.esc(l); }).join('<br>');

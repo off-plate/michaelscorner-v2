@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Difficult-email prompt builder · Michael's Corner</title>
+<title>Difficult-email prompt builder / Michael's Corner</title>
 <meta name="description" content="Answer six short questions about the email you are dreading; get a precise, copy-ready prompt for your AI.">
 <link rel="icon" href="../assets/favicon.svg">
 <link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
@@ -274,11 +274,11 @@
       {k:'TEMPERATURE', v:TEMPNAME[state.temp]},
       {k:'LANGUAGE', v:langWord},
       {k:'HARD LINES', v: hardCount()? String(hardCount()) : 'none'},
-      {k:'FACTS', v: facts? ('provided · '+facts.length+' chars') : 'missing'}
+      {k:'FACTS', v: facts? ('provided / '+facts.length+' chars') : 'missing'}
     ];
     var reason = facts ? '' : 'no facts given; the draft will be generic';
     $('rec').innerHTML=MC2.receipt({
-      title:'difficult-email', date:' · '+clock(),
+      title:'difficult-email', date:'',
       rows:rows, verdict:{ stamp:'PROMPT READY', text:reason, ink:false }
     });
 
