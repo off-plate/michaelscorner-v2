@@ -142,7 +142,7 @@ function buildLibrary() {
 .result-list{ list-style:none; margin:0; padding:0; border-top:1px solid var(--ink); }
 .rlink{ display:grid; grid-template-columns:1fr auto; gap:4px 18px; align-items:center;
   border-bottom:1px solid var(--line); padding:15px 8px; text-decoration:none; color:var(--ink); transition:background 150ms ease; }
-.rlink:hover, .rlink:focus-visible{ background:var(--green-pale); outline:none; }
+.rlink:hover, .rlink:focus-visible{ background:var(--sage); outline:none; }
 .rlink .rt{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:18px; line-height:1.15; letter-spacing:-0.01em; grid-column:1; }
 .rlink .rw{ grid-column:1; font-size:14px; line-height:1.45; color:var(--grey); margin-top:2px; }
 .rlink .rpack{ grid-column:2; grid-row:1 / span 2; font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); white-space:nowrap; align-self:center; }
@@ -295,7 +295,7 @@ function buildPack(pack, i) {
   border-bottom:1px solid var(--line); padding:clamp(16px,2vw,22px) clamp(4px,1vw,10px);
   text-decoration:none; color:var(--ink); transition:background 150ms ease;
 }
-.lrow:hover, .lrow:focus-visible{ background:var(--green-pale); outline:none; }
+.lrow:hover, .lrow:focus-visible{ background:var(--sage); outline:none; }
 .lrow .fno{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,30px); color:var(--ink); line-height:1; letter-spacing:-0.02em; }
 .lrow .lt{ }
 .lrow .lt h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(18px,1.8vw,21px); line-height:1.15; letter-spacing:-0.01em; margin:0 0 4px; }

@@ -62,8 +62,7 @@
 .checklist li{ border-top:1px solid var(--line); }
 .checklist label{ display:flex; align-items:flex-start; gap:14px; padding-block:16px; cursor:pointer; }
 .checklist input{ appearance:none; -webkit-appearance:none; flex:none; width:22px; height:22px; border:2px solid var(--ink); border-radius:2px; background:var(--cream); margin-top:1px; cursor:pointer; position:relative; transition:background 120ms ease, border-color 120ms ease; }
-.checklist input:checked{ background:var(--green); border-color:var(--green); }
-.checklist input:checked::after{ content:''; position:absolute; left:50%; top:46%; width:5px; height:10px; border:solid var(--cream); border-width:0 2.5px 2.5px 0; transform:translate(-50%,-50%) rotate(45deg); }
+.checklist input:checked{ border-color:var(--green); background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M13 4.5L6.5 11.5L3 8' fill='none' stroke='%23FAF7F2' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center center / 13px 13px no-repeat; }
 .checklist input:focus-visible{ outline:2px solid var(--orange); outline-offset:2px; }
 .checklist .cl-text{ font-size:16px; line-height:1.5; color:var(--ink); }
 .checklist input:checked + .cl-text{ color:var(--grey); text-decoration:line-through; }
