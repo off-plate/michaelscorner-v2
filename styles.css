@@ -14,7 +14,7 @@
      - brick   = the single hover colour for every text link and nav item, everywhere.
      - soft    = the accent on dark/green surfaces only. */
   --green:#1E5244; --green-2:#17463A; --deep-green:#183A32;
-  --sage:#EFE5C8; --sage-line:#DED2AF;
+  --sage:#EFE5C8; --sage-line:#DED2AF; --green-pale:#E7F0EA;
   --soft:#F08A4B; --brick:#B23708; --green-soft:#a9c0b6;
   --ease:cubic-bezier(0.22,0.61,0.36,1);
 

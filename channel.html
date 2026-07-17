@@ -16,6 +16,15 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
 <style>
+.mc-loader{position:fixed;inset:0;z-index:9999;background:#FAF7F2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity 420ms cubic-bezier(.22,.61,.36,1)}
+.mc-loader.hide{opacity:0;pointer-events:none}
+.mc-loader .lm{font-family:'Clash Display',sans-serif;font-weight:700;font-size:clamp(20px,2.4vw,26px);color:#15130F}
+.mc-loader .lm span{color:#F2541B}
+.mc-loader .lw{font-family:'Space Mono',ui-monospace,monospace;font-size:clamp(20px,2.6vw,28px);letter-spacing:2px;color:#F2541B;white-space:pre;line-height:1}
+@media(prefers-reduced-motion:reduce){.mc-loader{display:none}}
+</style>
+<script>(function(){try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;var l=document.createElement('div');l.className='mc-loader';l.id='mc-loader';l.setAttribute('aria-hidden','true');l.innerHTML='<div class="lm">Michaels <span>Corner</span></div><div class="lw"></div>';(document.body||document.documentElement).appendChild(l);setTimeout(function(){var e=document.getElementById('mc-loader');if(e&&e.parentNode)e.parentNode.removeChild(e);},3000);}catch(e){}})();</script>
+<style>
   /* CHANNEL / programme guide (V1 layout, V2 tokens) */
   .ch-head{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,3vw,48px); align-items:end; margin-bottom:clamp(20px,2.5vw,32px); }
   .ch-head .sub{ display:flex; flex-direction:column; gap:14px; align-items:flex-start; }
@@ -86,7 +95,6 @@
     <div class="wrap">
       <div class="hero-grid">
         <div>
-          <p class="eyebrow">On the channel</p>
           <h1 class="h-page">Watch and learn</h1>
         </div>
         <div>
@@ -104,7 +112,6 @@
     <div class="feature">
       <div class="vthumb"><span class="play"></span><span class="dur">10 min</span></div>
       <div class="fbody">
-        <p class="mono" style="font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--green); margin:0 0 12px;">First up / For beginners</p>
         <h2 class="h-sec">Your first hour with an AI assistant</h2>
         <p style="margin:14px 0 0; color:var(--ink-soft); max-width:48ch;">Set it up and do something useful right away. The exact hour I would walk a friend through, no theory.</p>
         <p style="margin:20px 0 0;"><a class="backlink" href="start.html">Read the written version <span class="orange">&#8594;</span></a></p>
@@ -123,7 +130,6 @@
 
   <section class="band band--green" style="margin-top:clamp(40px,5vw,72px);">
     <div class="wrap">
-      <p class="eyebrow">No hype, dead ends included</p>
       <h2 class="h-sec">Watch how it actually goes</h2>
       <p class="lede" style="margin-top:12px; max-width:56ch;">Every build, the wins and the parts that broke. New episodes land here as they go up.</p>
       <p style="margin-top:24px;"><a class="btn-ghost" href="https://youtube.com" target="_blank" rel="noopener">Subscribe on YouTube <span>&#8599;</span></a></p>

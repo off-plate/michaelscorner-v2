@@ -16,6 +16,15 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <link rel="stylesheet" href="styles.css">
 <style>
+.mc-loader{position:fixed;inset:0;z-index:9999;background:#FAF7F2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity 420ms cubic-bezier(.22,.61,.36,1)}
+.mc-loader.hide{opacity:0;pointer-events:none}
+.mc-loader .lm{font-family:'Clash Display',sans-serif;font-weight:700;font-size:clamp(20px,2.4vw,26px);color:#15130F}
+.mc-loader .lm span{color:#F2541B}
+.mc-loader .lw{font-family:'Space Mono',ui-monospace,monospace;font-size:clamp(20px,2.6vw,28px);letter-spacing:2px;color:#F2541B;white-space:pre;line-height:1}
+@media(prefers-reduced-motion:reduce){.mc-loader{display:none}}
+</style>
+<script>(function(){try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;var l=document.createElement('div');l.className='mc-loader';l.id='mc-loader';l.setAttribute('aria-hidden','true');l.innerHTML='<div class="lm">Michaels <span>Corner</span></div><div class="lw"></div>';(document.body||document.documentElement).appendChild(l);setTimeout(function(){var e=document.getElementById('mc-loader');if(e&&e.parentNode)e.parentNode.removeChild(e);},3000);}catch(e){}})();</script>
+<style>
   /* KIT / the packing slip */
   .slip{ max-width:none; }
   .manifest{ border:1px solid var(--ink); border-radius:2px; margin-top:clamp(24px,3vw,36px); }
@@ -61,7 +70,6 @@
     <div class="wrap">
       <div class="hero-grid">
         <div>
-          <p class="eyebrow">Free kit</p>
           <h1 class="h-page">Michael&#8217;s AI Starter Kit</h1>
         </div>
         <div>
@@ -85,7 +93,6 @@
       </div>
 
       <div class="split">
-        <p class="eyebrow" style="margin-bottom:10px;">Free now, and what comes later</p>
         <div class="honest-bar orange"><span class="fill" style="width:64%"></span><span class="rest"></span></div>
         <div class="labels"><span>The free kit, all six items</span><span>the paid vault, later</span></div>
       </div>

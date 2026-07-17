@@ -56,7 +56,16 @@ function head(title, desc, prefix) {
 <link rel="icon" href="${prefix}assets/favicon.svg">
 <link rel="preload" href="${prefix}assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${prefix}assets/fonts/fonts.css">
-<link rel="stylesheet" href="${prefix}styles.css">`;
+<link rel="stylesheet" href="${prefix}styles.css">
+<style>
+.mc-loader{position:fixed;inset:0;z-index:9999;background:#FAF7F2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity 420ms cubic-bezier(.22,.61,.36,1)}
+.mc-loader.hide{opacity:0;pointer-events:none}
+.mc-loader .lm{font-family:'Clash Display',sans-serif;font-weight:700;font-size:clamp(20px,2.4vw,26px);color:#15130F}
+.mc-loader .lm span{color:#F2541B}
+.mc-loader .lw{font-family:'Space Mono',ui-monospace,monospace;font-size:clamp(20px,2.6vw,28px);letter-spacing:2px;color:#F2541B;white-space:pre;line-height:1}
+@media(prefers-reduced-motion:reduce){.mc-loader{display:none}}
+</style>
+<script>(function(){try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;var l=document.createElement('div');l.className='mc-loader';l.id='mc-loader';l.setAttribute('aria-hidden','true');l.innerHTML='<div class="lm">Michaels <span>Corner</span></div><div class="lw"></div>';(document.body||document.documentElement).appendChild(l);setTimeout(function(){var e=document.getElementById('mc-loader');if(e&&e.parentNode)e.parentNode.removeChild(e);},3000);}catch(e){}})();</script>`;
 }
 
 function header(prefix) {
@@ -133,7 +142,7 @@ function buildLibrary() {
 .result-list{ list-style:none; margin:0; padding:0; border-top:1px solid var(--ink); }
 .rlink{ display:grid; grid-template-columns:1fr auto; gap:4px 18px; align-items:center;
   border-bottom:1px solid var(--line); padding:15px 8px; text-decoration:none; color:var(--ink); transition:background 150ms ease; }
-.rlink:hover, .rlink:focus-visible{ background:var(--cream-2); outline:none; }
+.rlink:hover, .rlink:focus-visible{ background:var(--green-pale); outline:none; }
 .rlink .rt{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:18px; line-height:1.15; letter-spacing:-0.01em; grid-column:1; }
 .rlink .rw{ grid-column:1; font-size:14px; line-height:1.45; color:var(--grey); margin-top:2px; }
 .rlink .rpack{ grid-column:2; grid-row:1 / span 2; font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); white-space:nowrap; align-self:center; }
@@ -146,7 +155,7 @@ function buildLibrary() {
 .pack-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr)); gap:16px; }
 .pack-card{ border:1px solid var(--ink); border-radius:2px; padding:clamp(20px,2.2vw,26px);
   display:flex; flex-direction:column; gap:10px; text-decoration:none; color:var(--ink); background:none; transition:background 150ms ease; }
-.pack-card:hover, .pack-card:focus-visible{ background:var(--cream-2); outline:none; }
+.pack-card:hover, .pack-card:focus-visible{ background:var(--green-pale); border-color:var(--green); outline:none; }
 .pc-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
 .pc-tag{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); }
 .pc-n{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--green); }
@@ -154,7 +163,7 @@ function buildLibrary() {
 .pack-card p{ margin:0; font-size:14.5px; line-height:1.5; color:var(--ink-soft); flex:1; }
 .pc-open{ font-family:'Space Mono',ui-monospace,monospace; font-size:13px; color:var(--ink); display:inline-flex; align-items:center; gap:8px; margin-top:4px; }
 .pc-open .oa{ color:var(--green); }
-.pack-card:hover .pc-open, .pack-card:focus-visible .pc-open{ color:var(--brick); }
+.pack-card:hover .pc-open, .pack-card:focus-visible .pc-open{ color:var(--green); }
 .lib-empty{ padding:34px 8px; color:var(--grey); font-size:16px; }
 .lib-empty[hidden]{ display:none; }
 </style>`;
@@ -174,7 +183,6 @@ function buildLibrary() {
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <p class="eyebrow">The prompt library</p>
         <h1 class="h-page">Steal these prompts</h1>
       </div>
       <div>
@@ -206,7 +214,6 @@ function buildLibrary() {
 
 <section class="band band--green" id="lib-band">
   <div class="wrap">
-    <p class="eyebrow">Free, all of it</p>
     <h2 class="h-sec">Take what helps</h2>
     <p class="lede" style="margin-top:12px; max-width:58ch;">Copy anything here, change the words, make it yours. If one prompt saves you an hour this week, that is the whole point.</p>
   </div>
@@ -288,7 +295,7 @@ function buildPack(pack, i) {
   border-bottom:1px solid var(--line); padding:clamp(16px,2vw,22px) clamp(4px,1vw,10px);
   text-decoration:none; color:var(--ink); transition:background 150ms ease;
 }
-.lrow:hover, .lrow:focus-visible{ background:var(--cream-2); outline:none; }
+.lrow:hover, .lrow:focus-visible{ background:var(--green-pale); outline:none; }
 .lrow .fno{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,30px); color:var(--ink); line-height:1; letter-spacing:-0.02em; }
 .lrow .lt{ }
 .lrow .lt h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(18px,1.8vw,21px); line-height:1.15; letter-spacing:-0.01em; margin:0 0 4px; }
@@ -334,7 +341,6 @@ function buildPack(pack, i) {
     <a class="backlink hero-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
     <div class="hero-grid">
       <div>
-        <p class="eyebrow">${esc(pack.chip)}</p>
         <h1 class="h-page">${esc(pack.name)}</h1>
       </div>
       <div>
@@ -420,7 +426,6 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
     <a class="backlink hero-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
     <div class="hero-grid">
       <div>
-        <p class="eyebrow">${esc(pack.chip)}</p>
         <h1 class="h-page">${esc(pr.title)}</h1>
       </div>
       <div>

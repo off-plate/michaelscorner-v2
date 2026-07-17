@@ -183,14 +183,13 @@ window.MC2 = window.MC2 || {};
      (which is already settling underneath). Skipped under reduced motion and on repeat
      views this session, so it never gets in the way. */
   function brandLoader() {
-    if (RM) return;
-    var l = document.createElement('div');
-    l.className = 'mc-loader';
-    l.setAttribute('aria-hidden', 'true');
-    l.innerHTML = '<div class="lm">Michael’s <span>Corner</span></div><div class="lw"></div>';
-    document.body.appendChild(l);
+    /* the loader element is created in <head> so it paints BEFORE the page content
+       (animation first, then the page). Here we just run the wave and lift it. */
+    var l = document.getElementById('mc-loader');
+    if (!l) return;
+    if (RM) { if (l.parentNode) l.parentNode.removeChild(l); return; }
     var w = l.querySelector('.lw'), t0 = performance.now(), raf = 0;
-    (function tick(now) { w.textContent = MC2.wave(13, (now - t0) / 1000, 6.5, 0.5); raf = requestAnimationFrame(tick); })(t0);
+    if (w) { (function tick(now) { w.textContent = MC2.wave(13, (now - t0) / 1000, 6.5, 0.5); raf = requestAnimationFrame(tick); })(t0); }
     setTimeout(function () {
       cancelAnimationFrame(raf);
       l.classList.add('hide');
