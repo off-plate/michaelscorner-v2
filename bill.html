@@ -166,7 +166,7 @@ main{ background:var(--cream-2); }
   <div class="wrap section">
 
       <section class="ledger-sec" aria-label="The ledger">
-        <div class="ledger-head mono"><span>The ledger / 6 cases</span></div>
+        <div class="ledger-head mono"><span>The ledger / 2 cases</span></div>
         <table class="ledger mono" id="ledger">
           <caption class="sr-only">All cases on the Real Bill. Sort by column, or follow a project name to jump to its receipt.</caption>
           <thead>
@@ -177,12 +177,8 @@ main{ background:var(--cream-2); }
             </tr>
           </thead>
           <tbody>
-            <tr><td>01</td><td><a href="#case-01">Compass</a></td><td>Worth it</td></tr>
-            <tr><td>02</td><td><a href="#case-02">FORGE</a></td><td>Worth it</td></tr>
-            <tr><td>03</td><td><a href="#case-03">Italy trip planner</a></td><td>Worth it</td></tr>
-            <tr><td>04</td><td><a href="#case-04">Tuck</a></td><td>Mixed</td></tr>
-            <tr><td>05</td><td><a href="#case-05">Spotify Vibes</a></td><td>Mixed</td></tr>
-            <tr><td>06</td><td><a href="#case-06">This website</a></td><td>Worth it</td></tr>
+            <tr><td>01</td><td><a href="#case-01">Tuck</a></td><td>Mixed</td></tr>
+            <tr><td>02</td><td><a href="#case-02">Recall</a></td><td>Mixed</td></tr>
           </tbody>
         </table>
         <p class="ledger-note small">Sort by any column. A project name jumps to its receipt below.</p>
@@ -191,105 +187,24 @@ main{ background:var(--cream-2); }
       <section class="paper" aria-label="The receipts">
         <div class="p-top mono">
           <span class="big">Michael's Corner</span>
-          <span>The Real Bill / cases 01 to 06</span>
+          <span>Michaels Corner / cases 01 to 02</span>
           <span>Prague</span>
         </div>
 
         <div class="seg">
           <article class="rcase" id="case-01">
-            <header class="rc-head mono"><span class="rc-id">Case/01 / Compass (personal finance app)</span></header>
+            <header class="rc-head mono"><span class="rc-id">Case/01 / Tuck (Chrome extension)</span></header>
             <div class="rc-sec">
               <h3 class="rc-label">What I asked AI to do.</h3>
-              <p>Build a personal finance app that holds my debts, my monthly budget, my goals, and a five-year plan in one place.</p>
+              <p>Build a Chrome extension that hides all my other extensions behind one icon with a clean dropdown.</p>
             </div>
             <div class="rc-sec">
               <h3 class="rc-label">What it nailed.</h3>
-              <p>The app itself. Screens, charts, the whole structure, running in the browser faster than I expected, and it survived round after round of my change requests without complaint.</p>
-            </div>
-            <div class="rc-sec">
-              <h3 class="rc-label">Where I took over.</h3>
-              <p>The math and the look. The first projections were optimistic in a way no real month would survive, so I checked every formula against my actual spending before trusting a single chart. And the first design looked like every AI dashboard on the internet, so I wrote hard design rules and had it start the visuals again.</p>
-            </div>
-            <div class="rc-rows">
-              <div class="rc-row"><span class="k">Real time</span><span class="v">being counted, lands soon</span></div>
-              <div class="rc-row"><span class="k">Real cost</span><span class="v orange">being counted, lands soon</span></div>
-            </div>
-            <div class="rc-verdict">
-              <span class="receipt-stamp">Worth it</span>
-              <p>Worth it, but only after I personally rechecked every formula.</p>
-            </div>
-          </article>
-          <div class="tear" aria-hidden="true"><span class="holes"></span></div>
-        </div>
-
-        <div class="seg">
-          <article class="rcase" id="case-02">
-            <header class="rc-head mono"><span class="rc-id">Case/02 / FORGE (3D training site)</span></header>
-            <div class="rc-sec">
-              <h3 class="rc-label">What I asked AI to do.</h3>
-              <p>Turn my training plan into a website with a rotating 3D wireframe figure, the kind of display you would expect in a sci-fi film.</p>
-            </div>
-            <div class="rc-sec">
-              <h3 class="rc-label">What it nailed.</h3>
-              <p>The 3D. I cannot write Three.js and I did not have to. The wireframe human was spinning in my browser before I fully understood what Three.js even is, and that is the honest reason this project exists at all.</p>
-            </div>
-            <div class="rc-sec">
-              <h3 class="rc-label">Where I took over.</h3>
-              <p>Everything after the wow. Making text readable over a moving scene, calming the camera down, and getting the actual training plan into a shape I would follow took long rounds of me describing what looked wrong in plain words.</p>
-            </div>
-            <div class="rc-rows">
-              <div class="rc-row"><span class="k">Real time</span><span class="v">being counted, lands soon</span></div>
-              <div class="rc-row"><span class="k">Real cost</span><span class="v orange">being counted, lands soon</span></div>
-            </div>
-            <div class="rc-verdict">
-              <span class="receipt-stamp">Worth it</span>
-              <p>Worth it, and the one project here I could not have built without AI at all.</p>
-            </div>
-          </article>
-          <div class="tear" aria-hidden="true"><span class="holes"></span></div>
-        </div>
-
-        <div class="seg">
-          <article class="rcase" id="case-03">
-            <header class="rc-head mono"><span class="rc-id">Case/03 / Italy trip planner</span></header>
-            <div class="rc-sec">
-              <h3 class="rc-label">What I asked AI to do.</h3>
-              <p>An app for a real ten-day road trip: a map of the stops, day-by-day plans, and expense splitting for two couples.</p>
-            </div>
-            <div class="rc-sec">
-              <h3 class="rc-label">What it nailed.</h3>
-              <p>The software. Working map, editable days, shared expenses. It replaced the usual spreadsheet and we used it on the actual trip.</p>
-            </div>
-            <div class="rc-sec">
-              <h3 class="rc-label">Where I took over.</h3>
-              <p>The facts. AI happily invented restaurants, prices, and drive times, so every real-world detail had to be checked by hand before it went into the plan. The code was the quick part, and the checking took far longer.</p>
-            </div>
-            <div class="rc-rows">
-              <div class="rc-row"><span class="k">Real time</span><span class="v">being counted, lands soon</span></div>
-              <div class="rc-row"><span class="k">Real cost</span><span class="v orange">being counted, lands soon</span></div>
-            </div>
-            <div class="rc-verdict">
-              <span class="receipt-stamp">Worth it</span>
-              <p>Worth it, once a human had verified every fact inside it.</p>
-            </div>
-          </article>
-          <div class="tear" aria-hidden="true"><span class="holes"></span></div>
-        </div>
-
-        <div class="seg">
-          <article class="rcase" id="case-04">
-            <header class="rc-head mono"><span class="rc-id">Case/04 / Tuck (Chrome extension)</span></header>
-            <div class="rc-sec">
-              <h3 class="rc-label">What I asked AI to do.</h3>
-              <p>A Chrome extension that hides all my other extensions behind one icon with a clean dropdown.</p>
-            </div>
-            <div class="rc-sec">
-              <h3 class="rc-label">What it nailed.</h3>
-              <p>The start. Manifest, permissions, a working list of my installed extensions, all produced quickly and mostly correct on the early tries.</p>
+              <p>The start. Manifest, permissions, and a working list of my installed extensions, produced quickly and mostly right on the early tries.</p>
             </div>
             <div class="rc-sec">
               <h3 class="rc-label">Where it failed.</h3>
-              <p>Chrome itself. Part of what I wanted is simply not allowed by Chrome's rules for extensions, and no prompt changes what the browser permits. Worse, AI kept proposing confident workarounds that could never work, and I spent real evenings on them before accepting the limit. The shipped version does less than the one I imagined.</p>
+              <p>Chrome itself. Part of what I wanted is simply not allowed by Chrome's rules for extensions, and no prompt changes what the browser permits. AI kept proposing confident workarounds that could never work, and I spent real evenings on them before accepting the limit.</p>
             </div>
             <div class="rc-rows">
               <div class="rc-row"><span class="k">Real time</span><span class="v">being counted, lands soon</span></div>
@@ -304,19 +219,19 @@ main{ background:var(--cream-2); }
         </div>
 
         <div class="seg">
-          <article class="rcase" id="case-05">
-            <header class="rc-head mono"><span class="rc-id">Case/05 / Spotify Vibes (prompt to playlist)</span></header>
+          <article class="rcase" id="case-02">
+            <header class="rc-head mono"><span class="rc-id">Case/02 / Recall (macOS workspace launcher)</span></header>
             <div class="rc-sec">
               <h3 class="rc-label">What I asked AI to do.</h3>
-              <p>A small web app where you type a sentence like "rainy Sunday drive" and get a Spotify playlist to match.</p>
+              <p>Build a small macOS app that restores my whole desktop in one click, opening the apps and files I use and snapping the windows into place.</p>
             </div>
             <div class="rc-sec">
               <h3 class="rc-label">What it nailed.</h3>
-              <p>The fun part. Turning a mood into search terms and songs worked early, and showing it to people never gets old.</p>
+              <p>The launcher. Saving a set of apps and files and reopening them all with one click worked early, in Swift I could not have written on my own.</p>
             </div>
             <div class="rc-sec">
-              <h3 class="rc-label">Where I took over.</h3>
-              <p>Everything around Spotify. Login, API keys, permissions, and the rules of someone else's platform ate more time than the whole AI part, and that is the piece no demo video ever shows.</p>
+              <h3 class="rc-label">Where it failed.</h3>
+              <p>The window snapping. macOS keeps window and Space control behind system protections, so arranging the windows for me is not allowed the way I pictured it. AI kept suggesting approaches the OS blocks, and the shipped version launches the workspace but does not lay it out.</p>
             </div>
             <div class="rc-rows">
               <div class="rc-row"><span class="k">Real time</span><span class="v">being counted, lands soon</span></div>
@@ -324,34 +239,7 @@ main{ background:var(--cream-2); }
             </div>
             <div class="rc-verdict">
               <span class="receipt-stamp ink">Mixed</span>
-              <p>It works and it makes people smile, and that is the entire return on this one.</p>
-            </div>
-          </article>
-          <div class="tear" aria-hidden="true"><span class="holes"></span></div>
-        </div>
-
-        <div class="seg">
-          <article class="rcase" id="case-06">
-            <header class="rc-head mono"><span class="rc-id">Case/06 / This website</span></header>
-            <div class="rc-sec">
-              <h3 class="rc-label">What I asked AI to do.</h3>
-              <p>Build this site. The prompt library, the tools, the pages you are reading right now.</p>
-            </div>
-            <div class="rc-sec">
-              <h3 class="rc-label">What it nailed.</h3>
-              <p>Volume. Pages, search, copy buttons, layout changes, rebuilt as many times as I asked. Without AI this site would still be an idea in a notes app.</p>
-            </div>
-            <div class="rc-sec">
-              <h3 class="rc-label">Where I took over.</h3>
-              <p>Taste. Left alone, AI designs the same site it designs for everyone else, and the early drafts proved it. I ended up writing a file of design rules it must follow, and the difference between draft one and this page is that file plus a lot of "no, try again."</p>
-            </div>
-            <div class="rc-rows">
-              <div class="rc-row"><span class="k">Real time</span><span class="v">being counted, lands soon</span></div>
-              <div class="rc-row"><span class="k">Real cost</span><span class="v orange">being counted, lands soon</span></div>
-            </div>
-            <div class="rc-verdict">
-              <span class="receipt-stamp">Worth it</span>
-              <p>Worth it, after I took the design decisions away from it.</p>
+              <p>The launcher is genuinely useful. The part I most wanted, snapping the windows into place, is the part macOS will not let it do.</p>
             </div>
           </article>
         </div>

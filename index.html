@@ -134,7 +134,7 @@
         <div>
           <h2 class="h-sec">Each project gets a receipt</h2>
           <p class="lede" style="margin-top:14px;">Every project gets an entry with the hours, the koruna, and an honest verdict, including the ones where AI was not worth it.</p>
-          <p style="margin-top:24px;"><a class="btn-ghost" href="bill.html">Read all six receipts <span>&#8594;</span></a></p>
+          <p style="margin-top:24px;"><a class="btn-ghost" href="bill.html">Read both receipts <span>&#8594;</span></a></p>
         </div>
         <div id="lead-receipt"></div>
       </div>
@@ -247,15 +247,15 @@
   "use strict";
   /* ---- lead receipt (a compact real-bill teaser; numbers honestly pending) ---- */
   document.getElementById('lead-receipt').innerHTML = MC2.receipt({
-    title: "CASE 02 / FORGE", date: "",
+    title: "CASE 01 / TUCK", date: "",
     rows: [
-      { k: "The task", v: "3D training site" },
-      { k: "AI nailed", v: "the Three.js I can't write" },
-      { k: "I took over", v: "readable text, calm camera" },
+      { k: "The task", v: "hide my extensions" },
+      { k: "AI nailed", v: "manifest, permissions, the list" },
+      { k: "Where it failed", v: "Chrome does not allow it" },
       { k: "Real time", v: "being counted" },
       { k: "Real cost", v: "being counted", orange: true }
     ],
-    verdict: { stamp: "Worth it", text: "The one project here I could not have built without AI at all." }
+    verdict: { stamp: "Mixed", ink: true, text: "It shipped, but AI let me chase a version Chrome would never allow." }
   });
 
   /* ---- three sample prompts, real text, copyable ---- */
