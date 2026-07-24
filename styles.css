@@ -423,70 +423,8 @@ body.mc-enter main{ animation:mc-enter 260ms var(--ease) both; }
 .scroller::-webkit-scrollbar{ display:none; }
 .scroller > *{ flex:none; scroll-snap-align:start; }
 
-/* ---------- works grid ----------
-   Structure and interactions adapted from Adon's portfolio-16 grid
-   (image tile + category chip top-left + arrow top-right with a diagonal
-   two-arrow swap on hover + hover image-zoom). Reskinned to brand tokens:
-   hairline frames, 4px radius, Space Mono chip, orange arrow, ink-invert tag. */
-.works{ display:grid; gap:clamp(12px,1.4vw,18px); }
-.works.cols-2{ grid-template-columns:repeat(2,minmax(0,1fr)); }
-.works.cols-3{ grid-template-columns:repeat(3,minmax(0,1fr)); }
-
-.work{ position:relative; display:block; overflow:hidden;
-  border:1px solid var(--ink); border-radius:4px; background:var(--cream-2);
-  aspect-ratio:var(--ar,16 / 10); text-decoration:none; color:inherit; }
-.work-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-  object-position:var(--pos,center); transition:transform 620ms var(--ease); will-change:transform; }
-.work:hover .work-img{ transform:scale(1.045); }
-.work::after{ content:""; position:absolute; inset:0; background:var(--ink);
-  opacity:0; transition:opacity 300ms var(--ease); pointer-events:none; }
-.work:hover::after{ opacity:0.10; }
-
-/* poster tile (no photo): solid brand ground + centred mark/label, same chrome */
-.work--poster{ display:flex; align-items:center; justify-content:center; padding:clamp(22px,3vw,40px); }
-.work--poster.g-green{ background:var(--deep-green); border-color:var(--deep-green); }
-.work--poster.g-cream{ background:var(--cream); }
-.work--poster.g-orange{ background:var(--orange); border-color:var(--orange); }
-.work--poster .poster-logo{ width:clamp(84px,11vw,132px); height:auto; border-radius:22px; display:block; }
-.work--poster .poster-line{ font-family:'Clash Display',sans-serif; font-weight:600;
-  font-size:clamp(22px,2.6vw,34px); line-height:1.05; letter-spacing:-0.02em; text-wrap:balance; text-align:center; }
-.work--poster.g-green .poster-line, .work--poster.g-orange .poster-line{ color:var(--cream); }
-.work--poster.g-cream .poster-line{ color:var(--ink); }
-
-/* category chip, top-left */
-.work .tag{ position:absolute; top:16px; left:16px; z-index:2;
-  font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.08em;
-  text-transform:uppercase; color:var(--ink); background:var(--cream);
-  border:1px solid var(--ink); border-radius:2px; padding:5px 10px; line-height:1;
-  transition:background 300ms var(--ease), color 300ms var(--ease); }
-.work:hover .tag{ background:var(--ink); color:var(--cream); }
-
-/* arrow button, top-right, with the diagonal two-arrow swap */
-.work .link-arrow{ position:absolute; top:16px; right:16px; z-index:2;
-  width:34px; height:34px; display:inline-flex; align-items:center; justify-content:center;
-  background:var(--cream); border:1px solid var(--ink); border-radius:3px;
-  transition:background 300ms var(--ease), border-color 300ms var(--ease); }
-.work:hover .link-arrow{ background:var(--orange); border-color:var(--orange); }
-.work .link-arrow .icon{ position:relative; display:block; width:16px; height:16px; overflow:hidden; }
-.work .link-arrow .icon span{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  font-size:16px; line-height:1; color:var(--ink); transition:transform 320ms var(--ease), color 320ms var(--ease); }
-.work .link-arrow .icon .second{ transform:translate(-100%,100%); }
-.work:hover .link-arrow .icon .first{ transform:translate(100%,-100%); color:var(--cream); }
-.work:hover .link-arrow .icon .second{ color:var(--cream); }
-
-/* title bar, bottom, over an ink scrim so it reads on light screenshots */
-.work .w-title{ position:absolute; left:0; right:0; bottom:0; z-index:2; padding:34px 16px 14px;
-  background:linear-gradient(to top, rgba(21,19,15,0.80), rgba(21,19,15,0)); }
-.work .w-title h3{ font-family:'Clash Display',sans-serif; font-weight:600;
-  font-size:clamp(17px,1.6vw,21px); letter-spacing:-0.01em; color:var(--cream); margin:0; }
-.work .w-title p{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em;
-  color:var(--cream); opacity:0.72; margin:5px 0 0; }
-
-@media (max-width:720px){ .works.cols-2, .works.cols-3{ grid-template-columns:1fr; } }
-
 @media (prefers-reduced-motion: reduce){
   body.mc-enter main{ animation:none; }
   .fx::before, .fx::after{ transition:opacity 120ms ease; }
   .pc{ transition:none; }
-  .work-img, .work .link-arrow .icon span{ transition:none; }
 }

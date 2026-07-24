@@ -25,9 +25,16 @@
 </style>
 <script>(function(){try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;var l=document.createElement('div');l.className='mc-loader';l.id='mc-loader';l.setAttribute('aria-hidden','true');l.innerHTML='<div class="lm">Michaels <span>Corner</span></div><div class="lw"></div>';(document.body||document.documentElement).appendChild(l);setTimeout(function(){var e=document.getElementById('mc-loader');if(e&&e.parentNode)e.parentNode.removeChild(e);},3000);}catch(e){}})();</script>
 <style>
-  /* Projects index sits on a slightly taller tile so two apps still read as a grid */
-  .works.projects-index{ --ar:4 / 3; gap:clamp(14px,1.6vw,20px); }
-  .proj-blurb{ font-size:clamp(15px,1.2vw,17px); line-height:1.6; color:var(--ink-soft); margin:14px 0 0; max-width:60ch; }
+/* Projects: inviting app tiles with the real logo. No receipt narrative. */
+.proj-grid{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(20px,2.4vw,32px); }
+.proj-tile{ display:flex; flex-direction:column; gap:20px; border:1px solid var(--ink); border-radius:4px; background:none; padding:clamp(26px,3vw,40px); transition:background 150ms ease, border-color 150ms ease; }
+.proj-tile:hover{ background:var(--sage); border-color:var(--green); }
+.proj-logo img{ width:clamp(72px,8vw,92px); height:auto; border-radius:18px; display:block; }
+.proj-top{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+.proj-top h2{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,30px); letter-spacing:-0.02em; margin:0; }
+.proj-plat{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--green); }
+.proj-desc{ font-size:clamp(15px,1.2vw,17px); line-height:1.6; color:var(--ink-soft); margin:10px 0 0; }
+@media (max-width:720px){ .proj-grid{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -64,25 +71,25 @@
   </section>
 
   <section class="wrap section">
-    <div class="works cols-2 projects-index">
+    <div class="proj-grid">
 
-      <a class="work" href="tuck.html" aria-label="Tuck, Chrome extension">
-        <img class="work-img" src="assets/proj/tuck-list.png" alt="Tuck extension list view" loading="lazy" style="--pos:78% 42%">
-        <span class="tag">Chrome extension</span>
-        <span class="link-arrow"><span class="icon"><span class="first">&#8599;</span><span class="second">&#8599;</span></span></span>
-        <span class="w-title"><h3>Tuck</h3><p>One icon for every extension</p></span>
-      </a>
+      <article class="proj-tile">
+        <div class="proj-logo"><img src="assets/proj-tuck.png" alt="Tuck app icon" width="92" height="92"></div>
+        <div>
+          <div class="proj-top"><h2>Tuck</h2><span class="proj-plat">Chrome extension</span></div>
+          <p class="proj-desc">Hides all your other extensions behind one icon with a clean dropdown, so your toolbar stops looking like a cockpit.</p>
+        </div>
+      </article>
 
-      <a class="work work--poster g-green" href="recall.html" aria-label="Recall, macOS app">
-        <img class="poster-logo" src="assets/proj/recall-logo.png" alt="Recall app icon" width="132" height="132">
-        <span class="tag">macOS app</span>
-        <span class="link-arrow"><span class="icon"><span class="first">&#8599;</span><span class="second">&#8599;</span></span></span>
-        <span class="w-title"><h3>Recall</h3><p>Your workspace, restored in one click</p></span>
-      </a>
+      <article class="proj-tile">
+        <div class="proj-logo"><img src="assets/proj-recall.png" alt="Recall app icon" width="92" height="92"></div>
+        <div>
+          <div class="proj-top"><h2>Recall</h2><span class="proj-plat">macOS app</span></div>
+          <p class="proj-desc">Your desktop, restored in one click. Reopens the apps, files, and Chrome profiles for a saved workspace and puts each window back where you set it.</p>
+        </div>
+      </article>
 
     </div>
-
-    <p class="proj-blurb">Two so far, both things I use every day. Open one to see what it does, the honest hours it took, and where to get it.</p>
   </section>
 </main>
 <footer class="site-foot">
