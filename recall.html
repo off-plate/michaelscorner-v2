@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Projects / Michael's Corner</title>
-<meta name="description" content="The apps I have shipped with AI, built in the evenings and released. Tuck and Recall.">
+<title>Recall / Michael's Corner</title>
+<meta name="description" content="Recall, a macOS app that restores a whole saved workspace in one click, apps, files, Chrome profiles, and every window back in place.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Michael's Corner">
-<meta property="og:title" content="Projects / Michael's Corner">
-<meta property="og:description" content="The apps I have shipped with AI, built in the evenings and released. Tuck and Recall.">
+<meta property="og:title" content="Recall / Michael's Corner">
+<meta property="og:description" content="Your workspace, restored in one click. A macOS app I built with AI in the evenings.">
 <meta property="og:image" content="https://off-plate.github.io/michaelscorner-v2/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg">
@@ -25,12 +25,22 @@
 </style>
 <script>(function(){try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;var l=document.createElement('div');l.className='mc-loader';l.id='mc-loader';l.setAttribute('aria-hidden','true');l.innerHTML='<div class="lm">Michaels <span>Corner</span></div><div class="lw"></div>';(document.body||document.documentElement).appendChild(l);setTimeout(function(){var e=document.getElementById('mc-loader');if(e&&e.parentNode)e.parentNode.removeChild(e);},3000);}catch(e){}})();</script>
 <style>
-  /* Projects index sits on a slightly taller tile so two apps still read as a grid */
-  .works.projects-index{ --ar:4 / 3; gap:clamp(14px,1.6vw,20px); }
-  .proj-blurb{ font-size:clamp(15px,1.2vw,17px); line-height:1.6; color:var(--ink-soft); margin:14px 0 0; max-width:60ch; }
+  /* project detail */
+  .proj-head{ display:grid; grid-template-columns:96px 1fr; gap:clamp(18px,2.4vw,30px); align-items:center; }
+  .proj-head .mark{ width:96px; height:96px; border-radius:22px; display:block; }
+  .proj-facts{ display:flex; flex-wrap:wrap; gap:8px 26px; margin-top:8px; }
+  .proj-facts span{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.05em; color:var(--sage); }
+  .proj-lead{ max-width:60ch; font-size:clamp(17px,1.4vw,19px); line-height:1.6; }
+  .proj-lead + .proj-lead{ margin-top:16px; }
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; margin-top:26px; }
+  /* static poster tiles: no click, so no hover reaction */
+  .work.is-static:hover::after{ opacity:0; }
+  .work.is-static:hover .tag{ background:var(--cream); color:var(--ink); }
+  @media (max-width:560px){ .proj-head{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
+
 <header class="site-head">
   <div class="wrap">
     <div class="head-top">
@@ -49,42 +59,55 @@
     </nav>
   </div>
 </header>
+
 <main>
   <section class="page-hero">
     <div class="wrap">
-      <div class="hero-grid">
+      <div class="proj-head">
+        <img class="mark" src="assets/proj-recall.png" alt="Recall app icon">
         <div>
-          <h1 class="h-page">Projects</h1>
-        </div>
-        <div>
-          <p class="hero-intro">The apps I have actually shipped, built with AI in the evenings and released, not demos. Two so far, both things I use myself.</p>
+          <h1 class="h-page" style="margin:0;">Recall</h1>
+          <div class="proj-facts">
+            <span>macOS app</span>
+            <span>Shipped 2026</span>
+            <span>Free</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="wrap section">
-    <div class="works cols-2 projects-index">
+  <section class="wrap section" style="padding-top:0;">
+    <p class="proj-lead">Every project needs the same set of windows open: the right apps, the right files, the right Chrome profile with the right tabs. Setting that up by hand every morning is a tax. Recall saves a workspace once and brings the whole thing back in a single click.</p>
+    <p class="proj-lead">It reopens the apps and files, launches the correct Chrome profiles and tabs, and then snaps every window back to the exact position you left it in. You go from a bare desktop to ready-to-work in one move.</p>
+    <div class="cta-row">
+      <a class="btn-orange" href="#get">Get Recall</a>
+      <a class="btn-ghost" href="bill.html">All projects <span class="oa">&#8599;</span></a>
+    </div>
+  </section>
 
-      <a class="work" href="tuck.html" aria-label="Tuck, Chrome extension">
-        <img class="work-img" src="assets/proj/tuck-list.png" alt="Tuck extension list view" loading="lazy" style="--pos:78% 42%">
-        <span class="tag">Chrome extension</span>
-        <span class="link-arrow"><span class="icon"><span class="first">&#8599;</span><span class="second">&#8599;</span></span></span>
-        <span class="w-title"><h3>Tuck</h3><p>One icon for every extension</p></span>
-      </a>
+  <section class="wrap section" style="padding-top:0;">
+    <div class="works cols-3">
 
-      <a class="work work--poster g-green" href="recall.html" aria-label="Recall, macOS app">
+      <figure class="work work--poster g-green is-static" style="margin:0;">
         <img class="poster-logo" src="assets/proj/recall-logo.png" alt="Recall app icon" width="132" height="132">
-        <span class="tag">macOS app</span>
-        <span class="link-arrow"><span class="icon"><span class="first">&#8599;</span><span class="second">&#8599;</span></span></span>
-        <span class="w-title"><h3>Recall</h3><p>Your workspace, restored in one click</p></span>
-      </a>
+        <span class="tag">macOS</span>
+      </figure>
+
+      <figure class="work work--poster g-cream is-static" style="margin:0;">
+        <span class="poster-line">One click.</span>
+        <span class="tag">The move</span>
+      </figure>
+
+      <figure class="work work--poster g-orange is-static" style="margin:0;">
+        <span class="poster-line">Everything<br>back in place.</span>
+        <span class="tag">The result</span>
+      </figure>
 
     </div>
-
-    <p class="proj-blurb">Two so far, both things I use every day. Open one to see what it does, the honest hours it took, and where to get it.</p>
   </section>
 </main>
+
 <footer class="site-foot">
   <div class="wrap foot-grid">
     <div>
@@ -103,6 +126,7 @@
     </div>
   </div>
 </footer>
+
 <script src="icons.js"></script>
 <script src="signature.js"></script>
 <script src="shared.js"></script>
