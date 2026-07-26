@@ -79,10 +79,10 @@ function header(prefix) {
     <nav class="head-nav" aria-label="Main">
       <a href="${prefix}index.html" data-nav="home">Home</a>
       <a href="${prefix}start.html" data-nav="start">Start here</a>
-      <a href="${prefix}library.html" data-nav="library">Library</a>
+      <a href="${prefix}library.html" data-nav="library">Prompts</a>
       <a href="${prefix}tools.html" data-nav="tools">Tools</a>
-      <a href="${prefix}bill.html" data-nav="bill">Projects</a>
-      <a href="${prefix}channel.html" data-nav="channel">Channel</a>
+      <a href="${prefix}bill.html" data-nav="bill">Apps</a>
+      <a href="${prefix}channel.html" data-nav="channel">Watch</a>
       <a href="${prefix}about.html" data-nav="about">About</a>
     </nav>
   </div>
@@ -99,9 +99,9 @@ function footer(prefix) {
       <p class="foot-line">AI did not take my job. It made me faster.</p>
     </div>
     <div class="foot-col">
-      <a href="${prefix}library.html">Prompt library</a>
+      <a href="${prefix}library.html">Prompts</a>
       <a href="${prefix}tools.html">Tools</a>
-      <a href="${prefix}bill.html">Projects</a>
+      <a href="${prefix}bill.html">Apps</a>
     </div>
     <div class="foot-col">
       <a href="${prefix}start.html">Start here</a>
@@ -250,7 +250,7 @@ function buildLibrary() {
 })();
 </script>`;
 
-  const html = head("Prompt library", "Eight packs of free, copy-ready prompts for ChatGPT, Claude, and Gemini.", prefix)
+  const html = head("Prompts", "Eight packs of free, copy-ready prompts for ChatGPT, Claude, and Gemini.", prefix)
     + css + "\n</head>\n<body>\n"
     + header(prefix) + "\n" + body + "\n" + footer(prefix) + script + "\n</body>\n</html>\n";
 
