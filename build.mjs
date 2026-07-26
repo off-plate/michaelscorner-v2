@@ -79,10 +79,10 @@ function header(prefix) {
     <nav class="head-nav" aria-label="Main">
       <a href="${prefix}index.html" data-nav="home">Home</a>
       <a href="${prefix}start.html" data-nav="start">First time? Start here</a>
-      <a href="${prefix}library.html" data-nav="library">Prompts I go back to</a>
-      <a href="${prefix}tools.html" data-nav="tools">Small free tools</a>
+      <a href="${prefix}library.html" data-nav="library">Prompts that can help you</a>
+      <a href="${prefix}tools.html" data-nav="tools">Most useful tools</a>
       <a href="${prefix}bill.html" data-nav="bill">Apps I built</a>
-      <a href="${prefix}channel.html" data-nav="channel">A few tutorials</a>
+      <a href="${prefix}channel.html" data-nav="channel">More free tutorials</a>
       <a href="${prefix}about.html" data-nav="about">Who I am</a>
     </nav>
   </div>
