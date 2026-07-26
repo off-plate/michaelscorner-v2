@@ -78,12 +78,12 @@ function header(prefix) {
     </div>
     <nav class="head-nav" aria-label="Main">
       <a href="${prefix}index.html" data-nav="home">Home</a>
-      <a href="${prefix}start.html" data-nav="start">Start here</a>
-      <a href="${prefix}library.html" data-nav="library">Prompts</a>
-      <a href="${prefix}tools.html" data-nav="tools">Tools</a>
-      <a href="${prefix}bill.html" data-nav="bill">Apps</a>
-      <a href="${prefix}channel.html" data-nav="channel">Watch</a>
-      <a href="${prefix}about.html" data-nav="about">About</a>
+      <a href="${prefix}start.html" data-nav="start">First time? Start here</a>
+      <a href="${prefix}library.html" data-nav="library">Prompts I go back to</a>
+      <a href="${prefix}tools.html" data-nav="tools">Small free tools</a>
+      <a href="${prefix}bill.html" data-nav="bill">Apps I built</a>
+      <a href="${prefix}channel.html" data-nav="channel">A few tutorials</a>
+      <a href="${prefix}about.html" data-nav="about">Who I am</a>
     </nav>
   </div>
 </header>
