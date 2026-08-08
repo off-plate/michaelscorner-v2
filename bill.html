@@ -34,6 +34,11 @@
 .proj-top h2{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,30px); letter-spacing:-0.02em; margin:0; }
 .proj-plat{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--green); }
 .proj-desc{ font-size:clamp(15px,1.2vw,17px); line-height:1.6; color:var(--ink-soft); margin:10px 0 0; }
+.proj-cta{ margin-top:auto; padding-top:20px; display:inline-flex; align-items:center; gap:8px;
+  color:var(--orange); font-weight:600; font-size:14px; text-decoration:none;
+  border-bottom:1px solid var(--orange); padding-bottom:2px; width:max-content;
+  transition:color 150ms ease, border-color 150ms ease; }
+.proj-cta:hover{ color:var(--brick); border-color:var(--brick); }
 @media (max-width:720px){ .proj-grid{ grid-template-columns:1fr; } }
 </style>
 </head>
@@ -78,6 +83,7 @@
         <div>
           <div class="proj-top"><h2>Tuck</h2><span class="proj-plat">Chrome extension</span></div>
           <p class="proj-desc">Hides all your other extensions behind one icon with a clean dropdown, so your toolbar stops looking like a cockpit.</p>
+          <a class="proj-cta" href="https://chromewebstore.google.com/detail/tuck/njpclpglfhldbhlngnmkenjphjpjaijb" target="_blank" rel="noopener">Add to Chrome, it's free <span class="oa">&#8599;</span></a>
         </div>
       </article>
 
