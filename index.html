@@ -34,7 +34,6 @@
 
   /* lead story: the embedded Real Bill teaser (this band owns the receipt look) */
   .lead{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:clamp(24px,3vw,48px); align-items:center; }
-  .lead-kicker{ display:flex; align-items:center; gap:12px; margin:0 0 14px; }
 
   /* section head with a prominent button (not a faint backlink) */
   .sec-head .btn-ghost{ white-space:nowrap; }
@@ -93,7 +92,7 @@
     <div class="head-top">
       <span class="head-handle mono">@michaelflorian_ai</span>
       <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
-      <a class="head-cta" href="kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+      <a class="head-cta" href="kit.html" data-nav="kit">Free kit <span class="oa">&#8594;</span></a>
     </div>
     <nav class="head-nav" aria-label="Main">
       <a href="index.html" data-nav="home">Home</a>
@@ -154,11 +153,11 @@
       </div>
     </div>
     <div class="scroller" data-scroller>
-      <a class="hcard" href="tools.html"><h3>AI cost calculator</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
-      <a class="hcard" href="tools.html"><h3>Fits-in-context checker</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
-      <a class="hcard" href="tools.html"><h3>Should you automate it?</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
-      <a class="hcard" href="tools.html"><h3>AI-slop detector</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
-      <a class="hcard" href="tools.html"><h3>Prompt tightener</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+      <a class="hcard" href="tools/ai-cost-calculator.html"><h3>AI cost calculator</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+      <a class="hcard" href="tools/fits-in-context.html"><h3>Fits-in-context checker</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+      <a class="hcard" href="tools/should-you-automate.html"><h3>Should you automate it?</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+      <a class="hcard" href="tools/ai-slop-detector.html"><h3>AI-slop detector</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+      <a class="hcard" href="tools/prompt-tightener.html"><h3>Prompt tightener</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
     </div>
   </section>
 
@@ -282,14 +281,14 @@
 
   /* ---- channel strip: Channel-style cards (striped thumb, readable title + one-liner) ---- */
   var vids = [
-    { t: 'The five prompts I use every day', w: 'The short, boring prompts that do most of the work.', d: '9 min' },
-    { t: 'Your first hour with an AI assistant', w: 'Set it up and do something useful right away.', d: '10 min' },
-    { t: 'How I debug code I cannot read', w: 'Reading the error out loud to the model, step by step.', d: '11 min' },
-    { t: 'Make AI sound like you', w: 'Teach the model your voice in a few lines.', d: '11 min' },
-    { t: 'Build a website with AI, start to finish', w: 'A full build, from empty folder to a live page.', d: '19 min' }
+    { t: 'The five prompts I use every day', w: 'The short, boring prompts that do most of the work.', d: '' },
+    { t: 'Your first hour with an AI assistant', w: 'Set it up and do something useful right away.', d: '' },
+    { t: 'How I debug code I cannot read', w: 'Reading the error out loud to the model, step by step.', d: '' },
+    { t: 'Make AI sound like you', w: 'Teach the model your voice in a few lines.', d: '' },
+    { t: 'Build a website with AI, start to finish', w: 'A full build, from empty folder to a live page.', d: '' }
   ];
   document.getElementById('vstrip').innerHTML = vids.map(function (v) {
-    return '<div class="vcard"><div class="vthumb"><span class="play"></span><span class="dur">' + MC2.esc(v.d) + '</span></div>' +
+    return '<div class="vcard"><div class="vthumb"><span class="play"></span>' + (v.d ? '<span class="dur">' + MC2.esc(v.d) + '</span>' : '') + '</div>' +
       '<div class="vb"><h3>' + MC2.esc(v.t) + '</h3><p>' + MC2.esc(v.w) + '</p></div></div>';
   }).join('');
 

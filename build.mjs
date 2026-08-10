@@ -74,7 +74,7 @@ function header(prefix) {
     <div class="head-top">
       <span class="head-handle mono">@michaelflorian_ai</span>
       <a class="head-word no-fx" href="${prefix}index.html"><img src="${prefix}assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
-      <a class="head-cta" href="${prefix}kit.html" data-nav="kit">Free kit <span class="oa">&#8599;</span></a>
+      <a class="head-cta" href="${prefix}kit.html" data-nav="kit">Free kit <span class="oa">&#8594;</span></a>
     </div>
     <nav class="head-nav" aria-label="Main">
       <a href="${prefix}index.html" data-nav="home">Home</a>

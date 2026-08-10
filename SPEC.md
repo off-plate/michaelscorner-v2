@@ -1,4 +1,4 @@
-# Michael's Corner v2 — Build SPEC
+# Michael's Corner v2: Build SPEC
 
 _The single build contract. Read planning/DIRECTION.md first (it is law), then this file, then your assigned content file. Where SPEC and DIRECTION disagree, DIRECTION wins. Where anything disagrees with BRAND.md, BRAND.md wins._
 
@@ -115,14 +115,14 @@ The handle is TEXT, not a link (no real social URLs exist yet; dead links are a 
 
 - `MC2.esc(s)`, `MC2.kc(n)` (formats `12 340 Kč`), `MC2.copy(text, btn, doneLabel)`
 - `MC2.receipt({title, date, onInk, rows:[{k,v,big,orange}], verdict:{stamp,text,ink}})` -> receipt HTML string (classes already in styles.css)
-- `MC2.waveWork(labelEl, resultEl, work, minMs)` — signature moment 5. Only around REAL computation.
+- `MC2.waveWork(labelEl, resultEl, work, minMs)`, signature moment 5. Only around REAL computation.
 - `MC2.wave(n, t)` -> one wave frame string; `MC2.reducedMotion`
 - Dot icons: `<canvas data-dot="prompt" data-size="56" style="width:56px;height:56px;"></canvas>` mounts automatically. Icon keys: corner, prompt, tools, play, about, copy, search, subscribe, arrow, external, bar, receipt, globe, pulse.
 - Signature wave element: `<span data-mc-signature data-chars="9"></span>` (state signal ONLY, never idle).
 - Corner-bracket hover auto-tags every `button`/`a[href]`; add class `no-fx` to opt out.
 - Active nav resolves from pathname automatically.
 
-Styles.css already provides: tokens, header/footer, `.btn .btn-ghost .btn-orange .chip .backlink`, `.eyebrow .h-display .h-page .h-sec .h-item .lede .mono .data .small`, `.sec .sec-head`, `.receipt*`, `.honest-bar`, `.fx`, `.photo-frame .pc`, `.card`, `.grid-2 .grid-3 .row .spread .hairline .hairline-ink .updated .scroller`. Page-specific archetype CSS lives in each page's own `<style>` block.
+Styles.css already provides: tokens, header/footer, `.btn .btn-ghost .btn-orange .chip .backlink`, `.h-display .h-page .h-sec .h-item .lede .mono .data .small`, `.sec .sec-head`, `.receipt*`, `.honest-bar`, `.fx`, `.photo-frame .pc`, `.card`, `.grid-2 .grid-3 .row .spread .hairline .hairline-ink .updated .scroller`. Page-specific archetype CSS lives in each page's own `<style>` block.
 
 ## Hard laws (enforced at review)
 

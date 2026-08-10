@@ -5,11 +5,14 @@
 :root{
   --cream:#FAF7F2; --cream-2:#F1EADD; --cream-3:#ECE5D8;
   --ink:#15130F; --ink-2:#211D18; --ink-text:#F3EDE2; --ink-soft:#3f3a31;
-  --orange:#F2541B; --grey:#5B564D; --grey-2:#8a847a;
+  /* grey-2 was #8a847a, which is 3.47:1 on cream and fails WCAG AA for the 12px
+     meta text it carries. DESIGN.md forbids muddy mid-grey below AA, so it is
+     darkened to 4.64:1 while staying in the same warm-grey family. */
+  --orange:#F2541B; --grey:#5B564D; --grey-2:#776f62;
   --line:#E3DCCE; --line-ink:#2b2820;
   /* Brand Canvas V2 palette. One law: orange acts, green speaks, brick is the hover.
      - orange  = commit-actions only: primary CTA, active/selected, money, logo, brand marks.
-     - green   = voice + surface: eyebrows, secondary/ghost controls, pullquotes, the two
+     - green   = voice + surface: secondary/ghost controls, pullquotes, the two
                  green surfaces (footer + Real Bill band). Green is NEVER a hover.
      - brick   = the single hover colour for every text link and nav item, everywhere.
      - soft    = the accent on dark/green surfaces only. */
@@ -63,7 +66,6 @@ main{ flex:1; outline:none; }
 .band--green{ background:var(--deep-green); color:var(--cream); }
 .band--green .h-display,.band--green .h-page,.band--green .h-sec,.band--green .h-item,
 .band--green h1,.band--green h2,.band--green h3{ color:var(--cream); }
-.band--green .eyebrow{ color:var(--soft); }
 .band--green .lede,.band--green p{ color:var(--green-soft); }
 .band--green .orange,.band--green .oa,.band--green .money{ color:var(--soft); }
 .band--green a:not([class*="btn"]){ color:#d9e4dd; text-underline-offset:3px; }
@@ -77,7 +79,6 @@ main{ flex:1; outline:none; }
    of a full section. Title left, intro right so the width is used and nothing floats half-empty. */
 .page-hero{ background:var(--deep-green); color:var(--cream); padding-block:clamp(26px,3.4vw,46px); border-bottom:1px solid var(--ink); }
 .page-hero .hero-grid{ display:grid; grid-template-columns:1.25fr 1fr; gap:clamp(18px,4vw,56px); align-items:start; }
-.page-hero .eyebrow{ color:var(--soft); margin:0 0 10px; }
 .page-hero h1, .page-hero .h-page{ color:var(--cream); margin:0; }
 .page-hero .hero-intro{ color:var(--green-soft); font-size:clamp(15px,1.15vw,17px); line-height:1.55; margin:0; max-width:54ch; }
 .page-hero .hero-intro a{ color:#d9e4dd; text-underline-offset:3px; }
@@ -120,10 +121,8 @@ main{ flex:1; outline:none; }
 
 /* ---------- type ---------- */
 .mono{ font-family:'Space Mono',ui-monospace,Menlo,monospace; }
-.eyebrow{
-  font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.14em;
-  text-transform:uppercase; color:var(--green); font-weight:400; margin:0 0 16px;
-}
+/* No .eyebrow. A title does not get a kicker above it. The capability is
+   deliberately absent: while the class existed it kept getting reused. */
 .h-display{
   font-family:'Clash Display',sans-serif; font-weight:700;
   font-size:clamp(38px,5.2vw,72px); line-height:0.98; letter-spacing:-0.025em; margin:0;
@@ -271,7 +270,7 @@ main{ flex:1; outline:none; }
 }
 .backlink:hover{ color:var(--brick); }
 .backlink .orange{ color:inherit; }
-/* every rank: visible focus ring, press feedback, disabled — states are non-negotiable */
+/* every rank: visible focus ring, press feedback, disabled, states are non-negotiable */
 .btn, .btn-orange, .btn-ghost{ transition:background 180ms ease, color 180ms ease, border-color 180ms ease, transform 120ms ease; }
 .btn:focus-visible, .btn-orange:focus-visible, .btn-ghost:focus-visible{ outline:2px solid var(--orange); outline-offset:2px; }
 .btn:active, .btn-orange:active, .btn-ghost:active{ transform:scale(0.97); }
@@ -388,18 +387,20 @@ body.mc-enter main{ animation:mc-enter 260ms var(--ease) both; }
    band-green: the signature deep-green editorial band (the Real Bill header lives here).
    sage-panel: a warm sage editorial object. One per viewport, never stacked with a green band.
    pullquote: green commentary voice, never interactive, never money.
-   On these surfaces the eyebrow and any accent turn soft-orange; money stays soft, never green. */
+   On these surfaces any accent turns soft-orange; money stays soft, never green. */
 .band-green{ background:var(--deep-green); color:var(--cream); border-radius:2px; }
 .band-green .h-display, .band-green .h-page, .band-green .h-sec, .band-green .h-item,
 .band-green h1, .band-green h2, .band-green h3{ color:var(--cream); }
-.band-green .eyebrow{ color:var(--soft); }
 .band-green .lede, .band-green p{ color:var(--green-soft); }
 .band-green .oa, .band-green .orange, .band-green .money{ color:var(--soft); }
 .band-green a{ color:#d9e4dd; }
 .band-green a:hover{ color:var(--soft); }
 .sage-panel{ background:var(--sage); border:1px solid var(--ink); border-radius:2px; }
+/* Pullquote: a magazine device, not a callout box. A hairline above and below
+   sets it off; the coloured 3-4px left bar is the visual em-dash and is banned. */
 .pullquote{
-  border-left:4px solid var(--green); padding-left:clamp(20px,2vw,28px); margin:0;
+  border-top:1px solid var(--green); border-bottom:1px solid var(--green);
+  padding-block:clamp(18px,2vw,26px); margin:0;
   font-family:'Clash Display',sans-serif; font-weight:600; color:var(--green);
   font-size:clamp(20px,2.2vw,27px); line-height:1.25; letter-spacing:-0.01em;
 }

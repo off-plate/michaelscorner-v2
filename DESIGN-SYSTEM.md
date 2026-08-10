@@ -1,4 +1,4 @@
-# Michael's Corner — Design System
+# Michael's Corner: Design System
 
 The single source of truth for how this site is built. Derived from the Brand Canvas V2, the
 workspace `DESIGN.md` anti-slop manual, and researched best practice (Stripe, Linear, Family.co,
@@ -8,7 +8,7 @@ Maxim: **orange acts, green speaks, everything else is surface.**
 
 ---
 
-## 1. Colour — roles, not a swatch pile
+## 1. Colour: roles, not a swatch pile
 
 | Role | Token | Job | Share of page |
 |---|---|---|---|
@@ -32,13 +32,13 @@ only accent is `--soft` (orange `#F2541B` goes muddy on green).
 
 ---
 
-## 2. Layout — ONE shell, nested measure
+## 2. Layout: ONE shell, nested measure
 
-- `--shell: 1200px` — the single outer content max-width. Every page. No page sets its own width.
-- `--measure: 68ch` — reading line-length, applied as a **nested** constraint on prose, never as a page width.
-- `--rail: 290px` — meta side-rail on reading pages.
-- `--gutter` (= `--pad`) — one responsive side padding, identical on every page.
-- `--section-pad` — one section-to-section vertical value, every section, every page.
+- `--shell: 1200px`, the single outer content max-width. Every page. No page sets its own width.
+- `--measure: 68ch`, reading line-length, applied as a **nested** constraint on prose, never as a page width.
+- `--rail: 290px`, meta side-rail on reading pages.
+- `--gutter` (= `--pad`), one responsive side padding, identical on every page.
+- `--section-pad`, one section-to-section vertical value, every section, every page.
 
 **The fix for "different widths / squished / empty Real Bill":** a reading page (Bill, prompt, Start)
 never centers a narrow column in dead space. It fills the shell with an **asymmetric grid**: body at
@@ -47,7 +47,7 @@ space becomes a summary/nav rail, used on purpose. Full-bleed is only for hero/b
 
 ---
 
-## 3. Buttons & links — four ranks, one grammar
+## 3. Buttons & links: four ranks, one grammar
 
 **Fills darken. Outlines fill. Links underline + shift colour. Non-clickable text does nothing.**
 
@@ -57,7 +57,7 @@ space becomes a summary/nav rail, used on purpose. Full-bleed is only for hero/b
 | Secondary | `.btn-ghost` | green outline, green text | fills green, text cream |
 | Dark primary | `.btn` | ink fill | darkens to ink-2 |
 | Tertiary text-link | `.link` / prose `a` | ink text, underline | brick + underline |
-| Non-clickable | (none) | plain body/muted text | nothing — no border, no pointer, no hover |
+| Non-clickable | (none) | plain body/muted text | nothing, no border, no pointer, no hover |
 
 Hard rules: one primary per view; never a bare text-link shoulder-to-shoulder with a filled button
 (pair fill + outline instead); `→` for internal "leads", `↗` for external/new-tab; chevron only for
@@ -66,11 +66,11 @@ outline vs underline), not only hue.
 
 ---
 
-## 4. Typography — three faces, strict roles
+## 4. Typography: three faces, strict roles
 
-- **Clash Display** — display headings + wordmark. One orange full-stop accent per big headline, max.
-- **General Sans** — all body copy and most UI text. This carries the page.
-- **Space Mono** — DATA ONLY: receipts, numbers, code/prompt specimens, small eyebrows/labels. It was
+- **Clash Display**, display headings + wordmark. One orange full-stop accent per big headline, max.
+- **General Sans**, all body copy and most UI text. This carries the page.
+- **Space Mono**, DATA ONLY: receipts, numbers, code/prompt specimens, small eyebrows/labels. It was
   over-used (45x); mono is a seasoning, not a body voice. Cut it back so the page reads as 1 body voice
   + display + rare mono, not "four fonts fighting".
 
@@ -78,9 +78,9 @@ Scale 1.25–1.5, two weights max per face, real cuts (no faux italic/bold).
 
 ---
 
-## 5. Motion — restore it, with restraint
+## 5. Motion: restore it, with restraint
 
-Permitted (the whole list): (1) a **brand loader** once per visit — the signature wave — then out;
+Permitted (the whole list): (1) a **brand loader** once per visit, the signature wave, then out;
 (2) a **first-paint entrance**, once, 8–16px translate + opacity, staggered 40–60ms across 2–4 hero
 elements; (3) **one signature micro-interaction** (the dot-matrix globe; the nav/pill gesture);
 (4) hover/press feedback (150–250ms; `scale(0.97)` on `:active`).
