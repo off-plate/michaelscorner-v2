@@ -32,11 +32,6 @@
   .notice .dot{ width:8px; height:8px; border-radius:50%; background:var(--orange); flex:none; }
 
   /* the striped video thumbnail: an intentional pattern that stands in for artwork */
-  .vthumb{ aspect-ratio:16/9; position:relative; display:flex; align-items:center; justify-content:center;
-    background:repeating-linear-gradient(45deg, var(--cream-3) 0 14px, var(--cream-2) 14px 28px); border-bottom:1px solid var(--ink); }
-  .vthumb .play{ width:46px; height:46px; border-radius:50%; background:var(--ink); display:flex; align-items:center; justify-content:center; }
-  .vthumb .play::after{ content:''; border-left:13px solid var(--cream); border-top:8px solid transparent; border-bottom:8px solid transparent; margin-left:4px; }
-  .vthumb .dur{ position:absolute; bottom:10px; right:10px; background:var(--ink); color:var(--cream); font-family:'Space Mono',monospace; font-size:11px; padding:3px 8px; }
 
   /* featured */
   .feature{ display:grid; grid-template-columns:1.25fr 1fr; overflow:hidden; margin-bottom:clamp(30px,3.5vw,46px); }
@@ -57,10 +52,6 @@
   .paddles{ display:flex; gap:8px; }
   .paddle{ width:40px; height:40px; border:1px solid var(--ink); background:none; color:var(--ink); font-size:17px; cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:2px; transition:background 150ms ease, color 150ms ease; }
   .paddle:hover{ background:var(--ink); color:var(--cream); }
-  .vcard{ flex:0 0 clamp(280px,82vw,332px); display:flex; flex-direction:column; overflow:hidden; }
-  .vcard .vb{ padding:16px 18px 18px; }
-  .vcard .vb h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:17px; line-height:1.14; margin:0 0 6px; }
-  .vcard .vb p{ font-size:13.5px; line-height:1.45; color:var(--ink-soft); margin:0; }
 
   @media (max-width:760px){
     .ch-head{ grid-template-columns:1fr; align-items:start; }

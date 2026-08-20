@@ -43,17 +43,6 @@
   .paddle{ width:40px; height:40px; border:1px solid var(--ink); background:none; color:var(--ink); font-size:17px; cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:2px; transition:background 150ms ease, color 150ms ease; }
   .paddle:hover{ background:var(--ink); color:var(--cream); }
 
-  .tcard{ flex:0 0 clamp(270px,80vw,320px); padding:clamp(20px,2vw,26px);
-    display:flex; flex-direction:column; gap:10px; text-decoration:none; }
-  .tcard .top{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
-  .tcard .tag{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); }
-  .tcard .desig{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; color:var(--green); }
-  .tcard h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:21px; line-height:1.08; letter-spacing:-0.01em; margin:0; }
-  .tcard .td{ font-size:14px; line-height:1.5; color:var(--ink-soft); margin:0; flex:1; }
-  .tcard .foot{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:10px; }
-  .tcard .phint{ font-family:'Space Mono',monospace; font-size:11px; color:var(--grey-2); }
-  .tcard .cta{ font-size:14px; color:var(--green); font-weight:500; white-space:nowrap; }
-
   /* considered, not shipped (V2 honesty, kept) */
   .bench{ border-top:1px solid var(--ink); padding-top:clamp(28px,3.5vw,44px); margin-top:clamp(8px,1vw,16px); }
   .bench h2{ margin:0 0 6px; }

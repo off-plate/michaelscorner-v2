@@ -39,10 +39,6 @@
   .sec-head .btn-ghost{ white-space:nowrap; }
 
   /* tool cards carousel */
-  .hcard{ flex:0 0 clamp(280px,82vw,332px); padding:clamp(20px,2vw,26px); display:flex; flex-direction:column; gap:10px; text-decoration:none; }
-  .hcard h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:21px; line-height:1.08; letter-spacing:-0.01em; margin:0; }
-  .hcard{ min-height:150px; justify-content:space-between; }
-  .hcard .hc-open{ font-family:'Space Mono',monospace; font-size:13px; color:var(--green); margin-top:6px; }
 
   /* section CTA + scroll arrows so the carousels read as scrollable */
   .sec-cta{ display:flex; flex-direction:column; align-items:flex-end; gap:14px; }
@@ -51,20 +47,8 @@
   .paddle:hover{ background:var(--ink); color:var(--cream); }
 
   /* prompt cards carousel */
-  .pcard{ flex:0 0 clamp(280px,82vw,340px); padding:22px; display:flex; flex-direction:column; gap:12px; }
-  .pcard-actions{ display:flex; align-items:center; gap:18px; margin-top:2px; }
-  .pcard-open{ font-size:14px; color:var(--grey); text-decoration:none; display:inline-flex; align-items:center; gap:6px; white-space:nowrap; transition:color 150ms ease; }
-  .pcard-open:hover{ color:var(--brick); }
 
   /* video cards, Channel style (striped thumb, readable title, real description) */
-  .vcard{ flex:0 0 clamp(280px,82vw,332px); overflow:hidden; display:flex; flex-direction:column; }
-  .vthumb{ aspect-ratio:16/9; position:relative; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg, var(--cream-3) 0 14px, var(--cream-2) 14px 28px); border-bottom:1px solid var(--ink); }
-  .vthumb .play{ width:46px; height:46px; border-radius:50%; background:var(--ink); display:flex; align-items:center; justify-content:center; }
-  .vthumb .play::after{ content:''; border-left:13px solid var(--cream); border-top:8px solid transparent; border-bottom:8px solid transparent; margin-left:4px; }
-  .vthumb .dur{ position:absolute; bottom:10px; right:10px; background:var(--ink); color:var(--cream); font-family:'Space Mono',monospace; font-size:11px; padding:3px 8px; }
-  .vcard .vb{ padding:16px 18px 18px; }
-  .vcard .vb h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:17px; line-height:1.14; margin:0 0 6px; }
-  .vcard .vb p{ font-size:13.5px; line-height:1.45; color:var(--ink-soft); margin:0; }
 
   /* honest note: a real deep-green section with a continuously animating signature wave */
   .note-grid{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:clamp(28px,4vw,64px); align-items:center; }

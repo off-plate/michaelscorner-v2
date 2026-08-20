@@ -160,6 +160,21 @@ main{ flex:1; outline:none; }
 .lede{ font-size:clamp(17px,1.4vw,20px); line-height:1.55; color:var(--ink-soft); max-width:62ch; }
 .data{ font-family:'Space Mono',ui-monospace,monospace; font-variant-numeric:tabular-nums; }
 
+/* ---------- semantic heading scale (h1 to h6) ----------
+   The display classes above are the ART DIRECTION; these are the FLOOR, so a
+   bare <h4> is never left at a browser default. Element selectors (0,0,1) sit
+   below every class rule (0,1,0), so .h-sec and .tcard h3 still win.
+   h1-h3 mirror .h-page / .h-sec / .h-item exactly, so one heading is one size
+   whichever way it is written. h6 is the mono meta label. */
+h1,h2,h3,h4{ font-family:'Clash Display',sans-serif; margin:0; text-wrap:balance; }
+h1{ font-weight:700; font-size:clamp(32px,4.4vw,54px); line-height:1;    letter-spacing:-0.02em; word-spacing:0.09em; }
+h2{ font-weight:600; font-size:clamp(24px,3vw,36px);   line-height:1.02; letter-spacing:-0.02em; word-spacing:0.07em; }
+h3{ font-weight:600; font-size:clamp(18px,1.8vw,22px); line-height:1.1;  letter-spacing:-0.01em; word-spacing:0.04em; }
+h4{ font-weight:600; font-size:17px; line-height:1.2; letter-spacing:-0.01em; }
+h5{ font-family:'General Sans',system-ui,sans-serif; font-weight:500; font-size:15px; line-height:1.3; margin:0; }
+h6{ font-family:'Space Mono',ui-monospace,monospace; font-weight:700; font-size:12px; line-height:1.3;
+    letter-spacing:0.12em; text-transform:uppercase; color:var(--grey); margin:0; }
+
 /* ---------- header ---------- */
 .site-head{ position:sticky; top:0; z-index:50; background:var(--cream); border-bottom:1px solid var(--ink); }
 .head-top{
@@ -394,6 +409,69 @@ a.card:hover, .hcard:hover, .tcard:hover{
 .pack-card:hover, .proj-tile:hover{ background:var(--sage); border-color:var(--green); }
 .card.on-ink{ background:var(--ink); color:var(--ink-text); border-color:var(--ink); }
 .card.on-ink:hover{ background:var(--ink-2); }
+
+/* ---- the card's variants, in full. These used to live in six page <style>
+   blocks, which is why /system/ could not render them and why the same tile
+   drifted between pages. A page now sets NOTHING about a card. ---- */
+
+/* home: a tool tile in the carousel */
+.hcard{ flex:0 0 clamp(280px,82vw,332px); padding:clamp(20px,2vw,26px); display:flex; flex-direction:column;
+  gap:10px; text-decoration:none; min-height:150px; justify-content:space-between; }
+.hcard h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:21px; line-height:1.08; letter-spacing:-0.01em; margin:0; }
+.hcard .hc-open{ font-family:'Space Mono',ui-monospace,monospace; font-size:13px; color:var(--green); margin-top:6px; }
+
+/* tools: the full tool tile */
+.tcard{ flex:0 0 clamp(270px,80vw,320px); padding:clamp(20px,2vw,26px); display:flex; flex-direction:column;
+  gap:10px; text-decoration:none; }
+.tcard .top{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+.tcard .tag{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); }
+.tcard .desig{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em; color:var(--green); }
+.tcard h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:21px; line-height:1.08; letter-spacing:-0.01em; margin:0; }
+.tcard .td{ font-size:14px; line-height:1.5; color:var(--ink-soft); margin:0; flex:1; }
+.tcard .foot{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:10px; }
+.tcard .phint{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; color:var(--grey-2); min-width:0; }
+.tcard .cta{ font-size:14px; color:var(--green); font-weight:500; white-space:nowrap; }
+
+/* library: a prompt pack */
+.pack-card{ padding:clamp(20px,2.2vw,26px); display:flex; flex-direction:column; gap:10px; text-decoration:none; }
+.pack-card h2{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(21px,2.2vw,25px); line-height:1.06; letter-spacing:-0.015em; margin:0; }
+.pack-card p{ margin:0; font-size:14.5px; line-height:1.5; color:var(--ink-soft); flex:1; }
+.pc-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.pc-tag{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); }
+.pc-n{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--green); }
+.pc-open{ font-family:'Space Mono',ui-monospace,monospace; font-size:13px; color:var(--ink); display:inline-flex; align-items:center; gap:8px; margin-top:4px; }
+.pc-open .oa{ color:var(--green); }
+.pack-card:hover .pc-open, .pack-card:focus-visible .pc-open{ color:var(--green); }
+
+/* home: a prompt tile (a container, not a link) */
+.pcard{ flex:0 0 clamp(280px,82vw,340px); padding:22px; display:flex; flex-direction:column; gap:12px; }
+.pcard-actions{ display:flex; align-items:center; gap:18px; margin-top:2px; }
+.pcard-open{ font-size:14px; color:var(--grey); text-decoration:none; display:inline-flex; align-items:center; gap:6px; white-space:nowrap; transition:color 150ms ease; }
+.pcard-open:hover{ color:var(--brick); }
+
+/* home + channel: a video tile (a container, not a link) */
+.vcard{ flex:0 0 clamp(280px,82vw,332px); overflow:hidden; display:flex; flex-direction:column; }
+.vcard .vb{ padding:16px 18px 18px; }
+.vcard .vb h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:17px; line-height:1.14; margin:0 0 6px; }
+.vcard .vb p{ font-size:13.5px; line-height:1.45; color:var(--ink-soft); margin:0; }
+.vthumb{ aspect-ratio:16/9; position:relative; display:flex; align-items:center; justify-content:center;
+  background:repeating-linear-gradient(45deg, var(--cream-3) 0 14px, var(--cream-2) 14px 28px); border-bottom:1px solid var(--ink); }
+.vthumb .play{ width:46px; height:46px; border-radius:50%; background:var(--ink); display:flex; align-items:center; justify-content:center; }
+.vthumb .play::after{ content:''; border-left:13px solid var(--cream); border-top:8px solid transparent; border-bottom:8px solid transparent; margin-left:4px; }
+.vthumb .dur{ position:absolute; bottom:10px; right:10px; background:var(--ink); color:var(--cream); font-family:'Space Mono',ui-monospace,monospace; font-size:11px; padding:3px 8px; }
+
+/* apps: an app tile */
+.proj-tile{ display:flex; flex-direction:column; gap:20px; padding:clamp(26px,3vw,40px); }
+.proj-logo img{ width:clamp(72px,8vw,92px); height:auto; border-radius:18px; display:block; }
+.proj-top{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+.proj-top h2{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,30px); letter-spacing:-0.02em; margin:0; }
+.proj-plat{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--green); }
+.proj-desc{ font-size:clamp(15px,1.2vw,17px); line-height:1.6; color:var(--ink-soft); margin:10px 0 0; }
+.proj-cta{ margin-top:auto; padding-top:20px; display:inline-flex; align-items:center; gap:8px;
+  color:var(--orange); font-weight:600; font-size:14px; text-decoration:none;
+  border-bottom:1px solid var(--orange); padding-bottom:2px; width:max-content;
+  transition:color 150ms ease, border-color 150ms ease; }
+.proj-cta:hover{ color:var(--brick); border-color:var(--brick); }
 
 /* ---------- brand loader (signature wave, once per session) + page enter ---------- */
 .mc-loader{ position:fixed; inset:0; z-index:1000; background:var(--cream);

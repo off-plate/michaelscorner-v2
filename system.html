@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web guidelines / Michael's Corner</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Every token and every component of Michael's Corner, on one page.">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preload" href="assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* This page styles ONLY its own scaffolding. Every specimen below must render
+     with the real site classes, never with a local copy, or the page lies. */
+  .sys-wrap{ max-width:var(--shell); margin:0 auto; padding-inline:var(--pad); }
+  .sys-head{ background:var(--ink); color:var(--cream); padding-block:clamp(30px,4vw,54px); }
+  .sys-head h1{ color:var(--cream); }
+  .sys-head p{ color:#cfc7b8; max-width:70ch; margin:16px 0 0; font-size:16px; line-height:1.6; }
+  .sys-nav{ position:sticky; top:0; z-index:40; background:var(--cream-2); border-bottom:1px solid var(--ink);
+    padding-block:10px; display:flex; flex-wrap:wrap; gap:6px 18px; font-family:'Space Mono',monospace; font-size:12px; }
+  .sys-nav a{ color:var(--ink); text-decoration:none; padding:6px 2px; }
+  .sys-nav a:hover{ color:var(--brick); }
+  .sec{ padding-block:clamp(40px,5vw,72px); border-bottom:1px solid var(--line); }
+  .sec > h2{ margin-bottom:8px; }
+  .note{ font-size:15px; line-height:1.6; color:var(--ink-soft); max-width:74ch; margin:12px 0 26px; }
+  .note code{ font-family:'Space Mono',monospace; font-size:13px; background:var(--cream-2); padding:1px 5px; }
+  .lab{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--grey); margin:0 0 10px; }
+  .spec{ border:1px solid var(--line); border-radius:var(--radius); padding:22px; margin-bottom:18px; background:var(--cream); }
+  .spec.on-dark{ background:var(--deep-green); border-color:var(--deep-green); }
+  .row{ display:flex; flex-wrap:wrap; gap:14px; align-items:center; }
+  .stack{ display:flex; flex-direction:column; gap:14px; align-items:flex-start; }
+  table.t{ width:100%; border-collapse:collapse; font-size:14px; }
+  table.t th, table.t td{ text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+  table.t th{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--grey); font-weight:700; }
+  table.t td.n{ font-family:'Space Mono',monospace; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .pass{ color:var(--green); font-weight:600; } .fail{ color:var(--brick); font-weight:600; }
+  .sw{ display:flex; flex-direction:column; gap:0; border:1px solid var(--ink); border-radius:var(--radius); overflow:hidden; }
+  .sw .chipx{ height:64px; } .sw .meta{ padding:9px 11px; font-family:'Space Mono',monospace; font-size:11px; line-height:1.5; background:var(--cream); }
+  .swgrid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; }
+  .scalerow{ display:flex; align-items:baseline; gap:18px; border-bottom:1px solid var(--line); padding-block:14px; flex-wrap:wrap; }
+  .scalerow .k{ font-family:'Space Mono',monospace; font-size:11px; color:var(--grey); width:190px; flex:none; }
+  .sp{ background:var(--orange); height:14px; }
+  .invent td:first-child{ font-family:'Space Mono',monospace; font-size:12px; white-space:nowrap; }
+  .pagecard{ border:1px solid var(--ink); border-radius:var(--radius); padding:20px 22px; margin-bottom:14px; }
+  .pagecard h3{ margin:0 0 4px; }
+  .pagecard .u{ font-family:'Space Mono',monospace; font-size:12px; color:var(--grey); margin:0 0 12px; }
+  .pills{ display:flex; flex-wrap:wrap; gap:7px; }
+  .pill{ font-family:'Space Mono',monospace; font-size:11px; border:1px solid var(--line); border-radius:2px;
+    padding:4px 8px; color:var(--ink); background:var(--cream-2); }
+  .pill.new{ border-color:var(--orange); color:var(--brick); }
+  .warn{ border-left:none; border-top:2px solid var(--brick); padding-top:14px; margin-top:22px; }
+  .warn h4{ color:var(--brick); margin:0 0 6px; }
+  .warn p{ margin:0 0 8px; font-size:14px; line-height:1.6; color:var(--ink-soft); max-width:74ch; }
+  @media (max-width:700px){ .scalerow .k{ width:100%; } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="sys-head">
+  <div class="sys-wrap">
+    <h1>Web guidelines</h1>
+    <p>Every colour, every type role, every component of Michael's Corner, rendered on one page with
+    the real stylesheet. Every component lives on this page. Anything missing here has not been built yet, and a page
+    that needs something new gets it added here first, then uses it. Nothing below is a mock-up: it is the live
+    <code>styles.css</code>, so when this page changes, the site has changed.</p>
+  </div>
+</header>
+
+<nav class="sys-nav" aria-label="Sections">
+  <div class="sys-wrap" style="display:flex;flex-wrap:wrap;gap:6px 18px;width:100%;">
+    <a href="#provenance">Provenance</a>
+    <a href="#colour">Colour</a>
+    <a href="#contrast">Contrast</a>
+    <a href="#type">Type</a>
+    <a href="#scales">Scales</a>
+    <a href="#buttons">Buttons</a>
+    <a href="#controls">Controls</a>
+    <a href="#cards">Cards</a>
+    <a href="#surfaces">Surfaces</a>
+    <a href="#parts">Parts</a>
+    <a href="#inventory">Inventory</a>
+    <a href="#pages">By page</a>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+<div class="sys-wrap">
+
+<!-- ============ PROVENANCE ============ -->
+<section class="sec" id="provenance">
+  <h2>Provenance</h2>
+  <p class="note">The orange is <strong>muscle-car orange</strong>, taken from the brand mark, and it is
+  the recognition: it is used generously and never re-rolled. Green is the second voice. It never acts as an accent. The cream is warm because the site is meant to read as paper and receipts, not as a dashboard.
+  Type is Clash Display for the voice, General Sans for reading, Space Mono for data and receipts only.
+  Full rationale lives in <code>Michael_PB/BRAND.md</code>.</p>
+  <div class="spec">
+    <p class="lab">The one law</p>
+    <p style="margin:0;font-size:17px;line-height:1.6;max-width:70ch;">
+      <strong>Orange acts.</strong> CTAs, the selected thing, money, brand marks.<br>
+      <strong>Green speaks.</strong> Bands, secondary controls, the footer, quiet labels.<br>
+      <strong>Brick is the hover</strong>, for every text link, everywhere.<br>
+      <strong>Soft orange</strong> is the accent on dark and green surfaces only.
+    </p>
+  </div>
+</section>
+
+<!-- ============ COLOUR ============ -->
+<section class="sec" id="colour">
+  <h2>Colour, as roles</h2>
+  <p class="note">A palette is not a system. What each colour <em>means</em> is the system, so a new
+  component has exactly one correct answer.</p>
+
+  <p class="lab">Surfaces</p>
+  <div class="swgrid" style="margin-bottom:26px;">
+    <div class="sw"><div class="chipx" style="background:#FAF7F2"></div><div class="meta">--cream<br>#FAF7F2<br>page ground</div></div>
+    <div class="sw"><div class="chipx" style="background:#F1EADD"></div><div class="meta">--cream-2<br>#F1EADD<br>card hover</div></div>
+    <div class="sw"><div class="chipx" style="background:#ECE5D8"></div><div class="meta">--cream-3<br>#ECE5D8<br>stripes</div></div>
+    <div class="sw"><div class="chipx" style="background:#EFE5C8"></div><div class="meta">--sage<br>#EFE5C8<br>browse hover</div></div>
+    <div class="sw"><div class="chipx" style="background:#183A32"></div><div class="meta">--deep-green<br>#183A32<br>hero + footer</div></div>
+    <div class="sw"><div class="chipx" style="background:#15130F"></div><div class="meta">--ink<br>#15130F<br>text + frames</div></div>
+  </div>
+
+  <p class="lab">Ink and accents</p>
+  <div class="swgrid">
+    <div class="sw"><div class="chipx" style="background:#15130F"></div><div class="meta">--ink<br>#15130F<br>body text</div></div>
+    <div class="sw"><div class="chipx" style="background:#3f3a31"></div><div class="meta">--ink-soft<br>#3f3a31<br>secondary prose</div></div>
+    <div class="sw"><div class="chipx" style="background:#5B564D"></div><div class="meta">--grey<br>#5B564D<br>meta</div></div>
+    <div class="sw"><div class="chipx" style="background:#776f62"></div><div class="meta">--grey-2<br>#776f62<br>12px labels</div></div>
+    <div class="sw"><div class="chipx" style="background:#1E5244"></div><div class="meta">--green<br>#1E5244<br>second voice</div></div>
+    <div class="sw"><div class="chipx" style="background:#F2541B"></div><div class="meta">--orange<br>#F2541B<br>ACTS only</div></div>
+    <div class="sw"><div class="chipx" style="background:#B23708"></div><div class="meta">--brick<br>#B23708<br>the hover</div></div>
+    <div class="sw"><div class="chipx" style="background:#F08A4B"></div><div class="meta">--soft<br>#F08A4B<br>on dark only</div></div>
+    <div class="sw"><div class="chipx" style="background:#a9c0b6"></div><div class="meta">--green-soft<br>#a9c0b6<br>prose on green</div></div>
+  </div>
+
+  <table class="t" style="margin-top:26px;">
+    <thead><tr><th>Role</th><th>Means</th><th>Never used for</th></tr></thead>
+    <tbody>
+      <tr><td class="n">--orange</td><td>The commit action, the selected thing, money, brand marks</td><td>Body text. Large fills. A hover.</td></tr>
+      <tr><td class="n">--green</td><td>Secondary controls, quiet labels, the two green surfaces</td><td>A hover state. An alert.</td></tr>
+      <tr><td class="n">--brick</td><td>The hover colour of any text link or nav item</td><td>A resting state. A fill.</td></tr>
+      <tr><td class="n">--soft</td><td>The accent on deep-green and ink surfaces</td><td>Anything on a light surface.</td></tr>
+      <tr><td class="n">--ink</td><td>Primary text and every hairline frame</td><td>Decoration.</td></tr>
+      <tr><td class="n">--sage</td><td>The hover of the two browse surfaces (packs, apps)</td><td>A page ground.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ CONTRAST ============ -->
+<section class="sec" id="contrast">
+  <h2>Contrast, solved numerically</h2>
+  <p class="note">Computed, not eyeballed. <span class="pass">AA</span> passes 4.5:1 for normal text.
+  <span style="color:var(--grey);font-weight:600;">aa</span> passes 3:1, which is enough only for large
+  or bold text. <span class="fail">--</span> fails both. Read this before putting a colour on a surface.</p>
+  <div style="overflow-x:auto;">
+  <table class="t">
+    <thead><tr><th>Foreground</th><th>on cream</th><th>on cream-2</th><th>on sage</th><th>on deep-green</th><th>on ink</th></tr></thead>
+    <tbody>
+      <tr><td class="n">--ink</td><td class="n"><span class="pass">17.36</span></td><td class="n"><span class="pass">15.51</span></td><td class="n"><span class="pass">14.76</span></td><td class="n"><span class="fail">1.49</span></td><td class="n"><span class="fail">1.00</span></td></tr>
+      <tr><td class="n">--ink-soft</td><td class="n"><span class="pass">10.56</span></td><td class="n"><span class="pass">9.43</span></td><td class="n"><span class="pass">8.98</span></td><td class="n"><span class="fail">1.10</span></td><td class="n"><span class="fail">1.64</span></td></tr>
+      <tr><td class="n">--grey</td><td class="n"><span class="pass">6.82</span></td><td class="n"><span class="pass">6.09</span></td><td class="n"><span class="pass">5.80</span></td><td class="n"><span class="fail">1.71</span></td><td class="n"><span class="fail">2.55</span></td></tr>
+      <tr><td class="n">--grey-2</td><td class="n"><span class="pass">4.64</span></td><td class="n">4.15</td><td class="n">3.95</td><td class="n"><span class="fail">2.51</span></td><td class="n">3.74</td></tr>
+      <tr><td class="n">--green</td><td class="n"><span class="pass">8.38</span></td><td class="n"><span class="pass">7.48</span></td><td class="n"><span class="pass">7.12</span></td><td class="n"><span class="fail">1.39</span></td><td class="n"><span class="fail">2.07</span></td></tr>
+      <tr><td class="n">--orange</td><td class="n">3.24</td><td class="n"><span class="fail">2.90</span></td><td class="n"><span class="fail">2.76</span></td><td class="n">3.59</td><td class="n"><span class="pass">5.35</span></td></tr>
+      <tr><td class="n">--brick</td><td class="n"><span class="pass">5.71</span></td><td class="n"><span class="pass">5.10</span></td><td class="n"><span class="pass">4.85</span></td><td class="n"><span class="fail">2.04</span></td><td class="n">3.04</td></tr>
+      <tr><td class="n">--cream</td><td class="n"><span class="fail">1.00</span></td><td class="n"><span class="fail">1.12</span></td><td class="n"><span class="fail">1.18</span></td><td class="n"><span class="pass">11.63</span></td><td class="n"><span class="pass">17.36</span></td></tr>
+      <tr><td class="n">--soft</td><td class="n"><span class="fail">2.33</span></td><td class="n"><span class="fail">2.08</span></td><td class="n"><span class="fail">1.98</span></td><td class="n"><span class="pass">4.99</span></td><td class="n"><span class="pass">7.46</span></td></tr>
+      <tr><td class="n">--green-soft</td><td class="n"><span class="fail">1.80</span></td><td class="n"><span class="fail">1.61</span></td><td class="n"><span class="fail">1.53</span></td><td class="n"><span class="pass">6.45</span></td><td class="n"><span class="pass">9.63</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="warn">
+    <h4>Two open decisions this table exposes</h4>
+    <p><strong>Orange on cream is 3.24:1.</strong> It carries the active nav item, the "Copy prompt"
+    label and every small arrow, all of which are normal-size text, so they sit below AA. Brick is
+    5.71:1 and is already the hover colour. Changing this changes how the brand looks, so Michael decides it.</p>
+    <p><strong>grey-2 only passes on cream.</strong> At 4.15 on cream-2 and 3.95 on sage it drops below
+    AA the moment a card is hovered or a label sits on a sage panel. Either restrict grey-2 to the cream
+    ground, or darken it once more so it passes on all three.</p>
+  </div>
+</section>
+
+<!-- ============ TYPE ============ -->
+<section class="sec" id="type">
+  <h2>Type</h2>
+  <p class="note">Three families, each with a job. Clash Display is the voice, General Sans is for
+  reading, Space Mono is <strong>data and receipts only</strong> and never body copy. Two weights each,
+  all self-hosted and preloaded.</p>
+
+  <table class="t" style="margin-bottom:30px;">
+    <thead><tr><th>Family</th><th>Weights</th><th>Job</th><th>Never</th></tr></thead>
+    <tbody>
+      <tr><td class="n">Clash Display</td><td class="n">600, 700</td><td>Headlines and display</td><td>Running prose</td></tr>
+      <tr><td class="n">General Sans</td><td class="n">400, 500</td><td>Body, ledes, controls</td><td>Large display</td></tr>
+      <tr><td class="n">Space Mono</td><td class="n">400, 700</td><td>Data, receipts, meta labels, counts</td><td>Body copy or a paragraph</td></tr>
+    </tbody>
+  </table>
+
+  <p class="lab">Display roles (the art direction)</p>
+  <div class="scalerow"><span class="k">.h-display<br>clamp(38, 5.2vw, 72)</span><span class="h-display">AI moves too fast</span></div>
+  <div class="scalerow"><span class="k">.h-page<br>clamp(32, 4.4vw, 54)</span><span class="h-page">Steal these prompts</span></div>
+  <div class="scalerow"><span class="k">.h-sec<br>clamp(24, 3vw, 36)</span><span class="h-sec">Each project gets a receipt</span></div>
+  <div class="scalerow"><span class="k">.h-item<br>clamp(18, 1.8vw, 22)</span><span class="h-item">AI cost calculator</span></div>
+
+  <p class="lab" style="margin-top:32px;">Semantic scale (the floor, h1 to h6)</p>
+  <p class="note" style="margin-top:0;">These exist so a bare heading is never a browser default. h1 to h3
+  are the same sizes as .h-page / .h-sec / .h-item, so one heading is one size however it is written.</p>
+  <div class="scalerow"><span class="k">h1 / 700 / clamp(32,4.4vw,54)</span><h1>Heading one</h1></div>
+  <div class="scalerow"><span class="k">h2 / 600 / clamp(24,3vw,36)</span><h2>Heading two</h2></div>
+  <div class="scalerow"><span class="k">h3 / 600 / clamp(18,1.8vw,22)</span><h3>Heading three</h3></div>
+  <div class="scalerow"><span class="k">h4 / 600 / 17px</span><h4>Heading four</h4></div>
+  <div class="scalerow"><span class="k">h5 / 500 / 15px / General Sans</span><h5>Heading five</h5></div>
+  <div class="scalerow"><span class="k">h6 / 700 / 12px / Space Mono</span><h6>Heading six</h6></div>
+
+  <p class="lab" style="margin-top:32px;">Body roles</p>
+  <div class="scalerow"><span class="k">.lede<br>clamp(17,1.4vw,20) / 62ch</span><span class="lede" style="margin:0;">The lede. One or two sentences under a headline, capped at 62 characters so it never runs the full width.</span></div>
+  <div class="scalerow"><span class="k">body<br>16px / 1.55 / 68ch</span><span style="max-width:68ch;">Body copy. General Sans 400 at 16px on a 1.55 line height. The reading measure is 68 characters, applied as a nested constraint on prose and never as a page width.</span></div>
+  <div class="scalerow"><span class="k">.mono</span><span class="mono" style="font-size:14px;">Space Mono, for data and receipts</span></div>
+  <div class="scalerow"><span class="k">.data<br>tabular-nums</span><span class="data" style="font-size:15px;">1 240 Kč &nbsp; 09:00 &nbsp; 64 prompts</span></div>
+</section>
+
+<!-- ============ SCALES ============ -->
+<section class="sec" id="scales">
+  <h2>Scales, each with a ceiling</h2>
+
+  <p class="lab">Spacing</p>
+  <div class="spec">
+    <div class="stack">
+      <div class="row"><span class="mono" style="font-size:11px;width:120px;">--space-2 8</span><span class="sp" style="width:8px"></span></div>
+      <div class="row"><span class="mono" style="font-size:11px;width:120px;">--space-3 12</span><span class="sp" style="width:12px"></span></div>
+      <div class="row"><span class="mono" style="font-size:11px;width:120px;">--space-4 16</span><span class="sp" style="width:16px"></span></div>
+      <div class="row"><span class="mono" style="font-size:11px;width:120px;">--space-6 24</span><span class="sp" style="width:24px"></span></div>
+      <div class="row"><span class="mono" style="font-size:11px;width:120px;">--space-8 32</span><span class="sp" style="width:32px"></span></div>
+      <div class="row"><span class="mono" style="font-size:11px;width:120px;">--space-12 48</span><span class="sp" style="width:48px"></span></div>
+      <div class="row"><span class="mono" style="font-size:11px;width:120px;">--space-16 64</span><span class="sp" style="width:64px"></span></div>
+      <div class="row"><span class="mono" style="font-size:11px;width:120px;">--space-24 96</span><span class="sp" style="width:96px"></span></div>
+      <div class="row"><span class="mono" style="font-size:11px;width:120px;">--space-32 128</span><span class="sp" style="width:128px"></span></div>
+    </div>
+  </div>
+
+  <table class="t">
+    <thead><tr><th>Scale</th><th>Value</th><th>Ceiling</th></tr></thead>
+    <tbody>
+      <tr><td class="n">--radius</td><td class="n">2px</td><td>The one surface corner. Everything uses it.</td></tr>
+      <tr><td class="n">--radius-lg</td><td class="n">4px</td><td>Large tiles only.</td></tr>
+      <tr><td class="n">--radius-max</td><td class="n">4px</td><td><strong>Hard ceiling.</strong> Nothing on this site is rounder, with one named exception: the app icons on Apps, which are the vendors' own artwork.</td></tr>
+      <tr><td class="n">shadow</td><td class="n">none</td><td><strong>There are no shadows.</strong> Depth is a 1px hairline in --ink or --line.</td></tr>
+      <tr><td class="n">--ease</td><td class="n">cubic-bezier(.22,.61,.36,1)</td><td>Entries.</td></tr>
+      <tr><td class="n">exit</td><td class="n">ease / 150ms</td><td>Exits and colour changes. <strong>Two curves total.</strong></td></tr>
+      <tr><td class="n">duration</td><td class="n">150 to 320ms</td><td>Nothing animates longer, except the one-off brand loader.</td></tr>
+      <tr><td class="n">--shell</td><td class="n">1200px</td><td>The single content width. No page sets its own.</td></tr>
+      <tr><td class="n">--measure</td><td class="n">68ch</td><td>Reading length. A nested constraint on prose, never a page width.</td></tr>
+      <tr><td class="n">--pad</td><td class="n">clamp(20px,4vw,56px)</td><td>The page gutter.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ BUTTONS ============ -->
+<section class="sec" id="buttons">
+  <h2>Buttons, every state</h2>
+  <p class="note">Three roles and no more. If a new button is needed, it is one of these three with a
+  modifier. Hover and focus are shown as live states: tab through them.</p>
+
+  <div class="spec">
+    <p class="lab">Primary, .btn-orange &mdash; the one commit action on a surface</p>
+    <div class="row">
+      <a class="btn-orange no-fx" href="#buttons">Rest</a>
+      <a class="btn-orange no-fx" href="#buttons" style="background:var(--brick)">Hover</a>
+      <a class="btn-orange no-fx" href="#buttons" style="outline:2px solid var(--orange);outline-offset:2px">Focus</a>
+      <button class="btn-orange no-fx" disabled style="opacity:.45;cursor:not-allowed">Disabled</button>
+    </div>
+  </div>
+
+  <div class="spec">
+    <p class="lab">Secondary, .btn-ghost &mdash; the alternative that must not compete</p>
+    <div class="row">
+      <a class="btn-ghost no-fx" href="#buttons">Rest</a>
+      <a class="btn-ghost no-fx" href="#buttons" style="background:var(--green);color:var(--cream)">Hover</a>
+      <a class="btn-ghost no-fx" href="#buttons" style="outline:2px solid var(--orange);outline-offset:2px">Focus</a>
+      <button class="btn-ghost no-fx" disabled style="opacity:.45;cursor:not-allowed">Disabled</button>
+    </div>
+  </div>
+
+  <div class="spec">
+    <p class="lab">Neutral, .btn &mdash; an action that is not the commit action</p>
+    <div class="row">
+      <a class="btn no-fx" href="#buttons">Rest</a>
+      <a class="btn no-fx" href="#buttons" style="background:var(--ink-2)">Hover</a>
+      <a class="btn no-fx" href="#buttons" style="outline:2px solid var(--orange);outline-offset:2px">Focus</a>
+      <button class="btn no-fx" disabled style="opacity:.45;cursor:not-allowed">Disabled</button>
+    </div>
+  </div>
+
+  <div class="spec on-dark">
+    <p class="lab" style="color:#cfc7b8;">On the deep-green band, the secondary flips to soft orange</p>
+    <div class="row band--green" style="background:none;">
+      <a class="btn-ghost no-fx" href="#buttons">Rest</a>
+      <a class="btn-ghost no-fx" href="#buttons" style="background:var(--soft);color:var(--deep-green)">Hover</a>
+    </div>
+  </div>
+
+  <div class="spec">
+    <p class="lab">Text link, .backlink &mdash; tertiary, no box</p>
+    <div class="row">
+      <a class="backlink no-fx" href="#buttons">Rest <span class="orange">&#8594;</span></a>
+      <a class="backlink no-fx" href="#buttons" style="color:var(--brick)">Hover <span class="orange">&#8594;</span></a>
+    </div>
+    <p class="note" style="margin-bottom:0;">Text links never take the corner-bracket hover: it needs
+    padding to sit outside the box, and a bare link has none. Mark them <code>.no-fx</code>.</p>
+  </div>
+</section>
+
+<!-- ============ CONTROLS ============ -->
+<section class="sec" id="controls">
+  <h2>Controls</h2>
+
+  <div class="spec">
+    <p class="lab">Chip &mdash; a filter. Inactive is green outline, selected is orange.</p>
+    <div class="row">
+      <button class="chip no-fx" type="button">Rest</button>
+      <button class="chip no-fx" type="button" style="background:var(--sage);border-color:var(--green-2)">Hover</button>
+      <button class="chip active no-fx" type="button">Selected</button>
+      <button class="chip no-fx" type="button" style="outline:2px solid var(--orange);outline-offset:2px">Focus</button>
+    </div>
+  </div>
+
+  <div class="spec">
+    <p class="lab">Text input and search</p>
+    <div class="stack" style="max-width:420px;">
+      <label for="sysin" style="font-size:14px;">A label is always present, even when it is visually hidden</label>
+      <input id="sysin" type="text" placeholder="Placeholder ends with an ellipsis…" style="width:100%">
+      <input type="search" aria-label="Search demo" placeholder="Search all 64 prompts by name" style="width:100%">
+      <textarea aria-label="Textarea demo" rows="3" placeholder="Paste your text here…" style="width:100%"></textarea>
+      <select aria-label="Select demo" style="width:100%"><option>A native select, never a drawn one</option></select>
+      <label style="font-size:13px;width:100%;">Range<input type="range" style="width:100%"></label>
+    </div>
+  </div>
+
+  <div class="spec">
+    <p class="lab">Skip link &mdash; the first tab stop on every page</p>
+    <p class="note" style="margin:0;">Hidden until focused, then an ink pill in the top-left. Press Tab
+    from the address bar on any page to see it. It is not decoration: nine links sit between
+    <code>&lt;body&gt;</code> and the content.</p>
+  </div>
+</section>
+
+<!-- ============ CARDS ============ -->
+<section class="sec" id="cards">
+  <h2>The card</h2>
+  <p class="note"><strong>There is one card.</strong> Its purpose, in one sentence: <em>a bordered tile
+  that groups one thing.</em> The frame (border, radius, transition) is defined once in
+  <code>styles.css</code>. A page may set only its own width, padding and inner type. If two tiles do
+  the same job, they are the same card, and a context difference is a modifier, never a second
+  component.</p>
+
+  <div class="spec">
+    <p class="lab">Rest / hover / focus, on the standard card</p>
+    <div class="row" style="align-items:stretch;">
+      <a class="hcard" href="#cards" style="max-width:250px;"><h3>Rest</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+      <a class="hcard" href="#cards" style="max-width:250px;background:var(--cream-2);"><h3>Hover</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+      <a class="hcard" href="#cards" style="max-width:250px;outline:2px solid var(--orange);outline-offset:2px;"><h3>Focus</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+    </div>
+  </div>
+
+  <div class="spec">
+    <p class="lab">Modifier: the browse surfaces (packs, apps) answer in sage + green</p>
+    <div class="row" style="align-items:stretch;">
+      <a class="pack-card" href="#cards" style="max-width:280px;">
+        <div class="pc-top"><span class="pc-tag">BEGINNERS</span><span class="pc-n">8 prompts</span></div>
+        <h2>Best prompts for beginners</h2>
+        <p>Rest state.</p>
+        <span class="pc-open">Open pack <span class="oa">&#8594;</span></span>
+      </a>
+      <a class="pack-card" href="#cards" style="max-width:280px;background:var(--sage);border-color:var(--green);">
+        <div class="pc-top"><span class="pc-tag">BEGINNERS</span><span class="pc-n">8 prompts</span></div>
+        <h2>Best prompts for beginners</h2>
+        <p>Hover state.</p>
+        <span class="pc-open" style="color:var(--green)">Open pack <span class="oa">&#8594;</span></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="spec">
+    <p class="lab">The states that only appear under real data</p>
+    <div class="row" style="align-items:stretch;">
+      <a class="hcard" href="#cards" style="max-width:230px;"><h3>A title long enough to wrap onto three separate lines</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+      <a class="hcard" href="#cards" style="max-width:230px;"><h3>Short</h3><span class="hc-open">Open the tool <span class="oa">&#8594;</span></span></a>
+      <div class="card" style="max-width:230px;padding:20px;display:flex;flex-direction:column;gap:10px;">
+        <h3>Empty state</h3>
+        <p style="margin:0;font-size:14px;color:var(--grey);">Nothing here yet. An empty card still needs to look finished.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="spec">
+    <p class="lab">Non-interactive tiles &mdash; correctly have no hover</p>
+    <p class="note" style="margin-top:0;">.pcard, .vcard and .feature are containers with their own
+    controls inside, so the tile itself is not a link and must not react to the pointer. Only a tile
+    that is itself an anchor gets a hover.</p>
+    <div class="row" style="align-items:stretch;">
+      <div class="pcard" style="max-width:280px;">
+        <h3 class="h-item">Sort my day in five minutes</h3>
+        <div class="pcard-actions">
+          <button class="btn no-fx" type="button" style="padding:10px 16px;font-size:14px;"><span class="lbl">Copy prompt</span></button>
+          <a class="pcard-open no-fx" href="#cards">Open <span class="oa">&#8594;</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SURFACES ============ -->
+<section class="sec" id="surfaces">
+  <h2>Surfaces and bands</h2>
+  <p class="note">Colour cadence is deliberate. A page alternates cream sections with at most one or two
+  deep-green bands; two green bands never touch.</p>
+
+  <div class="spec" style="padding:0;overflow:hidden;">
+    <div class="band--green" style="padding:34px 26px;">
+      <h2 class="h-sec">The deep-green band</h2>
+      <p class="lede" style="margin:12px 0 0;">Prose on green uses --green-soft. Links go pale, and the accent becomes soft orange. This is the page hero and the footer.</p>
+      <p style="margin:18px 0 0;"><a class="btn-ghost no-fx" href="#surfaces">A secondary action <span class="oa">&#8599;</span></a></p>
+    </div>
+  </div>
+
+  <div class="spec" style="padding:0;overflow:hidden;">
+    <div style="background:var(--sage);border-block:1px solid var(--sage-line);padding:30px 26px;">
+      <h2 class="h-sec">The sage break</h2>
+      <p style="margin:10px 0 0;max-width:62ch;color:var(--ink-soft);">A warm interruption between two cream sections. One per viewport, never stacked against a green band.</p>
+    </div>
+  </div>
+
+  <div class="spec">
+    <p class="lab">Page hero &mdash; ONE component, used by every sub-page</p>
+    <p class="note" style="margin-top:0;">Title left, intro right, so the width is used and nothing floats
+    half empty. The homepage hero is the single documented exception.</p>
+  </div>
+</section>
+
+<!-- ============ PARTS ============ -->
+<section class="sec" id="parts">
+  <h2>The signature parts</h2>
+
+  <div class="spec">
+    <p class="lab">The receipt &mdash; the site's one signature object. Mono carries data here, and only here.</p>
+    <div id="sys-receipt"></div>
+  </div>
+
+  <div class="spec">
+    <p class="lab">Corner-bracket hover &mdash; the one signature gesture. Hover a card or button above.</p>
+    <p class="note" style="margin:0;">Applied automatically to every button, link-card and summary by
+    <code>shared.js</code>. It needs padding to sit outside the box, so bare text links opt out with
+    <code>.no-fx</code>.</p>
+  </div>
+
+  <div class="spec">
+    <p class="lab">Dot-matrix icons &mdash; the entire icon vocabulary. No Lucide, no emoji.</p>
+    <div class="row">
+      <canvas data-dot="search" width="34" height="34" aria-hidden="true"></canvas>
+      <canvas data-dot="prompt" width="34" height="34" aria-hidden="true"></canvas>
+      <canvas data-dot="tools" width="34" height="34" aria-hidden="true"></canvas>
+      <canvas data-dot="arrow" width="34" height="34" aria-hidden="true"></canvas>
+    </div>
+  </div>
+
+  <div class="spec">
+    <p class="lab">Scroller and paddles &mdash; a full-bleed row that runs off the right edge</p>
+    <p class="note" style="margin:0;">Cards start flush with the content gutter and bleed off the right
+    to signal there is more. They never overlap the left. The paddles scroll it; they are hidden when
+    everything already fits.</p>
+  </div>
+</section>
+
+<!-- ============ INVENTORY ============ -->
+<section class="sec" id="inventory">
+  <h2>Component inventory</h2>
+  <p class="note">Purpose in one sentence, variants, and where it appears. <strong>Two rows with the same
+  purpose sentence are one component.</strong> That rule is why the four card classes below share a
+  single definition.</p>
+  <div style="overflow-x:auto;">
+  <table class="t invent">
+    <thead><tr><th>Component</th><th>Purpose (one sentence)</th><th>Variants</th><th>Appears on</th></tr></thead>
+    <tbody>
+      <tr><td>.site-head</td><td>Get to any section from any page</td><td>drawer under 720px</td><td>every page</td></tr>
+      <tr><td>.site-foot</td><td>Close the page and repeat the routes</td><td>none</td><td>every page</td></tr>
+      <tr><td>.page-hero</td><td>Open a sub-page with its title and one line of context</td><td>none</td><td>every sub-page</td></tr>
+      <tr><td>.btn-orange</td><td>The single commit action on the current surface</td><td>on-green</td><td>every page</td></tr>
+      <tr><td>.btn-ghost</td><td>An alternative action that must not compete</td><td>on-green</td><td>most pages</td></tr>
+      <tr><td>.btn</td><td>An action that is neither commit nor alternative</td><td>none</td><td>home, prompts</td></tr>
+      <tr><td>.backlink</td><td>Go back or sideways, without a box</td><td>none</td><td>channel, packs, prompts</td></tr>
+      <tr><td>.chip</td><td>Filter a list to one topic</td><td>.active</td><td>tools, channel</td></tr>
+      <tr><td><strong>the card</strong><br>.hcard .tcard<br>.pack-card .proj-tile</td><td><strong>A bordered tile that groups one thing</strong></td><td>sage browse surfaces; non-interactive (.pcard .vcard .feature)</td><td>home, tools, library, apps, channel</td></tr>
+      <tr><td>.lrow / .rlink</td><td>One ruled row in a list, linking to a prompt</td><td>none</td><td>library, packs</td></tr>
+      <tr><td>.receipt</td><td>Show what a build actually cost</td><td>.on-ink</td><td>home, every tool</td></tr>
+      <tr><td>.band--green</td><td>Punctuate a page with the one dark surface</td><td>none</td><td>home, library, tools, channel</td></tr>
+      <tr><td>.scroller + .paddle</td><td>Run a row of cards off the right edge</td><td>none</td><td>home, tools, channel</td></tr>
+      <tr><td>.photo-frame</td><td>Frame a portrait with the brand corners</td><td>none</td><td>home, about</td></tr>
+      <tr><td>.skip-link</td><td>Jump past the header to the content</td><td>none</td><td>every page</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="warn">
+    <h4>The one-edit test</h4>
+    <p>Ask out loud before writing any CSS: <em>"Make every primary button green instead of orange. How
+    many places do I edit?"</em> The answer must be one. Today, after the card merge and the token work,
+    the frame, radius and hover of every card are each a single edit in <code>:root</code>. The button
+    roles are still spread across the seven tool pages, which is the next thing to fix.</p>
+  </div>
+</section>
+
+<!-- ============ BY PAGE ============ -->
+<section class="sec" id="pages" style="border-bottom:none;">
+  <h2>By page</h2>
+  <p class="note">What each page is allowed to compose from. A page that needs something not listed here
+  does not get a new class: the component is added to this page first, then used. An orange pill marks a
+  part that currently exists on only one page and should be watched.</p>
+
+  <div class="pagecard">
+    <h3>Home</h3>
+    <p class="u">index.html</p>
+    <div class="pills"><span class="pill">.site-head</span><span class="pill new">.hero (the one exception)</span><span class="pill">.photo-frame</span><span class="pill">.btn-orange</span><span class="pill">.btn-ghost</span><span class="pill">.band--green</span><span class="pill new">.receipt</span><span class="pill">.scroller + .paddle</span><span class="pill">card (.hcard)</span><span class="pill">card (.pcard)</span><span class="pill">card (.vcard)</span><span class="pill">.btn</span><span class="pill">.site-foot</span></div>
+  </div>
+
+  <div class="pagecard">
+    <h3>First time? Start here</h3>
+    <p class="u">start.html</p>
+    <div class="pills"><span class="pill">.page-hero</span><span class="pill new">.checklist-panel</span><span class="pill new">.step</span><span class="pill">.btn-orange</span><span class="pill">.btn-ghost</span><span class="pill">.site-foot</span></div>
+  </div>
+
+  <div class="pagecard">
+    <h3>Prompts that can help you</h3>
+    <p class="u">library.html, generated by build.mjs</p>
+    <div class="pills"><span class="pill">.page-hero</span><span class="pill new">.lib-searchbox</span><span class="pill">.rlink</span><span class="pill">card (.pack-card)</span><span class="pill">.band--green</span><span class="pill">.site-foot</span></div>
+  </div>
+
+  <div class="pagecard">
+    <h3>Most useful tools</h3>
+    <p class="u">tools.html</p>
+    <div class="pills"><span class="pill">.page-hero</span><span class="pill">.chip</span><span class="pill">.scroller + .paddle</span><span class="pill">card (.tcard)</span><span class="pill">.band--green</span><span class="pill">.site-foot</span></div>
+  </div>
+
+  <div class="pagecard">
+    <h3>Apps I built</h3>
+    <p class="u">bill.html</p>
+    <div class="pills"><span class="pill">.page-hero</span><span class="pill">card (.proj-tile)</span><span class="pill new">.proj-cta</span><span class="pill">.site-foot</span></div>
+  </div>
+
+  <div class="pagecard">
+    <h3>More free tutorials</h3>
+    <p class="u">channel.html</p>
+    <div class="pills"><span class="pill">.page-hero</span><span class="pill">.btn-ghost</span><span class="pill new">.feature</span><span class="pill new">.vthumb</span><span class="pill">.chip</span><span class="pill">.scroller + .paddle</span><span class="pill">card (.vcard)</span><span class="pill">.backlink</span><span class="pill">.band--green</span><span class="pill">.site-foot</span></div>
+  </div>
+
+  <div class="pagecard">
+    <h3>Who I am</h3>
+    <p class="u">about.html</p>
+    <div class="pills"><span class="pill">.page-hero</span><span class="pill">.photo-frame</span><span class="pill new">.sidenote</span><span class="pill new">.pull</span><span class="pill">.site-foot</span></div>
+  </div>
+
+  <div class="pagecard">
+    <h3>The Starter Kit</h3>
+    <p class="u">kit.html</p>
+    <div class="pills"><span class="pill">.page-hero</span><span class="pill new">.manifest + .mrow</span><span class="pill new">.signrow</span><span class="pill">.btn-orange</span><span class="pill">.site-foot</span></div>
+  </div>
+
+  <div class="pagecard">
+    <h3>A prompt page &nbsp;<span class="u" style="display:inline;">&times;64</span></h3>
+    <p class="u">prompts/*.html, generated by build.mjs</p>
+    <div class="pills"><span class="pill">.page-hero</span><span class="pill new">.specfields</span><span class="pill new">.term (the terminal)</span><span class="pill">.btn</span><span class="pill">.backlink</span><span class="pill">.site-foot</span></div>
+  </div>
+
+  <div class="pagecard">
+    <h3>A pack page &nbsp;<span class="u" style="display:inline;">&times;8</span></h3>
+    <p class="u">packs/*.html, generated by build.mjs</p>
+    <div class="pills"><span class="pill">.page-hero</span><span class="pill new">.ledger-list</span><span class="pill">.lrow</span><span class="pill new">.pack-nav</span><span class="pill">.site-foot</span></div>
+  </div>
+
+  <div class="pagecard">
+    <h3>A tool page &nbsp;<span class="u" style="display:inline;">&times;7</span></h3>
+    <p class="u">tools/*.html</p>
+    <div class="pills"><span class="pill new">.t-hero</span><span class="pill new">.face</span><span class="pill new">.readout</span><span class="pill new">.actions</span><span class="pill">.receipt</span><span class="pill new">.read-band</span><span class="pill">.site-foot</span></div>
+  </div>
+
+  <div class="warn">
+    <h4>What the orange pills are telling you</h4>
+    <p>The seven tool pages carry six components that exist nowhere else and are copied seven times, with
+    21 rule-sets duplicated byte for byte and three of them already drifted apart. That is the largest
+    remaining piece of debt on the site, and it is why a change to a tool page currently costs seven
+    edits. Lifting <code>.t-hero</code>, <code>.face</code>, <code>.readout</code>,
+    <code>.actions</code> and <code>.read-band</code> into <code>styles.css</code> makes it one.</p>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">Guidelines. Change a component here, and the site changes.</p>
+    </div>
+    <div class="foot-col">
+      <a href="index.html">Back to the site</a>
+      <a href="library.html">Prompts</a>
+      <a href="tools.html">Tools</a>
+    </div>
+    <div class="foot-col">
+      <a href="bill.html">Apps</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</footer>
+
+<script src="icons.js"></script>
+<script src="signature.js"></script>
+<script src="shared.js"></script>
+<script>
+  (function () {
+    "use strict";
+    document.getElementById('sys-receipt').innerHTML = MC2.receipt({
+      title: 'CASE 01 / TUCK', date: '',
+      rows: [
+        { k: 'The task', v: 'hide my extensions' },
+        { k: 'AI nailed', v: 'manifest, permissions, the list' },
+        { k: 'Where it failed', v: 'Chrome does not allow it' },
+        { k: 'Real time', v: 'being counted' },
+        { k: 'Real cost', v: 'being counted', orange: true }
+      ],
+      verdict: { stamp: 'Mixed', text: 'It shipped, but AI let me chase a version Chrome would never allow.' }
+    });
+    if (window.MC2 && MC2.mountDevices) MC2.mountDevices(document);
+  })();
+</script>
+</body>
+</html>

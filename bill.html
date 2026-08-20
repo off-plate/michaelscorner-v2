@@ -28,17 +28,6 @@
 /* Projects: inviting app tiles with the real logo. No receipt narrative. */
 /* three across on desktop so no tile is ever stranded in a half-empty row */
 .proj-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(20px,2.4vw,32px); }
-.proj-tile{ display:flex; flex-direction:column; gap:20px; padding:clamp(26px,3vw,40px); }
-.proj-logo img{ width:clamp(72px,8vw,92px); height:auto; border-radius:18px; display:block; }
-.proj-top{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
-.proj-top h2{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,30px); letter-spacing:-0.02em; margin:0; }
-.proj-plat{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--green); }
-.proj-desc{ font-size:clamp(15px,1.2vw,17px); line-height:1.6; color:var(--ink-soft); margin:10px 0 0; }
-.proj-cta{ margin-top:auto; padding-top:20px; display:inline-flex; align-items:center; gap:8px;
-  color:var(--orange); font-weight:600; font-size:14px; text-decoration:none;
-  border-bottom:1px solid var(--orange); padding-bottom:2px; width:max-content;
-  transition:color 150ms ease, border-color 150ms ease; }
-.proj-cta:hover{ color:var(--brick); border-color:var(--brick); }
 @media (max-width:980px){ .proj-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:720px){ .proj-grid{ grid-template-columns:1fr; } }
 </style>
