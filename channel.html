@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Watch / Michael's Corner</title>
+<meta name="description" content="Plain-talk AI videos, no hype. Watch how it actually goes, dead ends included.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Michael's Corner">
+<meta property="og:title" content="Watch / Michael's Corner">
+<meta property="og:description" content="Plain-talk AI videos, no hype. Watch how it actually goes, dead ends included.">
+<meta property="og:image" content="https://off-plate.github.io/michaelscorner-v2/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preload" href="assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+.mc-loader{position:fixed;inset:0;z-index:9999;background:#FAF7F2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity 420ms cubic-bezier(.22,.61,.36,1)}
+.mc-loader.hide{opacity:0;pointer-events:none}
+.mc-loader .lm{font-family:'Clash Display',sans-serif;font-weight:700;font-size:clamp(20px,2.4vw,26px);color:#15130F}
+.mc-loader .lm span{color:#F2541B}
+.mc-loader .lw{font-family:'Space Mono',ui-monospace,monospace;font-size:clamp(20px,2.6vw,28px);letter-spacing:2px;color:#F2541B;white-space:pre;line-height:1}
+@media(prefers-reduced-motion:reduce){.mc-loader{display:none}}
+</style>
+<script>(function(){try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;var l=document.createElement('div');l.className='mc-loader';l.id='mc-loader';l.setAttribute('aria-hidden','true');l.innerHTML='<div class="lm">Michaels <span>Corner</span></div><div class="lw"></div>';(document.body||document.documentElement).appendChild(l);setTimeout(function(){var e=document.getElementById('mc-loader');if(e&&e.parentNode)e.parentNode.removeChild(e);},3000);}catch(e){}})();</script>
+<style>
+  /* CHANNEL / programme guide (V1 layout, V2 tokens) */
+  .ch-head{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(20px,3vw,48px); align-items:end; margin-bottom:clamp(20px,2.5vw,32px); }
+  .ch-head .sub{ display:flex; flex-direction:column; gap:14px; align-items:flex-start; }
+  .notice{ display:flex; align-items:center; gap:10px; font-family:'Space Mono',monospace; font-size:13px; color:var(--grey); margin:0 0 clamp(24px,3vw,34px); }
+  .notice .dot{ width:8px; height:8px; border-radius:50%; background:var(--orange); flex:none; }
+
+  /* the striped video thumbnail: an intentional pattern that stands in for artwork */
+  .vthumb{ aspect-ratio:16/9; position:relative; display:flex; align-items:center; justify-content:center;
+    background:repeating-linear-gradient(45deg, var(--cream-3) 0 14px, var(--cream-2) 14px 28px); border-bottom:1px solid var(--ink); }
+  .vthumb .play{ width:46px; height:46px; border-radius:50%; background:var(--ink); display:flex; align-items:center; justify-content:center; }
+  .vthumb .play::after{ content:''; border-left:13px solid var(--cream); border-top:8px solid transparent; border-bottom:8px solid transparent; margin-left:4px; }
+  .vthumb .dur{ position:absolute; bottom:10px; right:10px; background:var(--ink); color:var(--cream); font-family:'Space Mono',monospace; font-size:11px; padding:3px 8px; }
+
+  /* featured */
+  .feature{ display:grid; grid-template-columns:1.25fr 1fr; border:1px solid var(--ink); border-radius:2px; overflow:hidden; margin-bottom:clamp(30px,3.5vw,46px); }
+  .feature .vthumb{ border-bottom:none; border-right:1px solid var(--ink); height:100%; }
+  .feature .fbody{ padding:clamp(24px,3vw,40px); display:flex; flex-direction:column; justify-content:center; }
+
+  /* toolbar */
+  .ch-bar{ display:flex; flex-wrap:wrap; gap:14px 16px; align-items:center; justify-content:space-between;
+    border-top:2px solid var(--ink); padding-top:18px; margin-bottom:clamp(26px,3vw,36px); }
+  .ch-bar .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .ch-bar input{ min-width:190px; flex:1; max-width:320px; }
+
+  /* category rows */
+  .catrow{ margin-bottom:clamp(36px,3.5vw,50px); }
+  .catrow .rh{ display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:16px; flex-wrap:wrap; }
+  .catrow .rh .t{ display:flex; align-items:baseline; gap:12px; }
+  .catrow .rh .cnt{ font-family:'Space Mono',monospace; font-size:13px; color:var(--grey-2); }
+  .paddles{ display:flex; gap:8px; }
+  .paddle{ width:40px; height:40px; border:1px solid var(--ink); background:none; color:var(--ink); font-size:17px; cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:2px; transition:background 150ms ease, color 150ms ease; }
+  .paddle:hover{ background:var(--ink); color:var(--cream); }
+  .vcard{ flex:0 0 clamp(268px,80vw,314px); border:1px solid var(--ink); border-radius:2px; display:flex; flex-direction:column; overflow:hidden; }
+  .vcard .vb{ padding:16px 18px 18px; }
+  .vcard .vb h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:18px; line-height:1.12; margin:0 0 6px; }
+  .vcard .vb p{ font-size:14px; line-height:1.45; color:var(--ink-soft); margin:0; }
+
+  @media (max-width:760px){
+    .ch-head{ grid-template-columns:1fr; align-items:start; }
+    .feature{ grid-template-columns:1fr; }
+    .feature .vthumb{ border-right:none; border-bottom:1px solid var(--ink); }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="kit.html" data-nav="kit">Free kit <span class="oa">&#8594;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="index.html" data-nav="home">Home</a>
+      <a href="start.html" data-nav="start">First time? Start here</a>
+      <a href="library.html" data-nav="library">Prompts that can help you</a>
+      <a href="tools.html" data-nav="tools">Most useful tools</a>
+      <a href="bill.html" data-nav="bill">Apps I built</a>
+      <a href="channel.html" data-nav="channel">More free tutorials</a>
+      <a href="about.html" data-nav="about">Who I am</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <h1 class="h-page">Watch and learn</h1>
+        </div>
+        <div>
+          <p class="hero-intro">Plain talk and no hype, so you can watch how it actually goes, dead ends included. Filter by topic or swipe a row to see more.</p>
+          <p class="hero-cta"><a class="btn-ghost" href="https://youtube.com" target="_blank" rel="noopener">Subscribe on YouTube <span>&#8599;</span></a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <p class="notice"><span class="dot"></span> Filming now. Every card below becomes a real link the day its episode goes up.</p>
+
+    <!-- featured -->
+    <div class="feature">
+      <div class="vthumb"><span class="play"></span></div>
+      <div class="fbody">
+        <h2 class="h-sec">Your first hour with an AI assistant</h2>
+        <p style="margin:14px 0 0; color:var(--ink-soft); max-width:48ch;">Set it up and do something useful right away. The exact hour I would walk a friend through, no theory.</p>
+        <p style="margin:20px 0 0;"><a class="backlink no-fx" href="start.html">Read the written version <span class="orange">&#8594;</span></a></p>
+      </div>
+    </div>
+
+    <!-- toolbar -->
+    <div class="ch-bar">
+      <div class="chips" id="chips"></div>
+      <input type="search" id="q" placeholder="Search videos" aria-label="Search videos">
+    </div>
+
+    <div id="rows"></div>
+    <p id="empty" class="lede" style="display:none;">No videos match that. Try another topic.</p>
+  </section>
+
+  <section class="band band--green" style="margin-top:clamp(40px,5vw,72px);">
+    <div class="wrap">
+      <h2 class="h-sec">Watch how it actually goes</h2>
+      <p class="lede" style="margin-top:12px; max-width:56ch;">Every build, the wins and the parts that broke. New episodes land here as they go up.</p>
+      <p style="margin-top:24px;"><a class="btn-ghost" href="https://youtube.com" target="_blank" rel="noopener">Subscribe on YouTube <span>&#8599;</span></a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="library.html">Prompts</a>
+      <a href="tools.html">Tools</a>
+      <a href="bill.html">Apps</a>
+    </div>
+    <div class="foot-col">
+      <a href="start.html">Start here</a>
+      <a href="kit.html">The Starter Kit</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</footer>
+
+<script src="icons.js"></script>
+<script src="signature.js"></script>
+<script src="shared.js"></script>
+<script>
+(function () {
+  var cats = ['Building with AI', 'For beginners', 'Prompting', 'Behind the build'];
+  var vids = [
+    { t: 'I built 20 apps in 30 days', d: '', c: 'Building with AI', desc: 'What happened, what broke, and what I would skip next time.' },
+    { t: 'Build a website with AI, start to finish', d: '', c: 'Building with AI', desc: 'A full build, from empty folder to live page.' },
+    { t: 'Ship a small app in a weekend', d: '', c: 'Building with AI', desc: 'Pick a tiny idea and get it working in two days.' },
+    { t: 'From idea to live site in one sitting', d: '', c: 'Building with AI', desc: 'No planning week. Just open the laptop and ship.' },
+    { t: 'Connect AI to a real database', d: '', c: 'Building with AI', desc: 'Store and read real data without a backend team.' },
+    { t: 'Make it look good without a designer', d: '', c: 'Building with AI', desc: 'Simple rules that make a rough build look finished.' },
+    { t: 'Add a feature without breaking things', d: '', c: 'Building with AI', desc: 'How I change working code and stay calm.' },
+    { t: 'AI for people who are not techies', d: '', c: 'For beginners', desc: 'No code, no jargon. Just what it is good for.' },
+    { t: 'Your first hour with an AI assistant', d: '', c: 'For beginners', desc: 'Set it up and do something useful right away.' },
+    { t: 'The five prompts I use every day', d: '', c: 'For beginners', desc: 'The short, boring prompts that do most of the work.' },
+    { t: 'Stop overthinking your prompts', d: '', c: 'For beginners', desc: 'Say what you want, what to keep, what to drop.' },
+    { t: 'What can AI actually do for you?', d: '', c: 'For beginners', desc: 'A plain tour of the jobs it is genuinely good at.' },
+    { t: 'Pick the right AI tool', d: '', c: 'For beginners', desc: 'How to choose without trying all of them.' },
+    { t: 'Common beginner mistakes', d: '', c: 'For beginners', desc: 'The small habits that lead to bad answers.' },
+    { t: 'How to talk to AI like a person', d: '', c: 'For beginners', desc: 'Plain language beats clever tricks, every time.' },
+    { t: 'A simple daily AI habit', d: '', c: 'For beginners', desc: 'One small routine that compounds fast.' },
+    { t: 'Write prompts that actually work', d: '', c: 'Prompting', desc: 'A simple shape for prompts that get good answers.' },
+    { t: 'Make AI sound like you', d: '', c: 'Prompting', desc: 'Teach the model your voice in a few lines.' },
+    { t: 'Give the model a job, not a wish', d: '', c: 'Prompting', desc: 'Why clear roles beat vague requests.' },
+    { t: 'Templates I reuse every week', d: '', c: 'Prompting', desc: 'The handful of prompts I never rewrite.' },
+    { t: 'Fix a prompt that gives bad answers', d: '', c: 'Prompting', desc: 'A quick way to debug a prompt that is not working.' },
+    { t: 'Prompts for editing and proofreading', d: '', c: 'Prompting', desc: 'Catch mistakes without losing your voice.' },
+    { t: 'How I debug code I cannot read', d: '', c: 'Behind the build', desc: 'A loop anyone can follow, no computer science needed.' },
+    { t: 'I am not a developer. I ship anyway.', d: '', c: 'Behind the build', desc: 'Why the old gatekeeping does not hold up.' },
+    { t: 'A week of building in public', d: '', c: 'Behind the build', desc: 'Five days, one project, shown in full.' },
+    { t: 'My exact daily setup', d: '', c: 'Behind the build', desc: 'The tools and tabs I actually keep open.' },
+    { t: 'What I got wrong this month', d: '', c: 'Behind the build', desc: 'The mistakes, said out loud, so you can skip them.' }
+  ];
+
+  var filter = 'all', query = '';
+  var chipsBox = document.getElementById('chips'), rows = document.getElementById('rows'), empty = document.getElementById('empty');
+
+  function chips() {
+    var all = [{ l: 'All topics', v: 'all' }].concat(cats.map(function (c) { return { l: c, v: c }; }));
+    chipsBox.innerHTML = all.map(function (c) { return '<button class="chip' + (filter === c.v ? ' active' : '') + '" data-v="' + MC2.esc(c.v) + '">' + MC2.esc(c.l) + '</button>'; }).join('');
+    Array.prototype.forEach.call(chipsBox.querySelectorAll('.chip'), function (b) {
+      b.addEventListener('click', function () { filter = b.getAttribute('data-v'); render(); });
+    });
+  }
+  function card(v) {
+    return '<div class="vcard"><div class="vthumb"><span class="play"></span>' + (v.d ? '<span class="dur">' + MC2.esc(v.d) + '</span>' : '') + '</div>' +
+      '<div class="vb"><h3>' + MC2.esc(v.t) + '</h3><p>' + MC2.esc(v.desc) + '</p></div></div>';
+  }
+  function match(v) {
+    var q = query.trim().toLowerCase();
+    return !q || (v.t + ' ' + v.desc + ' ' + v.c).toLowerCase().indexOf(q) !== -1;
+  }
+  function render() {
+    chips();
+    var shown = cats.filter(function (c) { return filter === 'all' || filter === c; });
+    var html = '';
+    shown.forEach(function (c) {
+      var items = vids.filter(function (v) { return v.c === c && match(v); });
+      if (!items.length) return;
+      var id = 'sc-' + c.replace(/\W+/g, '');
+      html += '<div class="catrow"><div class="rh"><div class="t"><h2 class="h-sec" style="font-size:clamp(22px,2.6vw,30px);">' + MC2.esc(c) + '</h2>' +
+        '<span class="cnt">' + items.length + (items.length === 1 ? ' video' : ' videos') + '</span></div>' +
+        '<div class="paddles"><button class="paddle" data-sc="' + id + '" data-dir="-1" aria-label="Scroll left">&#8592;</button>' +
+        '<button class="paddle" data-sc="' + id + '" data-dir="1" aria-label="Scroll right">&#8594;</button></div></div>' +
+        '<div class="scroller" id="' + id + '" data-scroller>' + items.map(card).join('') + '</div></div>';
+    });
+    var any = html !== '';
+    rows.innerHTML = html; rows.style.display = any ? '' : 'none'; empty.style.display = any ? 'none' : 'block';
+    Array.prototype.forEach.call(rows.querySelectorAll('.paddle'), function (b) {
+      b.addEventListener('click', function () {
+        var sc = document.getElementById(b.getAttribute('data-sc'));
+        var c0 = sc && sc.firstElementChild;
+        var step = c0 ? c0.getBoundingClientRect().width + 18 : 300;
+        sc.scrollBy({ left: (+b.getAttribute('data-dir')) * step, behavior: MC2.reducedMotion ? 'auto' : 'smooth' });
+      });
+    });
+    MC2.mountDevices(document);
+  }
+  document.getElementById('q').addEventListener('input', function (e) { query = e.target.value; render(); });
+  render();
+})();
+</script>
+</body>
+</html>

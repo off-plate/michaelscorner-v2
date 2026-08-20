@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Founders and small business owners / Michael's Corner</title>
+<meta name="description" content="For people running a small business. Customers, reviews, numbers, suppliers.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Michael's Corner">
+<meta property="og:title" content="Founders and small business owners / Michael's Corner">
+<meta property="og:description" content="For people running a small business. Customers, reviews, numbers, suppliers.">
+<meta property="og:image" content="https://off-plate.github.io/michaelscorner-v2/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg">
+<link rel="preload" href="../assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../styles.css">
+<style>
+.mc-loader{position:fixed;inset:0;z-index:9999;background:#FAF7F2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity 420ms cubic-bezier(.22,.61,.36,1)}
+.mc-loader.hide{opacity:0;pointer-events:none}
+.mc-loader .lm{font-family:'Clash Display',sans-serif;font-weight:700;font-size:clamp(20px,2.4vw,26px);color:#15130F}
+.mc-loader .lm span{color:#F2541B}
+.mc-loader .lw{font-family:'Space Mono',ui-monospace,monospace;font-size:clamp(20px,2.6vw,28px);letter-spacing:2px;color:#F2541B;white-space:pre;line-height:1}
+@media(prefers-reduced-motion:reduce){.mc-loader{display:none}}
+</style>
+<script>(function(){try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;var l=document.createElement('div');l.className='mc-loader';l.id='mc-loader';l.setAttribute('aria-hidden','true');l.innerHTML='<div class="lm">Michaels <span>Corner</span></div><div class="lw"></div>';(document.body||document.documentElement).appendChild(l);setTimeout(function(){var e=document.getElementById('mc-loader');if(e&&e.parentNode)e.parentNode.removeChild(e);},3000);}catch(e){}})();</script>
+<style>
+/* ---- Pack page: the opened dossier. Folder-tab header + ruled ledger, with an all-packs rail. ---- */
+.dossier{ padding-block:clamp(28px,4vw,44px) 0; }
+.d-back{ margin-bottom:clamp(20px,2.4vw,28px); }
+/* all-packs cross-nav: a full-width row under the ledger */
+.pack-nav{ margin-top:clamp(36px,4.5vw,60px); border-top:1px solid var(--ink); padding-top:22px; display:flex; flex-wrap:wrap; gap:12px 22px; align-items:baseline; }
+.pack-nav .pn-label{ width:100%; font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--grey); margin-bottom:6px; }
+.pack-nav a{ color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px; transition:color 150ms ease, border-color 150ms ease; }
+.pack-nav a:hover{ color:var(--brick); border-color:var(--brick); }
+.pack-nav .pn-here{ color:var(--orange); font-weight:600; border-bottom:1px solid var(--orange); padding-bottom:2px; }
+.folder{ border:1px solid var(--ink); border-radius:2px; }
+.folder-tab{
+  display:inline-flex; align-items:center; gap:10px; background:var(--ink); color:var(--cream);
+  font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+  padding:8px 16px; border-radius:2px 2px 0 0; margin:0; position:relative; top:1px;
+}
+.folder-body{ padding:clamp(22px,3vw,34px); }
+.folder-body .h-page{ margin:0 0 6px; }
+.folder-meta{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--grey); margin:0 0 18px; }
+.folder-intro{ font-size:16.5px; line-height:1.6; color:var(--ink-soft); max-width:64ch; margin:0 0 20px; }
+.cover-note{ font-family:'Space Mono',ui-monospace,monospace; font-size:12.5px; letter-spacing:0.02em; color:var(--grey); margin:12px 0 8px; }
+.cover-note .on{ color:var(--ink); }
+.cover-note .rest{ color:var(--grey-2); }
+
+/* the ledger of prompts */
+.ledger-list{ border-top:1px solid var(--ink); }
+.lrow{
+  display:grid; grid-template-columns:auto 1fr auto; gap:4px 20px; align-items:baseline;
+  border-bottom:1px solid var(--line); padding:clamp(16px,2vw,22px) clamp(4px,1vw,10px);
+  text-decoration:none; color:var(--ink); transition:background 150ms ease;
+}
+.lrow:hover, .lrow:focus-visible{ background:var(--sage); outline:none; }
+.lrow .fno{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,30px); color:var(--ink); line-height:1; letter-spacing:-0.02em; }
+.lrow .lt{ }
+.lrow .lt h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(18px,1.8vw,21px); line-height:1.15; letter-spacing:-0.01em; margin:0 0 4px; }
+.lrow .lt p{ margin:0; font-size:14.5px; line-height:1.5; color:var(--grey); }
+.lrow .open{ font-family:'Space Mono',monospace; font-size:20px; color:var(--ink); align-self:center; transition:color 150ms ease, transform 180ms var(--ease); }
+.lrow:hover .open, .lrow:focus-visible .open{ color:var(--brick); transform:translateX(3px); }
+@media (max-width:560px){ .lrow{ grid-template-columns:auto 1fr; } .lrow .open{ display:none; } }
+@media (prefers-reduced-motion: reduce){ .lrow:hover .open, .lrow:focus-visible .open{ transform:none; } }
+</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="../index.html"><img src="../assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="../kit.html" data-nav="kit">Free kit <span class="oa">&#8594;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="../index.html" data-nav="home">Home</a>
+      <a href="../start.html" data-nav="start">First time? Start here</a>
+      <a href="../library.html" data-nav="library">Prompts that can help you</a>
+      <a href="../tools.html" data-nav="tools">Most useful tools</a>
+      <a href="../bill.html" data-nav="bill">Apps I built</a>
+      <a href="../channel.html" data-nav="channel">More free tutorials</a>
+      <a href="../about.html" data-nav="about">Who I am</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<section class="page-hero">
+  <div class="wrap">
+    <a class="backlink hero-back" href="../library.html"><span aria-hidden="true">&#8592;</span> Back to all prompts</a>
+    <div class="hero-grid">
+      <div>
+        <h1 class="h-page">Founders and small business owners</h1>
+      </div>
+      <div>
+        <p class="hero-intro">For people running a small business. Customers, reviews, numbers, suppliers. Plus the messages you keep putting off, drafted so you can send them today. 8 prompts, all free to copy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap section">
+  <div class="ledger-list">
+    
+    <a class="lrow" href="../prompts/review-triage.html">
+      <span class="fno">01</span>
+      <span class="lt">
+        <h3>Find the real complaint in reviews</h3>
+        <p>Use this when reviews are piling up and you want the real pattern without the noise.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/unhappy-customer.html">
+      <span class="fno">02</span>
+      <span class="lt">
+        <h3>Reply to an unhappy customer</h3>
+        <p>Use this when a complaint lands and you want to answer calmly instead of at midnight in the wrong tone.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/sell-sheet.html">
+      <span class="fno">03</span>
+      <span class="lt">
+        <h3>Describe what I sell, grounded</h3>
+        <p>Use this when you need product or service copy and want it built from real details, never invented ones.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/price-increase.html">
+      <span class="fno">04</span>
+      <span class="lt">
+        <h3>Announce a price increase honestly</h3>
+        <p>Use this when costs moved, your prices have to follow, and you keep postponing the announcement.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/weekly-numbers.html">
+      <span class="fno">05</span>
+      <span class="lt">
+        <h3>Read my weekly numbers for me</h3>
+        <p>Use this when you have the numbers but never the quiet hour to see what they are saying.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/stop-doing.html">
+      <span class="fno">06</span>
+      <span class="lt">
+        <h3>Decide what I stop doing</h3>
+        <p>Use this when you are the bottleneck in your own business and every task feels like it needs you.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/competitor-read.html">
+      <span class="fno">07</span>
+      <span class="lt">
+        <h3>Get an honest competitor read</h3>
+        <p>Use this when you want a sober look at a competitor, without the anxiety and without fabricated intel.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+    <a class="lrow" href="../prompts/negotiation-prep.html">
+      <span class="fno">08</span>
+      <span class="lt">
+        <h3>Prep me to negotiate</h3>
+        <p>Use this when a negotiation is coming, a supplier, a landlord, a big client, and you want to walk in prepared instead of hopeful.</p>
+      </span>
+      <span class="open" aria-hidden="true">&#8594;</span>
+    </a>
+  </div>
+
+  <nav class="pack-nav" aria-label="All packs">
+    <span class="pn-label">More packs</span>
+    <a href="beginners.html">Best prompts for beginners</a><a href="writing.html">Best prompts for writing</a><a href="building.html">Building software with AI</a><span class="pn-here">Founders and small business owners</span><a href="freelancers.html">Freelancers and solo operators</a><a href="office.html">Office and operations work</a><a href="creators.html">Content creators</a><a href="students.html">Students and learning</a>
+  </nav>
+</div>
+
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="../library.html">Prompts</a>
+      <a href="../tools.html">Tools</a>
+      <a href="../bill.html">Apps</a>
+    </div>
+    <div class="foot-col">
+      <a href="../start.html">Start here</a>
+      <a href="../kit.html">The Starter Kit</a>
+      <a href="../about.html">About</a>
+    </div>
+  </div>
+</footer>
+<script src="../icons.js"></script>
+<script src="../signature.js"></script>
+<script src="../data/prompts-index.js"></script>
+<script src="../shared.js"></script>
+</body>
+</html>

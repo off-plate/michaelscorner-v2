@@ -1,0 +1,9 @@
+# Static site: HTML lives at the repo root, no build step.
+[build]
+  publish = "."
+  command = ""
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

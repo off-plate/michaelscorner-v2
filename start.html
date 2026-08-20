@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start here / Michael's Corner</title>
+<meta name="description" content="Your first hour with AI. Five steps, one real hour, no theory.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Michael's Corner">
+<meta property="og:title" content="Start here / Michael's Corner">
+<meta property="og:description" content="Your first hour with AI. Five steps, one real hour, no theory.">
+<meta property="og:image" content="https://off-plate.github.io/michaelscorner-v2/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preload" href="assets/fonts/clash-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+.mc-loader{position:fixed;inset:0;z-index:9999;background:#FAF7F2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity 420ms cubic-bezier(.22,.61,.36,1)}
+.mc-loader.hide{opacity:0;pointer-events:none}
+.mc-loader .lm{font-family:'Clash Display',sans-serif;font-weight:700;font-size:clamp(20px,2.4vw,26px);color:#15130F}
+.mc-loader .lm span{color:#F2541B}
+.mc-loader .lw{font-family:'Space Mono',ui-monospace,monospace;font-size:clamp(20px,2.6vw,28px);letter-spacing:2px;color:#F2541B;white-space:pre;line-height:1}
+@media(prefers-reduced-motion:reduce){.mc-loader{display:none}}
+</style>
+<script>(function(){try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;var l=document.createElement('div');l.className='mc-loader';l.id='mc-loader';l.setAttribute('aria-hidden','true');l.innerHTML='<div class="lm">Michaels <span>Corner</span></div><div class="lw"></div>';(document.body||document.documentElement).appendChild(l);setTimeout(function(){var e=document.getElementById('mc-loader');if(e&&e.parentNode)e.parentNode.removeChild(e);},3000);}catch(e){}})();</script>
+<style>
+/* ---- Start Here: the guided path. An editorial hour laid out as numbered steps,
+       a single reading column with a mono step-rail down the left. One idea per step. ---- */
+.sh-top{ padding-block:clamp(32px,5vw,60px) 0; }
+.sh-lead{ font-size:clamp(18px,1.5vw,21px); line-height:1.55; color:var(--ink-soft); max-width:56ch; margin:16px 0 0; }
+.sh-meta{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.08em; color:var(--grey); margin:22px 0 0; }
+.sh-body{ max-width:none; }
+
+.steps{ margin-top:0; border-top:1px solid var(--ink); }
+.step{
+  display:grid; grid-template-columns:96px 1fr; gap:clamp(16px,3vw,40px);
+  border-bottom:1px solid var(--line); padding-block:clamp(28px,4vw,48px);
+}
+.step .no{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(34px,4.4vw,56px); line-height:0.9; letter-spacing:-0.03em; color:var(--orange); }
+.step .no .k{ display:block; font-family:'Space Mono',monospace; font-size:11px; font-weight:400; letter-spacing:0.16em; text-transform:uppercase; color:var(--grey); margin-top:8px; }
+.step h2{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(22px,2.6vw,30px); line-height:1.05; letter-spacing:-0.02em; margin:0 0 12px; }
+.step p{ margin:0; font-size:16.5px; line-height:1.62; color:var(--ink); }
+.step p .lead-in{ font-weight:500; }
+@media (max-width:560px){
+  .step{ grid-template-columns:1fr; gap:12px; }
+  .step .no{ display:flex; align-items:baseline; gap:14px; }
+  .step .no .k{ margin-top:0; }
+}
+
+.sh-next{ margin-top:clamp(36px,5vw,52px); display:flex; align-items:baseline; justify-content:space-between; gap:16px 24px; flex-wrap:wrap; }
+.sh-next p{ margin:0; font-size:16.5px; line-height:1.6; color:var(--ink-soft); max-width:52ch; }
+.sh-next .cta{ display:inline-flex; align-items:center; gap:10px; }
+.sh-next .cta .oa{ color:var(--orange); }
+
+/* the two-part page: a tick-box checklist, then the fuller guide */
+.checklist-panel{ border:1px solid var(--ink); border-radius:2px; background:var(--cream-2); padding:clamp(22px,3vw,34px); }
+.cl-head{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:6px; }
+.cl-progress{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--green); }
+.checklist{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:0 clamp(28px,4vw,56px); }
+.checklist li{ border-top:1px solid var(--line); }
+.checklist label{ display:flex; align-items:flex-start; gap:14px; padding-block:16px; cursor:pointer; }
+.checklist input{ appearance:none; -webkit-appearance:none; flex:none; width:22px; height:22px; border:2px solid var(--ink); border-radius:2px; background:var(--cream); margin-top:1px; cursor:pointer; position:relative; transition:background 120ms ease, border-color 120ms ease; }
+.checklist input:checked{ border-color:var(--green); background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M13 4.5L6.5 11.5L3 8' fill='none' stroke='%23FAF7F2' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center center / 13px 13px no-repeat; }
+.checklist input:focus-visible{ outline:2px solid var(--orange); outline-offset:2px; }
+.checklist .cl-text{ font-size:16px; line-height:1.5; color:var(--ink); }
+.checklist input:checked + .cl-text{ color:var(--grey); text-decoration:line-through; }
+@media (max-width:640px){ .checklist{ grid-template-columns:1fr; } }
+.guide-head{ margin:0 0 clamp(18px,2.5vw,28px); }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <span class="head-handle mono">@michaelflorian_ai</span>
+      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-cta" href="kit.html" data-nav="kit">Free kit <span class="oa">&#8594;</span></a>
+    </div>
+    <nav class="head-nav" aria-label="Main">
+      <a href="index.html" data-nav="home">Home</a>
+      <a href="start.html" data-nav="start">First time? Start here</a>
+      <a href="library.html" data-nav="library">Prompts that can help you</a>
+      <a href="tools.html" data-nav="tools">Most useful tools</a>
+      <a href="bill.html" data-nav="bill">Apps I built</a>
+      <a href="channel.html" data-nav="channel">More free tutorials</a>
+      <a href="about.html" data-nav="about">Who I am</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <h1 class="h-page">Your first hour with AI</h1>
+      </div>
+      <div>
+        <p class="hero-intro">A short checklist to tick off as you go, then the full guide underneath. The exact first hour I would walk a friend through, one real task and no theory.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap section">
+  <div class="checklist-panel">
+    <div class="cl-head">
+      <h2 class="h-sec">The checklist</h2>
+      <span class="cl-progress" id="cl-progress">0 of 7 done</span>
+    </div>
+    <ul class="checklist" id="checklist">
+      <li><label><input type="checkbox" data-cl="1"><span class="cl-text">Pick one tool (ChatGPT, Claude, or Gemini) and stay with it for a week</span></label></li>
+      <li><label><input type="checkbox" data-cl="2"><span class="cl-text">Start on the free version, it is enough to learn on</span></label></li>
+      <li><label><input type="checkbox" data-cl="3"><span class="cl-text">Bring one real task from today, not a test question</span></label></li>
+      <li><label><input type="checkbox" data-cl="4"><span class="cl-text">Give it full context, like briefing a colleague</span></label></li>
+      <li><label><input type="checkbox" data-cl="5"><span class="cl-text">Treat the first answer as a draft and push back</span></label></li>
+      <li><label><input type="checkbox" data-cl="6"><span class="cl-text">Check every fact and number before you use it</span></label></li>
+      <li><label><input type="checkbox" data-cl="7"><span class="cl-text">Save the prompts that work, so you can reuse them</span></label></li>
+    </ul>
+  </div>
+</div>
+
+<div class="wrap section" style="padding-top:0;">
+  <h2 class="h-sec guide-head">Your first hour, step by step</h2>
+      <div class="steps">
+
+        <section class="step" id="step-1">
+          <div class="no">1<span class="k">Step</span></div>
+          <div>
+            <h2>Pick one tool</h2>
+            <p>ChatGPT, Claude, or Gemini, and the free version is fine. Do not spend your first hour comparing tools, because for beginner tasks they are all good enough. Pick one and stay with it for a week.</p>
+          </div>
+        </section>
+
+        <section class="step" id="step-2">
+          <div class="no">2<span class="k">Step</span></div>
+          <div>
+            <h2>Bring a real task</h2>
+            <p>Skip test questions like "write me a poem." Bring something real from today: an email you owe someone, a long document you need to understand, a plan you keep postponing. You learn what AI is for by using it on your actual work.</p>
+          </div>
+        </section>
+
+        <section class="step" id="step-3">
+          <div class="no">3<span class="k">Step</span></div>
+          <div>
+            <h2>Give it the whole picture</h2>
+            <p>Write to it the way you would brief a colleague. Say who you are, what you need, and what the result should look like. Three full sentences of context will beat five keywords every time.</p>
+          </div>
+        </section>
+
+        <section class="step" id="step-4">
+          <div class="no">4<span class="k">Step</span></div>
+          <div>
+            <h2>Push back on the draft</h2>
+            <p>The first answer is a draft, and treating it as final is the most common beginner mistake. Tell it what is wrong and ask again, as many times as you need. Check every fact and number before you use it, because AI presents its guesses with full confidence.</p>
+          </div>
+        </section>
+
+        <section class="step" id="step-5">
+          <div class="no">5<span class="k">Step</span></div>
+          <div>
+            <h2>Keep what worked</h2>
+            <p>When a prompt gives you a good result, save it in your notes. Next time you paste it and change a few words instead of starting over. That habit is the entire secret behind the prompt library on this site.</p>
+          </div>
+        </section>
+
+      </div>
+
+      <div class="sh-next">
+        <p>That is the hour. When you want prompts already written this way, the library is next door.</p>
+        <a class="btn-orange cta" href="library.html">Open the prompt library <span>&#8594;</span></a>
+      </div>
+</div>
+
+</main>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <p class="foot-word">Michael&#8217;s Corner</p>
+      <p class="foot-line">AI did not take my job. It made me faster.</p>
+    </div>
+    <div class="foot-col">
+      <a href="library.html">Prompts</a>
+      <a href="tools.html">Tools</a>
+      <a href="bill.html">Apps</a>
+    </div>
+    <div class="foot-col">
+      <a href="start.html">Start here</a>
+      <a href="kit.html">The Starter Kit</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</footer>
+<script src="icons.js"></script>
+<script src="signature.js"></script>
+<script src="data/prompts-index.js"></script>
+<script src="shared.js"></script>
+<script>
+(function(){
+  var boxes=[].slice.call(document.querySelectorAll('.checklist input[data-cl]'));
+  var prog=document.getElementById('cl-progress'), KEY='mc-start-checklist', saved={};
+  try{ saved=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){}
+  function update(){ var d=boxes.filter(function(b){return b.checked;}).length; if(prog) prog.textContent=d+' of '+boxes.length+' done'; }
+  boxes.forEach(function(b){ var id=b.getAttribute('data-cl'); if(saved[id]) b.checked=true;
+    b.addEventListener('change',function(){ saved[id]=b.checked; try{ localStorage.setItem(KEY,JSON.stringify(saved)); }catch(e){} update(); }); });
+  update();
+})();
+</script>
+</body>
+</html>
