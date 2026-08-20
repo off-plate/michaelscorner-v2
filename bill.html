@@ -28,8 +28,7 @@
 /* Projects: inviting app tiles with the real logo. No receipt narrative. */
 /* three across on desktop so no tile is ever stranded in a half-empty row */
 .proj-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(20px,2.4vw,32px); }
-.proj-tile{ display:flex; flex-direction:column; gap:20px; border:1px solid var(--ink); border-radius:4px; background:none; padding:clamp(26px,3vw,40px); transition:background 150ms ease, border-color 150ms ease; }
-.proj-tile:hover{ background:var(--sage); border-color:var(--green); }
+.proj-tile{ display:flex; flex-direction:column; gap:20px; padding:clamp(26px,3vw,40px); }
 .proj-logo img{ width:clamp(72px,8vw,92px); height:auto; border-radius:18px; display:block; }
 .proj-top{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
 .proj-top h2{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(24px,2.6vw,30px); letter-spacing:-0.02em; margin:0; }
@@ -45,11 +44,12 @@
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header class="site-head">
   <div class="wrap">
     <div class="head-top">
       <span class="head-handle mono">@michaelflorian_ai</span>
-      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark" width="30" height="30" aria-hidden="true">Michaels Corner</a>
       <a class="head-cta" href="kit.html" data-nav="kit">Free kit <span class="oa">&#8594;</span></a>
     </div>
     <nav class="head-nav" aria-label="Main">
@@ -63,7 +63,7 @@
     </nav>
   </div>
 </header>
-<main>
+<main id="main" tabindex="-1">
   <section class="page-hero">
     <div class="wrap">
       <div class="hero-grid">

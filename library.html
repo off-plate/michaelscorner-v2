@@ -32,7 +32,7 @@
 /* the search box: bordered, obvious, searches all prompts */
 .lib-searchbox{ display:flex; align-items:center; gap:12px; border:1px solid var(--ink); border-radius:2px;
   padding:13px 16px; margin-top:0; max-width:600px; background:var(--cream); transition:border-color 150ms ease; }
-.lib-searchbox:focus-within{ border-color:var(--orange); }
+.lib-searchbox:focus-within{ border-color:var(--orange); outline:2px solid var(--orange); outline-offset:2px; }
 .lib-searchbox canvas{ display:block; flex:none; }
 .lib-searchbox input{ flex:1; border:none; background:none; font-size:16px; padding:2px 0; color:var(--ink); }
 .lib-searchbox input:focus, .lib-searchbox input:focus-visible{ outline:none; }
@@ -44,7 +44,8 @@
 .result-list{ list-style:none; margin:0; padding:0; border-top:1px solid var(--ink); }
 .rlink{ display:grid; grid-template-columns:1fr auto; gap:4px 18px; align-items:center;
   border-bottom:1px solid var(--line); padding:15px 8px; text-decoration:none; color:var(--ink); transition:background 150ms ease; }
-.rlink:hover, .rlink:focus-visible{ background:var(--sage); outline:none; }
+.rlink:hover{ background:var(--sage); }
+.rlink:focus-visible{ background:var(--sage); outline:2px solid var(--orange); outline-offset:-2px; }
 .rlink .rt{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:18px; line-height:1.15; letter-spacing:-0.01em; grid-column:1; }
 .rlink .rw{ grid-column:1; font-size:14px; line-height:1.45; color:var(--grey); margin-top:2px; }
 .rlink .rpack{ grid-column:2; grid-row:1 / span 2; font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); white-space:nowrap; align-self:center; }
@@ -55,9 +56,9 @@
 .lib-packs[hidden]{ display:none; }
 .lib-packs .ph{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey); margin:0 0 16px; }
 .pack-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr)); gap:16px; }
-.pack-card{ border:1px solid var(--ink); border-radius:2px; padding:clamp(20px,2.2vw,26px);
-  display:flex; flex-direction:column; gap:10px; text-decoration:none; color:var(--ink); background:none; transition:background 150ms ease; }
-.pack-card:hover, .pack-card:focus-visible{ background:var(--green-pale); border-color:var(--green); outline:none; }
+.pack-card{ padding:clamp(20px,2.2vw,26px);
+  display:flex; flex-direction:column; gap:10px; text-decoration:none; }
+.pack-card:focus-visible{ background:var(--sage); border-color:var(--green); outline:2px solid var(--orange); outline-offset:2px; }
 .pc-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
 .pc-tag{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); }
 .pc-n{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--green); }
@@ -71,11 +72,12 @@
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header class="site-head">
   <div class="wrap">
     <div class="head-top">
       <span class="head-handle mono">@michaelflorian_ai</span>
-      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark" width="30" height="30" aria-hidden="true">Michaels Corner</a>
       <a class="head-cta" href="kit.html" data-nav="kit">Free kit <span class="oa">&#8594;</span></a>
     </div>
     <nav class="head-nav" aria-label="Main">
@@ -89,7 +91,7 @@
     </nav>
   </div>
 </header>
-<main>
+<main id="main" tabindex="-1">
 
 <section class="page-hero">
   <div class="wrap">

@@ -384,7 +384,26 @@
     for (var k = 0; k < instances.length; k++) { if (instances[k].canvas.isConnected) instances[k].step(t, dt); }
     requestAnimationFrame(loop);
   }
-  function start() { if (started) return; started = true; requestAnimationFrame(loop); }
+  /* Reduced motion: paint one frame so every icon is fully drawn, then stop.
+     The engine used to run its rAF loop forever regardless of the setting. */
+  function prefersReduced() {
+    try { return !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches); }
+    catch (e) { return false; }
+  }
+  function start() {
+    if (started) return;
+    started = true;
+    if (prefersReduced()) {
+      requestAnimationFrame(function (ts) {
+        var t = ts * 0.001;
+        for (var k = 0; k < instances.length; k++) {
+          if (instances[k].canvas.isConnected) instances[k].step(t, 0.016);
+        }
+      });
+      return;
+    }
+    requestAnimationFrame(loop);
+  }
 
   // ----------------------------------------------------------------------
   //  MOUNT into a brand specimen sheet

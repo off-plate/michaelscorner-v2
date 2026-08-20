@@ -43,9 +43,8 @@
   .paddle{ width:40px; height:40px; border:1px solid var(--ink); background:none; color:var(--ink); font-size:17px; cursor:pointer; display:flex; align-items:center; justify-content:center; border-radius:2px; transition:background 150ms ease, color 150ms ease; }
   .paddle:hover{ background:var(--ink); color:var(--cream); }
 
-  .tcard{ flex:0 0 clamp(270px,80vw,320px); border:1px solid var(--ink); border-radius:2px; padding:clamp(20px,2vw,26px);
-    display:flex; flex-direction:column; gap:10px; text-decoration:none; color:var(--ink); background:none; transition:background 150ms ease; }
-  .tcard:hover{ background:var(--cream-2); }
+  .tcard{ flex:0 0 clamp(270px,80vw,320px); padding:clamp(20px,2vw,26px);
+    display:flex; flex-direction:column; gap:10px; text-decoration:none; }
   .tcard .top{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
   .tcard .tag{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); }
   .tcard .desig{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; color:var(--green); }
@@ -69,12 +68,13 @@
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-head">
   <div class="wrap">
     <div class="head-top">
       <span class="head-handle mono">@michaelflorian_ai</span>
-      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark" width="30" height="30" aria-hidden="true">Michaels Corner</a>
       <a class="head-cta" href="kit.html" data-nav="kit">Free kit <span class="oa">&#8594;</span></a>
     </div>
     <nav class="head-nav" aria-label="Main">
@@ -89,7 +89,7 @@
   </div>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
   <section class="page-hero">
     <div class="wrap">
       <div class="hero-grid">
@@ -110,7 +110,7 @@
     </div>
 
     <div id="rows"></div>
-    <p id="empty" class="lede" style="display:none;">No tools match that. Try another word or clear the filter.</p>
+    <p id="empty" class="lede" role="status" aria-live="polite" style="display:none;">No tools match that. Try another word or clear the filter.</p>
 
     <section class="bench">
       <h2 class="h-sec">Considered, not shipped</h2>

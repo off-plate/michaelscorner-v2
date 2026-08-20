@@ -39,6 +39,7 @@
 .term-bar .dot{ display:inline-flex; align-items:center; gap:8px; }
 .term-body{ padding:clamp(16px,2.4vw,24px); font-family:'Space Mono',ui-monospace,Menlo,monospace; font-size:13.5px; line-height:1.7; white-space:pre-wrap; word-break:break-word; margin:0; color:var(--ink-text); }
 .term-body .cur{ display:inline-block; width:0.62em; height:1.05em; background:var(--orange); vertical-align:-0.16em; margin-left:2px; animation:mc-cur 1s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce){ .term-body .cur{ animation:none; opacity:1; } }
 @keyframes mc-cur{ 0%,49%{opacity:1} 50%,100%{opacity:0} }
 .spec-body.selected .term-body{ background:transparent; }
 .spec-body.selected .term-body .selwrap{ background:var(--orange); color:var(--cream); }
@@ -62,11 +63,12 @@
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header class="site-head">
   <div class="wrap">
     <div class="head-top">
       <span class="head-handle mono">@michaelflorian_ai</span>
-      <a class="head-word no-fx" href="../index.html"><img src="../assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-word no-fx" href="../index.html"><img src="../assets/mark.svg" alt="" class="head-mark" width="30" height="30" aria-hidden="true">Michaels Corner</a>
       <a class="head-cta" href="../kit.html" data-nav="kit">Free kit <span class="oa">&#8594;</span></a>
     </div>
     <nav class="head-nav" aria-label="Main">
@@ -80,7 +82,7 @@
     </nav>
   </div>
 </header>
-<main>
+<main id="main" tabindex="-1">
 
 <section class="page-hero">
   <div class="wrap">

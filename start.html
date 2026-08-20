@@ -70,12 +70,13 @@
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-head">
   <div class="wrap">
     <div class="head-top">
       <span class="head-handle mono">@michaelflorian_ai</span>
-      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark" width="30" height="30" aria-hidden="true">Michaels Corner</a>
       <a class="head-cta" href="kit.html" data-nav="kit">Free kit <span class="oa">&#8594;</span></a>
     </div>
     <nav class="head-nav" aria-label="Main">
@@ -89,7 +90,7 @@
     </nav>
   </div>
 </header>
-<main>
+<main id="main" tabindex="-1">
 
 <section class="page-hero">
   <div class="wrap">
@@ -108,7 +109,7 @@
   <div class="checklist-panel">
     <div class="cl-head">
       <h2 class="h-sec">The checklist</h2>
-      <span class="cl-progress" id="cl-progress">0 of 7 done</span>
+      <span class="cl-progress" id="cl-progress" role="status" aria-live="polite">0 of 7 done</span>
     </div>
     <ul class="checklist" id="checklist">
       <li><label><input type="checkbox" data-cl="1"><span class="cl-text">Pick one tool (ChatGPT, Claude, or Gemini) and stay with it for a week</span></label></li>

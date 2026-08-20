@@ -39,11 +39,8 @@
   .sec-head .btn-ghost{ white-space:nowrap; }
 
   /* tool cards carousel */
-  .hcard{ flex:0 0 clamp(280px,82vw,332px); border:1px solid var(--ink); border-radius:2px; padding:clamp(20px,2vw,26px); display:flex; flex-direction:column; gap:10px; text-decoration:none; color:var(--ink); background:none; transition:background 150ms ease; }
-  .hcard:hover{ background:var(--cream-2); }
-  .hcard .hc-tag{ font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--green); }
+  .hcard{ flex:0 0 clamp(280px,82vw,332px); padding:clamp(20px,2vw,26px); display:flex; flex-direction:column; gap:10px; text-decoration:none; }
   .hcard h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:21px; line-height:1.08; letter-spacing:-0.01em; margin:0; }
-  .hcard p{ font-size:14px; line-height:1.5; color:var(--ink-soft); margin:0; flex:1; }
   .hcard{ min-height:150px; justify-content:space-between; }
   .hcard .hc-open{ font-family:'Space Mono',monospace; font-size:13px; color:var(--green); margin-top:6px; }
 
@@ -54,14 +51,13 @@
   .paddle:hover{ background:var(--ink); color:var(--cream); }
 
   /* prompt cards carousel */
-  .pcard{ flex:0 0 clamp(280px,82vw,340px); border:1px solid var(--ink); border-radius:2px; padding:22px; display:flex; flex-direction:column; gap:12px; }
-  .pcard .when{ font-size:14px; color:var(--grey); flex:1; }
+  .pcard{ flex:0 0 clamp(280px,82vw,340px); padding:22px; display:flex; flex-direction:column; gap:12px; }
   .pcard-actions{ display:flex; align-items:center; gap:18px; margin-top:2px; }
   .pcard-open{ font-size:14px; color:var(--grey); text-decoration:none; display:inline-flex; align-items:center; gap:6px; white-space:nowrap; transition:color 150ms ease; }
   .pcard-open:hover{ color:var(--brick); }
 
   /* video cards, Channel style (striped thumb, readable title, real description) */
-  .vcard{ flex:0 0 clamp(280px,82vw,332px); border:1px solid var(--ink); border-radius:2px; overflow:hidden; display:flex; flex-direction:column; }
+  .vcard{ flex:0 0 clamp(280px,82vw,332px); overflow:hidden; display:flex; flex-direction:column; }
   .vthumb{ aspect-ratio:16/9; position:relative; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg, var(--cream-3) 0 14px, var(--cream-2) 14px 28px); border-bottom:1px solid var(--ink); }
   .vthumb .play{ width:46px; height:46px; border-radius:50%; background:var(--ink); display:flex; align-items:center; justify-content:center; }
   .vthumb .play::after{ content:''; border-left:13px solid var(--cream); border-top:8px solid transparent; border-bottom:8px solid transparent; margin-left:4px; }
@@ -86,12 +82,13 @@
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <header class="site-head">
   <div class="wrap">
     <div class="head-top">
       <span class="head-handle mono">@michaelflorian_ai</span>
-      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-word no-fx" href="index.html"><img src="assets/mark.svg" alt="" class="head-mark" width="30" height="30" aria-hidden="true">Michaels Corner</a>
       <a class="head-cta" href="kit.html" data-nav="kit">Free kit <span class="oa">&#8594;</span></a>
     </div>
     <nav class="head-nav" aria-label="Main">
@@ -106,7 +103,7 @@
   </div>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
   <!-- ===== opening spread ===== -->
   <section class="wrap hero">
     <div>
@@ -119,8 +116,8 @@
     </div>
     <div>
       <div class="photo-frame hero-photo">
-        <img src="assets/portrait.jpg" alt="Michael Florian" />
-        <canvas class="halftone" data-photo data-src="assets/portrait.jpg" data-grid="128"></canvas>
+        <img src="assets/portrait.jpg" alt="Michael Florian" width="800" height="1000" />
+        <canvas class="halftone" aria-hidden="true" data-photo data-src="assets/portrait.jpg" data-grid="128"></canvas>
         <span class="pc tl"></span><span class="pc tr"></span><span class="pc bl"></span><span class="pc br"></span>
       </div>
     </div>

@@ -73,7 +73,7 @@ function header(prefix) {
   <div class="wrap">
     <div class="head-top">
       <span class="head-handle mono">@michaelflorian_ai</span>
-      <a class="head-word no-fx" href="${prefix}index.html"><img src="${prefix}assets/mark.svg" alt="" class="head-mark">Michaels Corner</a>
+      <a class="head-word no-fx" href="${prefix}index.html"><img src="${prefix}assets/mark.svg" alt="" class="head-mark" width="30" height="30" aria-hidden="true">Michaels Corner</a>
       <a class="head-cta" href="${prefix}kit.html" data-nav="kit">Free kit <span class="oa">&#8594;</span></a>
     </div>
     <nav class="head-nav" aria-label="Main">
@@ -87,7 +87,7 @@ function header(prefix) {
     </nav>
   </div>
 </header>
-<main>`;
+<main id="main" tabindex="-1">`;
 }
 
 function footer(prefix) {
@@ -130,7 +130,7 @@ function buildLibrary() {
 /* the search box: bordered, obvious, searches all prompts */
 .lib-searchbox{ display:flex; align-items:center; gap:12px; border:1px solid var(--ink); border-radius:2px;
   padding:13px 16px; margin-top:0; max-width:600px; background:var(--cream); transition:border-color 150ms ease; }
-.lib-searchbox:focus-within{ border-color:var(--orange); }
+.lib-searchbox:focus-within{ border-color:var(--orange); outline:2px solid var(--orange); outline-offset:2px; }
 .lib-searchbox canvas{ display:block; flex:none; }
 .lib-searchbox input{ flex:1; border:none; background:none; font-size:16px; padding:2px 0; color:var(--ink); }
 .lib-searchbox input:focus, .lib-searchbox input:focus-visible{ outline:none; }
@@ -142,7 +142,8 @@ function buildLibrary() {
 .result-list{ list-style:none; margin:0; padding:0; border-top:1px solid var(--ink); }
 .rlink{ display:grid; grid-template-columns:1fr auto; gap:4px 18px; align-items:center;
   border-bottom:1px solid var(--line); padding:15px 8px; text-decoration:none; color:var(--ink); transition:background 150ms ease; }
-.rlink:hover, .rlink:focus-visible{ background:var(--sage); outline:none; }
+.rlink:hover{ background:var(--sage); }
+.rlink:focus-visible{ background:var(--sage); outline:2px solid var(--orange); outline-offset:-2px; }
 .rlink .rt{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:18px; line-height:1.15; letter-spacing:-0.01em; grid-column:1; }
 .rlink .rw{ grid-column:1; font-size:14px; line-height:1.45; color:var(--grey); margin-top:2px; }
 .rlink .rpack{ grid-column:2; grid-row:1 / span 2; font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); white-space:nowrap; align-self:center; }
@@ -153,9 +154,9 @@ function buildLibrary() {
 .lib-packs[hidden]{ display:none; }
 .lib-packs .ph{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey); margin:0 0 16px; }
 .pack-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr)); gap:16px; }
-.pack-card{ border:1px solid var(--ink); border-radius:2px; padding:clamp(20px,2.2vw,26px);
-  display:flex; flex-direction:column; gap:10px; text-decoration:none; color:var(--ink); background:none; transition:background 150ms ease; }
-.pack-card:hover, .pack-card:focus-visible{ background:var(--green-pale); border-color:var(--green); outline:none; }
+.pack-card{ padding:clamp(20px,2.2vw,26px);
+  display:flex; flex-direction:column; gap:10px; text-decoration:none; }
+.pack-card:focus-visible{ background:var(--sage); border-color:var(--green); outline:2px solid var(--orange); outline-offset:2px; }
 .pc-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
 .pc-tag{ font-family:'Space Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--grey-2); }
 .pc-n{ font-family:'Space Mono',ui-monospace,monospace; font-size:12px; color:var(--green); }
@@ -251,7 +252,7 @@ function buildLibrary() {
 </script>`;
 
   const html = head("Prompts", "Eight packs of free, copy-ready prompts for ChatGPT, Claude, and Gemini.", prefix)
-    + css + "\n</head>\n<body>\n"
+    + css + "\n</head>\n<body>\n<a class=\"skip-link\" href=\"#main\">Skip to content</a>\n"
     + header(prefix) + "\n" + body + "\n" + footer(prefix) + script + "\n</body>\n</html>\n";
 
   writeFileSync(join(ROOT, "library.html"), html);
@@ -295,7 +296,8 @@ function buildPack(pack, i) {
   border-bottom:1px solid var(--line); padding:clamp(16px,2vw,22px) clamp(4px,1vw,10px);
   text-decoration:none; color:var(--ink); transition:background 150ms ease;
 }
-.lrow:hover, .lrow:focus-visible{ background:var(--sage); outline:none; }
+.lrow:hover{ background:var(--sage); }
+.lrow:focus-visible{ background:var(--sage); outline:2px solid var(--orange); outline-offset:-2px; }
 .lrow .fno{ font-family:'Clash Display',sans-serif; font-weight:700; font-size:clamp(22px,2.4vw,30px); color:var(--ink); line-height:1; letter-spacing:-0.02em; }
 .lrow .lt{ }
 .lrow .lt h3{ font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(18px,1.8vw,21px); line-height:1.15; letter-spacing:-0.01em; margin:0 0 4px; }
@@ -363,7 +365,7 @@ function buildPack(pack, i) {
 `;
 
   const html = head(pack.name, pack.blurb[0], prefix)
-    + css + "\n</head>\n<body>\n"
+    + css + "\n</head>\n<body>\n<a class=\"skip-link\" href=\"#main\">Skip to content</a>\n"
     + header(prefix) + "\n" + body + "\n" + footer(prefix) + "\n</body>\n</html>\n";
 
   writeFileSync(join(ROOT, "packs", `${pack.id}.html`), html);
@@ -390,6 +392,7 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
 .term-bar .dot{ display:inline-flex; align-items:center; gap:8px; }
 .term-body{ padding:clamp(16px,2.4vw,24px); font-family:'Space Mono',ui-monospace,Menlo,monospace; font-size:13.5px; line-height:1.7; white-space:pre-wrap; word-break:break-word; margin:0; color:var(--ink-text); }
 .term-body .cur{ display:inline-block; width:0.62em; height:1.05em; background:var(--orange); vertical-align:-0.16em; margin-left:2px; animation:mc-cur 1s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce){ .term-body .cur{ animation:none; opacity:1; } }
 @keyframes mc-cur{ 0%,49%{opacity:1} 50%,100%{opacity:0} }
 .spec-body.selected .term-body{ background:transparent; }
 .spec-body.selected .term-body .selwrap{ background:var(--orange); color:var(--cream); }
@@ -498,7 +501,7 @@ function buildPrompt(pack, packIndex, pr, promptIndex) {
 </script>`;
 
   const html = head(pr.title, pr.when, prefix)
-    + css + "\n</head>\n<body>\n"
+    + css + "\n</head>\n<body>\n<a class=\"skip-link\" href=\"#main\">Skip to content</a>\n"
     + header(prefix) + "\n" + body + "\n" + footer(prefix) + script + "\n</body>\n</html>\n";
 
   writeFileSync(join(ROOT, "prompts", `${pr.id}.html`), html);

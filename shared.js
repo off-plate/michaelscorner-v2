@@ -35,13 +35,32 @@ window.MC2 = window.MC2 || {};
       }
     } catch (e) {}
     if (!done) fallback();
+    var label = doneLabel || 'Copied';
     if (btn) {
       var old = btn.textContent;
-      btn.textContent = doneLabel || 'Copied';
+      btn.textContent = label;
       btn.classList.add('copied');
       setTimeout(function () { btn.textContent = old; btn.classList.remove('copied'); }, 1600);
     }
+    /* Copy is the core interaction of this site. Mutating a button's own label
+       announces nothing, so one shared live region says it out loud. */
+    announce(label);
   };
+  var liveRegion = null;
+  function announce(msg) {
+    try {
+      if (!liveRegion) {
+        liveRegion = document.createElement('div');
+        liveRegion.setAttribute('role', 'status');
+        liveRegion.setAttribute('aria-live', 'polite');
+        liveRegion.className = 'sr-only';
+        document.body.appendChild(liveRegion);
+      }
+      liveRegion.textContent = '';
+      setTimeout(function () { liveRegion.textContent = msg; }, 30);
+    } catch (e) {}
+  }
+  MC2.announce = announce;
 
   /* receipt HTML builder: opts = {title, date, onInk, rows:[{k,v,big,orange}], verdict:{stamp,text,ink}} */
   MC2.receipt = function (opts) {
